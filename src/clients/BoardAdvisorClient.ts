@@ -1,7 +1,6 @@
 export interface BoardAdvisorRequest {
   prompt: string;
   systemPrompt: string;
-  model: string;
 }
 
 export interface BoardAdvisorResponse {

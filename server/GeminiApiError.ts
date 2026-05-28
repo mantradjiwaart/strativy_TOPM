@@ -37,7 +37,7 @@ export function toGeminiApiError(error: unknown): GeminiApiError {
       : ' Please wait a minute and try again.';
 
     const modelHint = lower.includes('limit: 0')
-      ? ' Try another model from the Gemini model dropdown in the AI Advisor tab.'
+      ? ' Your API quota for this model may be exhausted — check https://ai.dev/rate-limit'
       : '';
 
     return new GeminiApiError(

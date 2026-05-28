@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
+import { GEMINI_MODEL } from '../src/config/gemini';
 import { GeminiAdvisorService } from './GeminiAdvisorService';
 import type { GeminiGateway } from './GeminiGateway';
 
@@ -12,34 +13,20 @@ describe('GeminiAdvisorService', () => {
     await expect(service.advise('')).rejects.toThrow(/Prompt is required/);
   });
 
-  it('delegates to gateway with default system instruction and model', async () => {
+  it('delegates to gateway with fixed model', async () => {
     const generateContent = vi.fn().mockResolvedValue('Strategic advice');
     const gateway = { generateContent } as unknown as GeminiGateway;
     const service = new GeminiAdvisorService(gateway);
 
-    const result = await service.advise('Analyze capex', undefined, 'gemini-2.0-flash');
+    const result = await service.advise('Analyze capex', undefined);
 
     expect(result).toBe('Strategic advice');
     expect(generateContent).toHaveBeenCalledWith(
       expect.objectContaining({
         prompt: 'Analyze capex',
         systemPrompt: expect.stringContaining('Strativy Strategic AI Agent'),
-        model: 'gemini-2.0-flash',
+        model: GEMINI_MODEL,
         temperature: 0.7,
-      })
-    );
-  });
-
-  it('falls back to default model when request model is invalid', async () => {
-    const generateContent = vi.fn().mockResolvedValue('ok');
-    const gateway = { generateContent } as unknown as GeminiGateway;
-    const service = new GeminiAdvisorService(gateway);
-
-    await service.advise('query', undefined, 'not-a-real-model');
-
-    expect(generateContent).toHaveBeenCalledWith(
-      expect.objectContaining({
-        model: 'gemini-3-flash-preview',
       })
     );
   });
@@ -49,12 +36,12 @@ describe('GeminiAdvisorService', () => {
     const gateway = { generateContent } as unknown as GeminiGateway;
     const service = new GeminiAdvisorService(gateway);
 
-    await service.advise('query', 'Custom board context', 'gemini-1.5-flash');
+    await service.advise('query', 'Custom board context');
 
     expect(generateContent).toHaveBeenCalledWith(
       expect.objectContaining({
         systemPrompt: 'Custom board context',
-        model: 'gemini-1.5-flash',
+        model: GEMINI_MODEL,
       })
     );
   });

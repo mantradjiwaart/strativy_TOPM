@@ -23,20 +23,8 @@ import BuDrilldown from './components/BuDrilldown';
 import HumanCapital from './components/HumanCapital';
 import ProjectMonitor from './components/ProjectMonitor';
 import AIAdvisor from './components/AIAdvisor';
-import {
-  DEFAULT_GEMINI_MODEL,
-  GEMINI_MODELS,
-  type GeminiModelId,
-} from './config/gemini';
 import { useSimulation } from './hooks/useSimulation';
 import { StrategicProject } from './types';
-
-/**
- * Gemini scope — models are selected in the UI below.
- * API key is injected server-side via MONEY_FLOW_GEMINI_API (.env), not import.meta.env,
- * so the key never ships in the browser bundle.
- */
-export { GEMINI_MODELS };
 
 export default function App() {
   const [darkMode, setDarkMode] = useState<boolean>(true);
@@ -50,7 +38,6 @@ export default function App() {
   const [propertyExpansionRate, setPropertyExpansionRate] = useState<number>(40);
   const [esgInvestmentFactor, setEsgInvestmentFactor] = useState<number>(60);
   const [techAdoptionRate, setTechAdoptionRate] = useState<number>(50);
-  const [geminiModel, setGeminiModel] = useState<GeminiModelId>(DEFAULT_GEMINI_MODEL);
 
   const { simulatedBUs, groupMetrics } = useSimulation({
     oilTransitionSpeed,
@@ -274,9 +261,6 @@ export default function App() {
             darkMode={darkMode}
             simulatedBUs={simulatedBUs}
             groupMetrics={groupMetrics}
-            geminiModel={geminiModel}
-            geminiModels={GEMINI_MODELS}
-            onGeminiModelChange={setGeminiModel}
           />
         )}
 
