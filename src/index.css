@@ -68,7 +68,6 @@
   --color-danger-900: #7F1D1D;
 
   /* Typography */
-  /* Typography */
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'Fira Code', monospace;
 
@@ -125,4 +124,120 @@ body {
 }
 .dark ::-webkit-scrollbar-thumb:hover {
   background: var(--color-neutral-600);
+}
+
+/* ============================================================
+   Strativy table & progress utilities (design tokens)
+   ============================================================ */
+.strativy-table thead th {
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.strativy-table tbody td {
+  color: var(--color-neutral-700);
+}
+
+.strativy-table tbody .strativy-table-muted {
+  color: var(--color-text-secondary);
+}
+
+.strativy-table tbody .strativy-table-caption {
+  color: var(--color-text-tertiary);
+  font-size: 0.625rem;
+}
+
+.dark .strativy-table thead th {
+  color: var(--color-neutral-400);
+}
+
+.dark .strativy-table tbody td {
+  color: var(--color-neutral-200);
+}
+
+.strativy-table tbody .ledger-sector-name {
+  color: var(--color-neutral-700);
+  font-weight: 600;
+}
+
+.dark .strativy-table tbody .ledger-sector-name {
+  color: var(--color-neutral-200);
+}
+
+.strativy-table tbody .ledger-metric {
+  color: var(--color-primary-700);
+  font-weight: 700;
+}
+
+.dark .strativy-table tbody .ledger-metric {
+  color: var(--color-primary-300);
+}
+
+.dark .strativy-table tbody .strativy-table-muted {
+  color: var(--color-neutral-400);
+}
+
+.dark .strativy-table tbody .strativy-table-caption {
+  color: var(--color-neutral-500);
+}
+
+/* STRATIVY BRAIN — markdown output readability */
+.brain-markdown {
+  color: var(--color-text-primary);
+  line-height: 1.65;
+}
+
+.dark .brain-markdown {
+  color: var(--color-neutral-200);
+}
+
+.brain-markdown h1,
+.brain-markdown h2,
+.brain-markdown h3 {
+  color: var(--color-primary-700);
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.dark .brain-markdown h1,
+.dark .brain-markdown h2,
+.dark .brain-markdown h3 {
+  color: var(--color-primary-300);
+}
+
+.brain-markdown p {
+  margin-bottom: 0.75rem;
+}
+
+.brain-markdown ul,
+.brain-markdown ol {
+  margin: 0.5rem 0 0.75rem 1.25rem;
+}
+
+.brain-markdown li {
+  margin-bottom: 0.35rem;
+}
+
+.brain-markdown strong {
+  color: var(--color-neutral-900);
+  font-weight: 600;
+}
+
+.dark .brain-markdown strong {
+  color: var(--color-neutral-100);
+}
+
+.brain-markdown code {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  padding: 0.125rem 0.375rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-neutral-100);
+  color: var(--color-primary-700);
+}
+
+.dark .brain-markdown code {
+  background: var(--color-neutral-800);
+  color: var(--color-primary-300);
 }

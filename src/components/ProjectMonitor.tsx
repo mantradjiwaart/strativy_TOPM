@@ -18,6 +18,9 @@ import {
   FileText 
 } from 'lucide-react';
 import { StrategicProject } from '../types';
+import { ProgressBar } from './ui/ProgressBar';
+import { KpiCard } from './ui/KpiCard';
+import * as ui from '../lib/uiTheme';
 
 interface ProjectMonitorProps {
   darkMode: boolean;
@@ -93,56 +96,75 @@ export default function ProjectMonitor({
       
       {/* 1. HUD KPIs PANEL */}
       <div id="project-hud-cards" className="grid grid-cols-2 md:grid-cols-4 gap-4 font-mono">
-        
-        <div id="prj-stat-1" className={`p-5 rounded-2xl border transition-all duration-300 hover:scale-[1.01] ${darkMode ? 'bg-zinc-900/40 border-zinc-800' : 'bg-white border-zinc-200'} text-left`}>
-          <span className="block text-[10px] text-zinc-500 dark:text-zinc-400 font-extrabold uppercase tracking-widest font-mono">Total CAPEX Allocated</span>
-          <div className="mt-2.5 flex items-baseline justify-between">
-            <span className="text-lg font-black tracking-tight text-zinc-800 dark:text-zinc-100 font-mono">${projectAggregates.committed}M / ${projectAggregates.budget}M</span>
-            <span className="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono">Consolidated Sum</span>
-          </div>
-        </div>
-
-        <div id="prj-stat-2" className={`p-5 rounded-2xl border transition-all duration-300 hover:scale-[1.01] ${darkMode ? 'bg-zinc-900/40 border-zinc-800' : 'bg-white border-zinc-200'} text-left`}>
-          <span className="block text-[10px] text-zinc-500 dark:text-zinc-400 font-extrabold uppercase tracking-widest font-mono">Weighted Progress</span>
-          <div className="mt-2.5 flex items-baseline justify-between">
-            <span className="text-lg font-black tracking-tight text-zinc-800 dark:text-zinc-100 font-mono">{projectAggregates.progress}%</span>
-            <span className="text-[10px] text-emerald-500 font-mono">Completed Avg</span>
-          </div>
-        </div>
-
-        <div id="prj-stat-3" className={`p-5 rounded-2xl border transition-all duration-300 hover:scale-[1.01] ${darkMode ? 'bg-zinc-900/40 border-zinc-800' : 'bg-white border-zinc-200'} text-left`}>
-          <span className="block text-[10px] text-zinc-500 dark:text-zinc-400 font-extrabold uppercase tracking-widest font-mono">Project IRR Average</span>
-          <div className="mt-2.5 flex items-baseline justify-between">
-            <span className="text-lg font-black tracking-tight text-emerald-500 font-mono">24.5% IRR</span>
-            <span className="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono">Projected ROI yield</span>
-          </div>
-        </div>
-
-        <div id="prj-stat-4" className={`p-5 rounded-2xl border transition-all duration-300 hover:scale-[1.01] ${darkMode ? 'bg-zinc-900/40 border-zinc-800' : 'bg-white border-zinc-200'} text-left`}>
-          <span className="block text-[10px] text-zinc-500 dark:text-zinc-400 font-extrabold uppercase tracking-widest font-mono">Active Critical Warnings</span>
-          <div className="mt-2.5 flex items-baseline justify-between">
-            <span className="text-lg font-black tracking-tight text-rose-500 font-mono">{projectAggregates.redAlerts} High-Risk</span>
-            <span className="text-[10px] text-rose-500 font-bold font-mono">Standard Alert</span>
-          </div>
-        </div>
-
+        <KpiCard
+          id="prj-stat-1"
+          darkMode={darkMode}
+          label="Total CAPEX Allocated"
+          accent="primary"
+          icon={<Coins className="w-4 h-4" />}
+          value={
+            <>
+              ${projectAggregates.committed}M / ${projectAggregates.budget}M
+            </>
+          }
+          footer={
+            <span className={`text-[10px] font-mono ${ui.labelMuted(darkMode)}`}>Consolidated Sum</span>
+          }
+        />
+        <KpiCard
+          id="prj-stat-2"
+          darkMode={darkMode}
+          label="Weighted Progress"
+          accent="cyan"
+          icon={<TrendingUp className="w-4 h-4" />}
+          value={<>{projectAggregates.progress}%</>}
+          footer={
+            <span className="text-[10px] text-success-600 dark:text-success-400 font-mono font-bold">
+              Completed Avg
+            </span>
+          }
+        />
+        <KpiCard
+          id="prj-stat-3"
+          darkMode={darkMode}
+          label="Project IRR Average"
+          accent="success"
+          icon={<ArrowUpRight className="w-4 h-4" />}
+          value={<>24.5% IRR</>}
+          footer={
+            <span className={`text-[10px] font-mono ${ui.labelMuted(darkMode)}`}>Projected ROI yield</span>
+          }
+        />
+        <KpiCard
+          id="prj-stat-4"
+          darkMode={darkMode}
+          label="Active Critical Warnings"
+          accent="danger"
+          icon={<ShieldAlert className="w-4 h-4" />}
+          value={<>{projectAggregates.redAlerts} High-Risk</>}
+          footer={
+            <span className="text-[10px] text-danger-600 dark:text-danger-400 font-bold font-mono">
+              Standard Alert
+            </span>
+          }
+        />
       </div>
 
       {/* 2. INTERACTIVE GANTT TIMELINE MATRIX */}
-      <div id="gantt-chart-section" className={`p-5 rounded-2xl border transition-all duration-300 ${darkMode ? 'bg-zinc-900/40 border-zinc-800' : 'bg-white border-zinc-200'} shadow-sm`}>
+      <div id="gantt-chart-section" className={`p-5 rounded-2xl border transition-all duration-300 ${ui.card(darkMode)}`}>
         <div className="flex justify-between items-center mb-1">
-          <h3 className="font-extrabold text-sm uppercase tracking-wider flex items-center space-x-2">
-            <Clock className="w-4 h-4 text-blue-500" />
+          <h3 className={`font-extrabold text-sm uppercase tracking-wider flex items-center space-x-2 ${ui.value(darkMode)}`}>
+            <Clock className="w-4 h-4 text-primary-500" />
             <span>Interactive gantt roadmap & timeline</span>
           </h3>
-          <span className={`text-[9px] px-2 py-0.5 rounded font-mono ${darkMode ? 'bg-zinc-800 text-zinc-300' : 'bg-zinc-200 text-zinc-700'}`}>Pure SVG Matrix</span>
+          <span className={`text-[9px] px-2 py-0.5 rounded-md font-mono ${darkMode ? 'bg-neutral-800 text-neutral-300' : 'bg-neutral-100 text-neutral-700'}`}>Pure SVG Matrix</span>
         </div>
-        <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-4 font-mono">
+        <p className={`text-xs mb-4 font-mono ${ui.label(darkMode)}`}>
           Gantt bars represent start-to-finish schedules. Lines map chronological project dependencies.
         </p>
 
         {/* Gantt viewport coordinates */}
-        <div id="gantt-vector-stage" className={`relative w-full aspect-[10/3.2] border rounded-xl overflow-hidden p-1.5 ${darkMode ? 'bg-zinc-950 border-zinc-800/10' : 'bg-zinc-50 border-zinc-200'}`}>
+        <div id="gantt-vector-stage" className={`relative w-full aspect-[10/3.2] border rounded-xl overflow-hidden p-1.5 ${darkMode ? 'bg-neutral-950 border-neutral-800' : 'bg-neutral-50 border-neutral-200'}`}>
           <svg viewBox="0 0 1000 320" className="w-full h-full">
             {/* Timeline months grid lines */}
             <g opacity="0.10">
@@ -261,35 +283,35 @@ export default function ProjectMonitor({
 
         {/* Render tooltip detailing focused parameters */}
         {selectedProject ? (
-          <div className="mt-4 p-3.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-left">
-            <span className="text-[10px] uppercase font-bold text-indigo-400">Strategic Project focused details</span>
-            <h4 className="text-sm font-bold text-white mt-1">{selectedProject.name} ({selectedProject.id})</h4>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2.5 pt-2.5 border-t border-gray-800/10 text-xs">
+          <div className={`mt-4 p-3.5 rounded-xl border text-left ${ui.calloutPrimary(darkMode)}`}>
+            <span className="text-[10px] uppercase font-bold text-primary-600 dark:text-primary-400">Strategic Project focused details</span>
+            <h4 className={`text-sm font-bold mt-1 ${ui.value(darkMode)}`}>{selectedProject.name} ({selectedProject.id})</h4>
+            <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 mt-2.5 pt-2.5 border-t text-xs ${darkMode ? 'border-neutral-800' : 'border-neutral-200'}`}>
               <div>
-                <span className="text-gray-400">Allocation Target:</span>
-                <span className="block font-semibold text-white capitalize">{selectedProject.sector} sector</span>
+                <span className={ui.label(darkMode)}>Allocation Target:</span>
+                <span className={`block font-semibold capitalize ${ui.value(darkMode)}`}>{selectedProject.sector} sector</span>
               </div>
               <div>
-                <span className="text-gray-400">Timetable span:</span>
-                <span className="block font-semibold text-white">{selectedProject.start} ➔ {selectedProject.end}</span>
+                <span className={ui.label(darkMode)}>Timetable span:</span>
+                <span className={`block font-semibold ${ui.value(darkMode)}`}>{selectedProject.start} ➔ {selectedProject.end}</span>
               </div>
               <div>
-                <span className="text-gray-400 font-medium">CAPEX Budget spent index:</span>
-                <span className="block font-semibold text-white">${selectedProject.budgetSpent}M / ${selectedProject.totalBudget}M</span>
+                <span className={ui.label(darkMode)}>CAPEX Budget spent index:</span>
+                <span className={`block font-semibold ${ui.value(darkMode)}`}>${selectedProject.budgetSpent}M / ${selectedProject.totalBudget}M</span>
               </div>
               <div>
-                <span className="text-gray-400">Delay / Bottleneck indicators:</span>
-                <span className={`block font-semibold ${selectedProject.slippageDays > 0 ? 'text-rose-400' : 'text-emerald-400'}`}>
+                <span className={ui.label(darkMode)}>Delay / Bottleneck indicators:</span>
+                <span className={`block font-semibold ${selectedProject.slippageDays > 0 ? 'text-danger-600 dark:text-danger-400' : 'text-success-600 dark:text-success-400'}`}>
                   {selectedProject.slippageDays > 0 ? `+${selectedProject.slippageDays} Days Delay` : 'On schedule'}
                 </span>
               </div>
             </div>
-            <p className="text-xs text-gray-400 mt-2.5 italic">
+            <p className={`text-xs mt-2.5 italic ${ui.label(darkMode)}`}>
               <strong>Root Cause:</strong> {selectedProject.rootCause}
             </p>
           </div>
         ) : (
-          <div className="mt-4 p-2 rounded-lg border border-dashed border-gray-800 text-center text-xs text-slate-400">
+          <div className={`mt-4 p-2 rounded-lg border border-dashed text-center text-xs ${darkMode ? 'border-neutral-700 text-neutral-500' : 'border-neutral-300 text-neutral-600'}`}>
             📊 Hint: Hover or Click any Gantt lane timeline above to load focused timeline parameters.
           </div>
         )}
@@ -299,44 +321,47 @@ export default function ProjectMonitor({
       {/* 3. COOP DETAIL CARD GRID */}
       <div id="project-detailed-list" className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {projects.map((p) => (
-          <div key={p.id} className={`p-4 rounded-xl border ${darkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'} space-y-3`}>
+          <div key={p.id} className={`p-4 rounded-xl border space-y-3 ${ui.card(darkMode)}`}>
             <div className="flex justify-between items-start">
               <div>
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase ${darkMode ? 'bg-slate-800 text-slate-300' : 'bg-slate-200 text-slate-700'}`}>{p.id}</span>
-                <h4 className="text-sm font-bold mt-1.5">{p.name}</h4>
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md uppercase ${darkMode ? 'bg-neutral-800 text-neutral-300' : 'bg-neutral-100 text-neutral-700'}`}>{p.id}</span>
+                <h4 className={`text-sm font-bold mt-1.5 ${ui.value(darkMode)}`}>{p.name}</h4>
               </div>
               <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${
-                p.status === 'green' ? 'bg-emerald-500/10 text-emerald-400' : p.status === 'amber' ? 'bg-amber-500/10 text-amber-500' : 'bg-rose-500/10 text-rose-450'
+                p.status === 'green' ? 'bg-success-50 text-success-700 dark:bg-success-500/15 dark:text-success-400' : p.status === 'amber' ? 'bg-warning-50 text-warning-700 dark:bg-warning-500/15 dark:text-warning-400' : 'bg-danger-50 text-danger-700 dark:bg-danger-500/15 dark:text-danger-400'
               }`}>
                 {p.status}
               </span>
             </div>
 
             <div className="space-y-1.5">
-              <div className="flex justify-between text-xs text-gray-400">
+              <div className={`flex justify-between text-xs ${darkMode ? 'text-neutral-400' : 'text-neutral-600'}`}>
                 <span>Milestone progress:</span>
-                <span>{p.progress}% Completed</span>
+                <span className={`font-semibold tabular-nums ${darkMode ? 'text-neutral-200' : 'text-neutral-800'}`}>{p.progress}% Completed</span>
               </div>
-              <div className={`w-full h-1.5 rounded-full overflow-hidden ${darkMode ? 'bg-slate-800' : 'bg-zinc-200'}`}>
-                <div className={`h-full rounded-full ${p.status === 'green' ? 'bg-emerald-500' : p.status === 'amber' ? 'bg-amber-500' : 'bg-rose-500'}`} style={{ width: `${p.progress}%` }}></div>
-              </div>
+              <ProgressBar
+                value={p.progress}
+                variant={p.status === 'green' ? 'success' : p.status === 'amber' ? 'warning' : 'danger'}
+                darkMode={darkMode}
+                aria-label={`${p.name} milestone progress`}
+              />
             </div>
 
-            <div className={`grid grid-cols-2 gap-4 text-xs mt-2.5 pt-2.5 border-t ${darkMode ? 'border-gray-800/15' : 'border-zinc-200'}`}>
+            <div className={`grid grid-cols-2 gap-4 text-xs mt-2.5 pt-2.5 border-t ${darkMode ? 'border-neutral-800' : 'border-neutral-200'}`}>
               <div>
-                <span className="text-gray-400">Segment budget allocation:</span>
-                <span className="block font-bold">${p.budgetSpent}MSpent / ${p.totalBudget}M Total</span>
+                <span className={darkMode ? 'text-neutral-400' : 'text-neutral-600'}>Segment budget allocation:</span>
+                <span className={`block font-bold ${darkMode ? 'text-neutral-100' : 'text-neutral-900'}`}>${p.budgetSpent}M Spent / ${p.totalBudget}M Total</span>
               </div>
               <div>
-                <span className="text-gray-400 block font-normal">Slippage indicator:</span>
-                <span className={`font-semibold ${p.slippageDays > 0 ? 'text-rose-400' : 'text-emerald-400'}`}>
+                <span className={`block font-normal ${darkMode ? 'text-neutral-400' : 'text-neutral-600'}`}>Slippage indicator:</span>
+                <span className={`font-semibold ${p.slippageDays > 0 ? 'text-danger-500 dark:text-danger-400' : 'text-success-600 dark:text-success-400'}`}>
                   {p.slippageDays > 0 ? `+${p.slippageDays} days` : 'Stable schedule'}
                 </span>
               </div>
             </div>
 
             {p.status === 'red' && (
-              <div className="p-2 bg-rose-500/10 text-rose-400 border border-rose-500/15 rounded text-[10px] leading-snug">
+              <div className={`p-2 rounded-xl border text-[10px] leading-snug ${ui.calloutDanger(darkMode)}`}>
                 🚨 <strong>Critical bottleneck detected:</strong> {p.rootCause} Use the STRATIVY BRAIN panel below to reallocate surplus property funds to unlock expedited shipping logs.
               </div>
             )}
@@ -345,17 +370,17 @@ export default function ProjectMonitor({
       </div>
 
       {/* 4. EXECUTIVE STRATIVY BRAIN REALLOCATION PANEL (POWER LAYER) */}
-      <div id="capital-reallocation-decision-board" className={`p-5 rounded-2xl border transition-all duration-300 ${darkMode ? 'bg-zinc-950 border-zinc-800' : 'bg-zinc-50 border-zinc-200'} flex flex-col md:flex-row justify-between items-center gap-4`}>
+      <div id="capital-reallocation-decision-board" className={`p-5 rounded-2xl border transition-all duration-300 ${ui.cardInset(darkMode)} flex flex-col md:flex-row justify-between items-center gap-4`}>
         <div className="space-y-1 text-left flex-1">
-          <h4 className="font-extrabold text-sm text-blue-600 dark:text-blue-400 flex items-center space-x-1.5 uppercase tracking-wider font-mono">
-            <Sparkles className="w-4 h-4 animate-pulse text-blue-500" />
+          <h4 className="font-extrabold text-sm text-primary-600 dark:text-primary-400 flex items-center space-x-1.5 uppercase tracking-wider font-mono">
+            <Sparkles className="w-4 h-4 animate-pulse text-primary-500" />
             <span>STRATIVY BRAIN Project Allocation</span>
           </h4>
-          <p className="text-xs text-zinc-400 font-mono leading-relaxed">
+          <p className={`text-xs font-mono leading-relaxed ${ui.label(darkMode)}`}>
             "100MW Wind Grid Phase 3 is experiencing deepwater turbine procurement blocks. We recommend reallocating $15M from the Property landbank acquisition budget to lock express logistics, resolving 40 days of construction delay and preserving consolidated holding EBITDA targets."
           </p>
           {reallocationMsg && (
-            <div className="mt-3.5 p-3 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-mono">
+            <div className={`mt-3.5 p-3 rounded-xl border text-xs font-mono ${ui.calloutSuccess(darkMode)}`}>
               💡 {reallocationMsg}
             </div>
           )}
@@ -365,14 +390,14 @@ export default function ProjectMonitor({
           <button 
             id="reallocate-funds-btn"
             onClick={reallocateFunds}
-            className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs rounded-xl flex items-center space-x-2 shrink-0 transition-all shadow-md shadow-blue-600/10 hover:shadow-blue-600/20 font-mono"
+            className="px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-extrabold text-xs rounded-xl flex items-center space-x-2 shrink-0 transition-all shadow-md shadow-primary-600/10 font-mono"
             type="button"
           >
             <Sparkles className="w-4 h-4" />
             <span>Execute STRATIVY BRAIN Reallocation</span>
           </button>
         ) : (
-          <div className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 px-4 py-2 rounded-xl text-xs font-semibold font-mono flex items-center space-x-1.5 shrink-0">
+          <div className={`px-4 py-2 rounded-xl text-xs font-semibold font-mono flex items-center space-x-1.5 shrink-0 border ${ui.calloutSuccess(darkMode)}`}>
             <span>✓ Recommendations Executed</span>
           </div>
         )}

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import * as ui from '../lib/uiTheme';
+import { SegmentedControl } from './ui/SegmentedControl';
 import { ChevronDown, Trophy, Users, Briefcase, ChevronRight, BarChart3, PieChart, Info, Layers, TrendingUp, Cpu } from 'lucide-react';
 import { AreaChart, Area, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
 
@@ -103,14 +105,14 @@ export default function StrativyPerformance({ darkMode }: StrativyPerformancePro
   };
 
   return (
-    <div className={`p-6 rounded-2xl border transition-all duration-300 shadow-sm ${darkMode ? 'bg-zinc-900/40 border-zinc-800' : 'bg-white border-zinc-200'}`}>
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between pb-4 border-b border-zinc-200 dark:border-zinc-800/80 mb-6">
+    <div className={`p-6 rounded-2xl border transition-all duration-300 ${ui.card(darkMode)}`}>
+      <div className={`flex flex-col md:flex-row items-start md:items-center justify-between pb-4 border-b mb-6 ${darkMode ? 'border-neutral-800' : 'border-neutral-200'}`}>
         <div>
-          <div className="flex items-center space-x-2 text-blue-600 dark:text-blue-400">
+          <div className="flex items-center space-x-2 text-primary-600 dark:text-primary-400">
             <BarChart3 className="w-5 h-5" />
-            <h3 className="font-extrabold text-base tracking-widest uppercase">Strativy - Performance Data</h3>
+            <h3 className={`font-extrabold text-base tracking-widest uppercase ${ui.value(darkMode)}`}>Strativy - Performance Data</h3>
           </div>
-          <p className="text-xs text-zinc-500 mt-1 font-sans">
+          <p className={`text-xs mt-1 font-sans ${ui.label(darkMode)}`}>
             Business unit data performance extracted from the Strativy analytics platform.
           </p>
         </div>
@@ -120,23 +122,18 @@ export default function StrativyPerformance({ darkMode }: StrativyPerformancePro
         {/* ROW 1: OKR Performance */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Light Panel - Chart */}
-          <div className={`flex flex-col rounded-2xl border p-5 ${darkMode ? 'bg-zinc-800/30 border-zinc-700' : 'bg-white border-zinc-200 shadow-sm'}`}>
+          <div className={`flex flex-col rounded-2xl border p-5 ${ui.card(darkMode)}`}>
             <div className="flex justify-between items-start mb-6">
               <div>
-                <h4 className={`font-bold text-sm ${darkMode ? 'text-zinc-100' : 'text-zinc-900'}`}>{dashboardData.dashboard.okrPerformance.chartPanel.title}</h4>
-                <p className="text-[10px] text-zinc-400 mt-0.5">Last update: {dashboardData.dashboard.okrPerformance.chartPanel.lastUpdate}</p>
+                <h4 className={`font-bold text-sm ${ui.value(darkMode)}`}>{dashboardData.dashboard.okrPerformance.chartPanel.title}</h4>
+                <p className={`text-[10px] mt-0.5 ${ui.labelMuted(darkMode)}`}>Last update: {dashboardData.dashboard.okrPerformance.chartPanel.lastUpdate}</p>
               </div>
-              <div className="flex p-0.5 bg-zinc-100 dark:bg-zinc-800 rounded-full border border-zinc-200 dark:border-zinc-700 shadow-inner">
-                {dashboardData.dashboard.okrPerformance.chartPanel.toggles.map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => setActiveToggleOKR(t)}
-                    className={`px-3 py-1 text-[10px] font-bold rounded-full transition-all ${activeToggleOKR === t ? 'bg-white dark:bg-zinc-900 text-blue-600 border border-blue-500 shadow-sm' : 'text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200'}`}
-                  >
-                    {t}
-                  </button>
-                ))}
-              </div>
+              <SegmentedControl
+                options={dashboardData.dashboard.okrPerformance.chartPanel.toggles}
+                value={activeToggleOKR}
+                onChange={setActiveToggleOKR}
+                darkMode={darkMode}
+              />
             </div>
 
             {/* Recharts Area Chart */}
@@ -167,14 +164,14 @@ export default function StrativyPerformance({ darkMode }: StrativyPerformancePro
               </ResponsiveContainer>
             </div>
 
-            <div className="mt-4 bg-emerald-50 dark:bg-emerald-500/10 rounded-lg p-3 border border-emerald-100 dark:border-emerald-500/20 text-xs">
-              <span className="font-bold text-emerald-600 dark:text-emerald-400 mr-2">{dashboardData.dashboard.okrPerformance.chartPanel.footerInsight.highlight}</span>
-              <span className="text-zinc-700 dark:text-zinc-300">{dashboardData.dashboard.okrPerformance.chartPanel.footerInsight.text}</span>
+            <div className={`mt-4 rounded-lg p-3 border text-xs ${ui.calloutSuccess(darkMode)}`}>
+              <span className="font-bold text-success-700 dark:text-success-400 mr-2">{dashboardData.dashboard.okrPerformance.chartPanel.footerInsight.highlight}</span>
+              <span className={ui.label(darkMode)}>{dashboardData.dashboard.okrPerformance.chartPanel.footerInsight.text}</span>
             </div>
           </div>
 
           {/* Dark Panel - STRATIVY BRAIN Insights */}
-          <div className="flex flex-col rounded-2xl p-5 border border-purple-500/20 bg-gradient-to-br from-indigo-950 via-indigo-900 to-purple-950 shadow-inner relative overflow-hidden">
+          <div className="flex flex-col rounded-2xl p-5 border border-primary-500/25 bg-gradient-to-br from-primary-950 via-neutral-900 to-primary-900 shadow-inner relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/20 rounded-full blur-[80px] -mr-20 -mt-20"></div>
             
             <div className="relative z-10">
@@ -211,23 +208,18 @@ export default function StrativyPerformance({ darkMode }: StrativyPerformancePro
         {/* ROW 2: Competency Growth Analytics */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Light Panel - Chart */}
-          <div className={`flex flex-col rounded-2xl border p-5 ${darkMode ? 'bg-zinc-800/30 border-zinc-700' : 'bg-white border-zinc-200 shadow-sm'}`}>
+          <div className={`flex flex-col rounded-2xl border p-5 ${ui.card(darkMode)}`}>
             <div className="flex justify-between items-start mb-6">
               <div>
-                <h4 className={`font-bold text-sm ${darkMode ? 'text-zinc-100' : 'text-zinc-900'}`}>{dashboardData.dashboard.competencyGrowth.chartPanel.title}</h4>
-                <p className="text-[10px] text-zinc-400 mt-0.5">Last update: {dashboardData.dashboard.competencyGrowth.chartPanel.lastUpdate}</p>
+                <h4 className={`font-bold text-sm ${ui.value(darkMode)}`}>{dashboardData.dashboard.competencyGrowth.chartPanel.title}</h4>
+                <p className={`text-[10px] mt-0.5 ${ui.labelMuted(darkMode)}`}>Last update: {dashboardData.dashboard.competencyGrowth.chartPanel.lastUpdate}</p>
               </div>
-              <div className="flex p-0.5 bg-zinc-100 dark:bg-zinc-800 rounded-full border border-zinc-200 dark:border-zinc-700 shadow-inner">
-                {dashboardData.dashboard.competencyGrowth.chartPanel.toggles.map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => setActiveToggleComp(t)}
-                    className={`px-3 py-1 text-[10px] font-bold rounded-full transition-all ${activeToggleComp === t ? 'bg-white dark:bg-zinc-900 text-blue-600 border border-blue-500 shadow-sm' : 'text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200'}`}
-                  >
-                    {t}
-                  </button>
-                ))}
-              </div>
+              <SegmentedControl
+                options={dashboardData.dashboard.competencyGrowth.chartPanel.toggles}
+                value={activeToggleComp}
+                onChange={setActiveToggleComp}
+                darkMode={darkMode}
+              />
             </div>
 
             {/* Recharts Line Chart */}
@@ -253,14 +245,14 @@ export default function StrativyPerformance({ darkMode }: StrativyPerformancePro
               </ResponsiveContainer>
             </div>
 
-            <div className="mt-4 bg-emerald-50 dark:bg-emerald-500/10 rounded-lg p-3 border border-emerald-100 dark:border-emerald-500/20 text-xs">
-              <span className="font-bold text-emerald-600 dark:text-emerald-400 mr-2">{dashboardData.dashboard.competencyGrowth.chartPanel.footerInsight.highlight}</span>
-              <span className="text-zinc-700 dark:text-zinc-300">{dashboardData.dashboard.competencyGrowth.chartPanel.footerInsight.text}</span>
+            <div className={`mt-4 rounded-lg p-3 border text-xs ${ui.calloutSuccess(darkMode)}`}>
+              <span className="font-bold text-success-700 dark:text-success-400 mr-2">{dashboardData.dashboard.competencyGrowth.chartPanel.footerInsight.highlight}</span>
+              <span className={ui.label(darkMode)}>{dashboardData.dashboard.competencyGrowth.chartPanel.footerInsight.text}</span>
             </div>
           </div>
 
           {/* Dark Panel - STRATIVY BRAIN Insights */}
-          <div className="flex flex-col rounded-2xl p-5 border border-blue-500/20 bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-950 shadow-inner relative overflow-hidden">
+          <div className="flex flex-col rounded-2xl p-5 border border-primary-500/25 bg-gradient-to-br from-primary-950 via-neutral-900 to-primary-900 shadow-inner relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px] -mr-20 -mt-20"></div>
             
             <div className="relative z-10">

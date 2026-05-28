@@ -48,40 +48,40 @@ export default function App() {
 
   return (
     <div className={`min-h-screen transition-colors duration-200 font-sans ${
-      darkMode ? 'bg-zinc-950 text-zinc-50' : 'bg-zinc-50 text-zinc-950'
+      darkMode ? 'bg-neutral-950 text-neutral-50' : 'bg-neutral-50 text-neutral-950'
     }`}>
       
       {/* 1. HEADER SECTION */}
       <header className={`border-b sticky top-0 z-40 transition-colors duration-200 ${
-        darkMode ? 'border-zinc-800 bg-zinc-900/90 backdrop-blur-md' : 'border-zinc-200 bg-white/95 backdrop-blur-md'
+        darkMode ? 'border-neutral-800 bg-neutral-900/90 backdrop-blur-md' : 'border-neutral-200 bg-white/95 backdrop-blur-md shadow-xs'
       }`}>
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
           
           <div className="flex items-center space-x-3 text-left w-full sm:w-auto">
-            <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-md transition-transform hover:scale-105">
+            <div className="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-md transition-transform hover:scale-105">
               S
             </div>
             <div>
               <div className="flex items-center space-x-2">
                 <span className="font-extrabold tracking-tight text-lg">STRATIVY</span>
-                <span className="text-[10px] uppercase font-bold px-1.5 py-0.5 rounded bg-blue-500/10 border border-blue-500/20 text-blue-650 dark:text-blue-400">
+                <span className="text-[10px] uppercase font-bold px-1.5 py-0.5 rounded bg-primary-500/10 border border-primary-500/20 text-primary-700 dark:text-primary-400">
                   Boardroom Core
                 </span>
               </div>
-              <p className="text-[10px] text-zinc-400 font-mono">Ecosystem Pulse, STRATIVY BRAIN Strategy & Bento Modeling Panel</p>
+              <p className={`text-[10px] font-mono ${darkMode ? 'text-neutral-400' : 'text-neutral-600'}`}>Ecosystem Pulse, STRATIVY BRAIN Strategy & Bento Modeling Panel</p>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center justify-end gap-3 w-full sm:w-auto">
             {/* Time selector */}
             <div className={`flex items-center space-x-2 px-3 py-1.5 rounded-lg border text-xs font-mono ${
-              darkMode ? 'bg-zinc-900 border-zinc-800 text-zinc-300' : 'bg-white border-zinc-200 text-zinc-800'
+              darkMode ? 'bg-neutral-900 border-neutral-800 text-neutral-300' : 'bg-white border-neutral-200 text-neutral-800'
             }`}>
-              <span className="text-zinc-400 font-medium">Scenario:</span>
+              <span className={`font-medium ${darkMode ? 'text-neutral-400' : 'text-neutral-600'}`}>Scenario:</span>
               <select
                 value={timeframe}
                 onChange={(e) => setTimeframe(e.target.value)}
-                className="bg-transparent text-blue-600 dark:text-blue-400 font-bold focus:outline-none cursor-pointer"
+                className="bg-transparent text-primary-600 dark:text-primary-400 font-bold focus:outline-none cursor-pointer"
               >
                 <option value="FY 2026 (Forecast)">FY 2026 (Forecast)</option>
                 <option value="Q3 2026 Shift Matrix">Q3 2026 Shift Matrix</option>
@@ -93,7 +93,7 @@ export default function App() {
             <button
               onClick={() => setDarkMode(!darkMode)}
               className={`p-2 rounded-xl transition-all border ${
-                darkMode ? 'bg-zinc-900 border-zinc-800 text-yellow-450 hover:bg-zinc-850' : 'bg-white border-zinc-200 text-blue-600 hover:bg-zinc-100'
+                darkMode ? 'bg-neutral-900 border-neutral-800 text-warning-400 hover:bg-neutral-800' : 'bg-white border-neutral-200 text-primary-600 hover:bg-neutral-100'
               }`}
               title="Toggle theme visualizer"
               type="button"
@@ -102,13 +102,13 @@ export default function App() {
             </button>
 
             {/* Board user tag */}
-            <div className={`flex items-center space-x-2 border-l pl-4 ${darkMode ? 'border-zinc-800' : 'border-zinc-200'}`}>
-              <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center font-bold text-sm text-white shadow-sm">
+            <div className={`flex items-center space-x-2 border-l pl-4 ${darkMode ? 'border-neutral-800' : 'border-neutral-200'}`}>
+              <div className="w-8 h-8 rounded-xl bg-primary-600 flex items-center justify-center font-bold text-sm text-white shadow-sm">
                 CB
               </div>
               <div className="hidden md:block text-left">
                 <span className="block text-xs font-bold leading-none">Chairman of Board</span>
-                <span className="text-[9px] text-zinc-400 block mt-0.5 font-mono">Holding Executive</span>
+                <span className={`text-[9px] block mt-0.5 font-mono ${darkMode ? 'text-neutral-400' : 'text-neutral-600'}`}>Holding Executive</span>
               </div>
             </div>
           </div>
@@ -117,11 +117,11 @@ export default function App() {
       </header>
 
       {/* 2. TAB MULTI-NAVIGATION BAR */}
-      <div className={`border-b transition-all duration-300 shadow-sm relative ${darkMode ? 'border-zinc-800 bg-zinc-900/60' : 'border-zinc-300 bg-zinc-100/60'}`}>
+      <div className={`border-b transition-all duration-300 shadow-sm relative ${darkMode ? 'border-neutral-800 bg-neutral-900/60' : 'border-neutral-200 bg-neutral-100/80'}`}>
         <div className="max-w-7xl mx-auto px-6 py-3.5 flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8">
           
           <div className="flex items-center space-x-3 shrink-0">
-            <div className={`p-2 rounded-lg ${darkMode ? 'bg-zinc-800 text-blue-400' : 'bg-white shadow-sm text-blue-600'}`}>
+            <div className={`p-2 rounded-lg ${darkMode ? 'bg-neutral-800 text-primary-400' : 'bg-white shadow-sm text-primary-600'}`}>
               <Sliders className="w-4 h-4" />
             </div>
             <div>
@@ -136,8 +136,8 @@ export default function App() {
               onClick={() => setActiveTab('core-holding')}
               className={`flex flex-col items-center justify-center min-w-[120px] px-3 py-3 rounded-xl text-[11px] font-bold transition-all duration-300 hover:scale-[1.02] ${
                 activeTab === 'core-holding' 
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' 
-                  : (darkMode ? 'hover:bg-zinc-800 text-zinc-300 border border-zinc-800' : 'hover:bg-white text-zinc-650 bg-transparent border border-zinc-300 hover:shadow-sm')
+                  ? 'bg-primary-600 text-white shadow-md shadow-primary-500/20' 
+                  : (darkMode ? 'hover:bg-neutral-800 text-neutral-300 border border-neutral-800' : 'hover:bg-white text-neutral-700 bg-transparent border border-neutral-300 hover:shadow-sm')
               }`}
               type="button"
             >
@@ -149,8 +149,8 @@ export default function App() {
               onClick={() => setActiveTab('bu-performance')}
               className={`flex flex-col items-center justify-center min-w-[120px] px-3 py-3 rounded-xl text-[11px] font-bold transition-all duration-300 hover:scale-[1.02] ${
                 activeTab === 'bu-performance' 
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' 
-                  : (darkMode ? 'hover:bg-zinc-800 text-zinc-300 border border-zinc-800' : 'hover:bg-white text-zinc-650 bg-transparent border border-zinc-300 hover:shadow-sm')
+                  ? 'bg-primary-600 text-white shadow-md shadow-primary-500/20' 
+                  : (darkMode ? 'hover:bg-neutral-800 text-neutral-300 border border-neutral-800' : 'hover:bg-white text-neutral-700 bg-transparent border border-neutral-300 hover:shadow-sm')
               }`}
               type="button"
             >
@@ -162,8 +162,8 @@ export default function App() {
               onClick={() => setActiveTab('human-capital')}
               className={`flex flex-col items-center justify-center min-w-[120px] px-3 py-3 rounded-xl text-[11px] font-bold transition-all duration-300 hover:scale-[1.02] ${
                 activeTab === 'human-capital' 
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' 
-                  : (darkMode ? 'hover:bg-zinc-800 text-zinc-300 border border-zinc-800' : 'hover:bg-white text-zinc-650 bg-transparent border border-zinc-300 hover:shadow-sm')
+                  ? 'bg-primary-600 text-white shadow-md shadow-primary-500/20' 
+                  : (darkMode ? 'hover:bg-neutral-800 text-neutral-300 border border-neutral-800' : 'hover:bg-white text-neutral-700 bg-transparent border border-neutral-300 hover:shadow-sm')
               }`}
               type="button"
             >
@@ -175,8 +175,8 @@ export default function App() {
               onClick={() => setActiveTab('capex')}
               className={`flex flex-col items-center justify-center min-w-[120px] px-3 py-3 rounded-xl text-[11px] font-bold transition-all duration-300 hover:scale-[1.02] ${
                 activeTab === 'capex' 
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' 
-                  : (darkMode ? 'hover:bg-zinc-800 text-zinc-300 border border-zinc-800' : 'hover:bg-white text-zinc-650 bg-transparent border border-zinc-300 hover:shadow-sm')
+                  ? 'bg-primary-600 text-white shadow-md shadow-primary-500/20' 
+                  : (darkMode ? 'hover:bg-neutral-800 text-neutral-300 border border-neutral-800' : 'hover:bg-white text-neutral-700 bg-transparent border border-neutral-300 hover:shadow-sm')
               }`}
               type="button"
             >
@@ -189,11 +189,11 @@ export default function App() {
               className={`flex flex-col items-center justify-center min-w-[120px] px-3 py-3 rounded-xl text-[11px] font-bold transition-all duration-300 hover:scale-[1.02] ${
                 activeTab === 'strativy-brain' 
                   ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' 
-                  : (darkMode ? 'hover:bg-zinc-900 text-zinc-300 bg-zinc-900/40 border border-zinc-800' : 'hover:bg-white text-zinc-650 bg-transparent border border-zinc-300 hover:shadow-sm')
+                  : (darkMode ? 'hover:bg-neutral-900 text-neutral-300 bg-neutral-900/40 border border-neutral-800' : 'hover:bg-white text-neutral-700 bg-transparent border border-neutral-300 hover:shadow-sm')
               }`}
               type="button"
             >
-              <Sparkles className="w-5 h-5 text-blue-500 animate-pulse mb-1.5" />
+              <Sparkles className="w-5 h-5 text-primary-500 animate-pulse mb-1.5" />
               <span className="font-mono tracking-wide">✨ STRATIVY BRAIN</span>
             </button>
 
@@ -268,7 +268,7 @@ export default function App() {
 
       {/* 4. FOOTER */}
       <footer className={`border-t py-6 mt-14 text-center text-[10px] font-mono transition-colors ${
-        darkMode ? 'border-zinc-800 text-zinc-500 bg-zinc-950' : 'border-zinc-200 text-zinc-400 bg-zinc-100/50'
+        darkMode ? 'border-neutral-800 text-neutral-500 bg-neutral-950' : 'border-neutral-200 text-neutral-500 bg-neutral-100/50'
       }`}>
         <p>© 2026 Strativy Boardroom Core. Designed under corporate board security standards & guidelines.</p>
         <p className="mt-1">Chairman & Board of Directors Authorized Session Only.</p>

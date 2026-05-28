@@ -37,6 +37,8 @@ import {
 } from 'recharts';
 import { BusinessUnit } from '../types';
 import StrativyPerformance from './StrativyPerformance';
+import * as ui from '../lib/uiTheme';
+import { KpiCard, type KpiAccent } from './ui/KpiCard';
 
 interface BuDrilldownProps {
   darkMode: boolean;
@@ -213,8 +215,8 @@ export default function BuDrilldown({
     <div id="bu-drilldown-container" className="flex flex-col lg:flex-row gap-6">
       
       {/* 1. SECTOR SELECTOR BAR */}
-      <div id="bu-selector-tabs" className="flex flex-col gap-2 w-full lg:w-[240px] shrink-0 lg:pr-4 lg:border-r border-zinc-200 dark:border-zinc-800">
-        <h3 className="font-extrabold text-[10px] tracking-widest uppercase text-zinc-500 mb-2 font-mono">Business Units</h3>
+      <div id="bu-selector-tabs" className={`flex flex-col gap-2 w-full lg:w-[240px] shrink-0 lg:pr-4 lg:border-r ${darkMode ? 'border-neutral-800' : 'border-neutral-200'}`}>
+        <h3 className={`font-extrabold text-[10px] tracking-widest uppercase mb-2 font-mono ${ui.label(darkMode)}`}>Business Units</h3>
         {Object.values(simulatedBUs).map((bu) => (
           <button 
             key={bu.id}
@@ -222,8 +224,8 @@ export default function BuDrilldown({
             onClick={() => setSelectedBU(bu.id)}
             className={`flex items-center w-full text-left space-x-3 px-3.5 py-3 rounded-xl text-xs font-bold transition-all duration-300 ${
               selectedBU === bu.id 
-                ? 'bg-blue-600 text-white shadow-md' 
-                : (darkMode ? 'bg-zinc-900 border border-zinc-800 hover:bg-zinc-850 text-zinc-300' : 'bg-white border border-zinc-200 hover:bg-zinc-100 text-zinc-700')
+                ? 'bg-primary-600 text-white shadow-md shadow-primary-500/20' 
+                : (darkMode ? 'bg-neutral-900 border border-neutral-800 hover:bg-neutral-800 text-neutral-300' : 'bg-white border border-neutral-200 hover:bg-neutral-100 text-neutral-700')
             }`}
             type="button"
           >
@@ -238,30 +240,45 @@ export default function BuDrilldown({
       <div className="flex-1 space-y-6 overflow-hidden">
         {/* 2. DENSE FIELD NUMERICS PANEL */}
         <div id="bu-microdata-cards" className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {sectorMicroFields.map((field, idx) => (
-            <div key={`idx-${idx}`} className={`p-5 rounded-2xl border transition-all duration-300 hover:scale-[1.01] ${darkMode ? 'bg-zinc-900/40 border-zinc-800' : 'bg-white border-zinc-205 border-zinc-200'} text-left`}>
-              <span className="block text-[10px] text-zinc-500 dark:text-zinc-400 font-extrabold uppercase tracking-widest font-mono">{field.label}</span>
-              <div className="mt-2.5 flex items-baseline justify-between">
-                <span className="text-lg font-black tracking-tight text-zinc-800 dark:text-zinc-100 font-mono">{field.val}</span>
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded font-mono ${
-                  field.isPos ? 'bg-emerald-500/10 text-emerald-500' : 'bg-rose-500/10 text-rose-500'
-                }`}>{field.change}</span>
-              </div>
-            </div>
-          ))}
+          {sectorMicroFields.map((field, idx) => {
+            const accents: KpiAccent[] = ['primary', 'cyan', 'amber', 'purple'];
+            const cardAccent: KpiAccent = field.isPos
+              ? 'success'
+              : idx === 0
+                ? 'danger'
+                : accents[idx % accents.length];
+            return (
+              <KpiCard
+                key={`idx-${idx}`}
+                darkMode={darkMode}
+                label={field.label}
+                accent={cardAccent}
+                value={field.val}
+                footer={
+                  <span
+                    className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-md font-mono ${
+                      field.isPos ? ui.badgePositive(darkMode) : ui.badgeNegative(darkMode)
+                    }`}
+                  >
+                    {field.change}
+                  </span>
+                }
+              />
+            );
+          })}
         </div>
 
       {/* 3. PERFORMANCE FORECAST CHART PANEL & DYNAMICS */}
       <div id="bu-performance-visuals" className="grid grid-cols-1 lg:grid-cols-12 gap-6 text-left">
         
         {/* CHART Area 8 cols */}
-        <div className={`lg:col-span-8 p-5 rounded-2xl border transition-all duration-300 ${darkMode ? 'bg-zinc-900/40 border-zinc-800' : 'bg-white border-zinc-200'} shadow-sm flex flex-col justify-between`}>
+        <div className={`lg:col-span-8 p-5 rounded-2xl border transition-all duration-300 ${ui.card(darkMode)} flex flex-col justify-between`}>
           <div>
-            <h3 className="font-extrabold text-sm uppercase tracking-wider flex items-center space-x-2">
-              <Activity className="w-4 h-4 text-blue-500" />
+            <h3 className={`font-extrabold text-sm uppercase tracking-wider flex items-center space-x-2 ${ui.value(darkMode)}`}>
+              <Activity className="w-4 h-4 text-primary-500" />
               <span>Micro-Financial Performance Trails</span>
             </h3>
-            <p className="text-xs text-zinc-405 text-zinc-400 mt-1">
+            <p className={`text-xs mt-1 ${ui.label(darkMode)}`}>
               Historical performance index representing active simulated revenue and EBITDA streams across the current cycle.
             </p>
           </div>
@@ -301,14 +318,14 @@ export default function BuDrilldown({
 
         {/* Component C - Correlation Intelligence (4 cols) */}
         <div className="lg:col-span-4 flex flex-col space-y-4">
-          <div className={`p-5 rounded-2xl border transition-all duration-300 ${darkMode ? 'bg-zinc-950 border-zinc-800' : 'bg-zinc-50 border-zinc-200'} flex-1 flex flex-col justify-between`}>
+          <div className={`p-5 rounded-2xl border transition-all duration-300 ${ui.cardInset(darkMode)} flex-1 flex flex-col justify-between`}>
             
             <div className="space-y-3">
-              <div className="flex items-center space-x-2 text-blue-600 dark:text-blue-400">
-                <Sparkles className="w-4 h-4 text-blue-500 animate-pulse" />
+              <div className="flex items-center space-x-2 text-primary-600 dark:text-primary-400">
+                <Sparkles className="w-4 h-4 text-primary-500 animate-pulse" />
                 <h4 className="text-xs font-extrabold uppercase tracking-widest font-mono">Correlation Analyzer</h4>
               </div>
-              <p className="text-[11px] text-zinc-400 leading-snug font-mono">
+              <p className={`text-[11px] leading-snug font-mono ${ui.label(darkMode)}`}>
                 How does this Business Unit interact with physical parameters of other holding divisions?
               </p>
 
@@ -317,10 +334,10 @@ export default function BuDrilldown({
                 
                 {selectedBU === 'hotel' && (
                   <div className="space-y-2 text-xs">
-                    <div className="p-2.5 rounded bg-pink-500/5 text-pink-400 border border-pink-500/10">
+                    <div className={`p-2.5 rounded-xl border text-xs ${ui.calloutWarning(darkMode)}`}>
                       <strong>Food Procurement SLA:</strong> Internally sourcing 74% of premium organic food items from <em>Precision Agro-Farms</em> offsets hotel culinary inflation by 11.4%.
                     </div>
-                    <div className="p-2.5 rounded bg-emerald-500/5 text-emerald-400 border border-emerald-500/10">
+                    <div className={`p-2.5 rounded-xl border text-xs ${ui.calloutSuccess(darkMode)}`}>
                       <strong>Renewable Integration:</strong> Powering Nusadua oceanic facilities with 100% offshore turbine inputs reduced hospitality utility expenditures by 35%.
                     </div>
                   </div>
@@ -328,10 +345,10 @@ export default function BuDrilldown({
 
                 {selectedBU === 'renewableEnergy' && (
                   <div className="space-y-2 text-xs">
-                    <div className="p-2.5 rounded bg-indigo-500/5 text-indigo-450 border border-indigo-500/10">
+                    <div className="p-2.5 rounded-xl bg-primary-50 text-primary-800 dark:bg-primary-500/10 dark:text-primary-300 border border-primary-200 dark:border-primary-500/20">
                       <strong>Fossil transition correlation:</strong> Reallocating $150M fossil yield from Oil & Gas exploration has direct negative safety exposure and accelerates project commission schedules by 45 calendar days.
                     </div>
-                    <div className="p-2.5 rounded bg-purple-500/5 text-purple-400 border border-purple-500/10">
+                    <div className={`p-2.5 rounded-xl border text-xs ${darkMode ? 'bg-primary-500/10 text-primary-300 border-primary-500/20' : 'bg-primary-50 text-primary-800 border-primary-200'}`}>
                       <strong>Neural Router R&D:</strong> Deploys electric code route optimization from Innovation lab VC, which directly expands physical turbine efficiency by 14.0%.
                     </div>
                   </div>
@@ -339,20 +356,20 @@ export default function BuDrilldown({
 
                 {selectedBU !== 'hotel' && selectedBU !== 'renewableEnergy' && (
                   <div className="space-y-2 text-xs">
-                    <div className={`p-2.5 rounded bg-indigo-500/5 border border-indigo-500/10 ${darkMode ? 'text-slate-300' : 'text-slate-700'}`}>
+                    <div className={`p-2.5 rounded-xl border text-xs ${ui.calloutPrimary(darkMode)}`}>
                       <strong>Ecosystem automation sync:</strong> High-velocity software adoption improves physical capacity parameters by 18% group-wide.
                     </div>
                     {!auditMessage ? (
                       <button 
                         id="learn-more-synergies-btn"
-                        className="text-[11px] text-blue-600 dark:text-blue-400 hover:underline inline-block font-extrabold"
+                        className="text-[11px] text-primary-600 dark:text-primary-400 hover:underline inline-block font-extrabold"
                         onClick={() => setAuditMessage("Strategic link verified. Synergy output yields +12.4% EBITDA return on initial investment.")}
                         type="button"
                       >
                         Audit detailed ecosystem synergy linkages ➔
                       </button>
                     ) : (
-                      <div className="p-3 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mt-2 font-mono">
+                      <div className={`p-3 rounded-xl border mt-2 font-mono ${ui.calloutSuccess(darkMode)}`}>
                         💡 {auditMessage}
                       </div>
                     )}
@@ -362,7 +379,7 @@ export default function BuDrilldown({
               </div>
             </div>
 
-            <div className="mt-4 p-2 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-[10px] leading-relaxed">
+            <div className={`mt-4 p-3 rounded-xl border text-[10px] leading-relaxed ${ui.calloutPrimary(darkMode)}`}>
               <strong>Interactive Intelligence:</strong> All coefficients on this correlation board correspond to active slider scenarios selected on Level 1.
             </div>
 
@@ -372,36 +389,36 @@ export default function BuDrilldown({
       </div>
 
       {/* 4. LOCAL ECOSYSTEM SYNERGIES DIAGRAM SECTION */}
-      <div id="local-synergies-view" className={`p-5 rounded-2xl border ${darkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'} shadow`}>
-        <div className="border-b border-gray-800/20 pb-3 mb-4 text-left">
-          <h3 className="font-bold text-sm uppercase tracking-wider flex items-center space-x-2">
-            <Coins className="w-4 h-4 text-indigo-400" />
+      <div id="local-synergies-view" className={`p-5 rounded-2xl border shadow-sm ${ui.card(darkMode)}`}>
+        <div className={`border-b pb-3 mb-4 text-left ${darkMode ? 'border-neutral-800' : 'border-neutral-200'}`}>
+          <h3 className={`font-bold text-sm uppercase tracking-wider flex items-center space-x-2 ${ui.value(darkMode)}`}>
+            <Coins className="w-4 h-4 text-primary-500" />
             <span>Interactive Multi-Sector Contract Flows</span>
           </h3>
-          <p className="text-xs text-slate-400">Evaluating upstream suppliers and downstream buyers of the {currentBU.short} division.</p>
+          <p className={`text-xs ${ui.label(darkMode)}`}>Evaluating upstream suppliers and downstream buyers of the {currentBU.short} division.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
           
           {/* Supplier Upstream */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-400 flex items-center space-x-1">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-primary-600 dark:text-primary-400 flex items-center space-x-1">
               <span>Upstream Suppliers</span>
             </h4>
             {localSynergies.upstream.length > 0 ? (
               <div className="space-y-2.5">
                 {localSynergies.upstream.map((item, id) => (
-                  <div key={`upstream-${id}`} className={`p-3 rounded-xl border flex justify-between items-center ${darkMode ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
-                    <div>
-                      <span className={`block text-xs font-bold ${darkMode ? 'text-white' : 'text-zinc-800'}`}>{item.name}</span>
-                      <span className="block text-[10px] text-slate-400 mt-0.5">{item.contribution}</span>
+                  <div key={`upstream-${id}`} className={`p-3 rounded-xl border flex justify-between items-center gap-3 ${ui.cardInset(darkMode)}`}>
+                    <div className="min-w-0">
+                      <span className={`block text-xs font-bold ${ui.value(darkMode)}`}>{item.name}</span>
+                      <span className={`block text-[10px] mt-0.5 ${ui.label(darkMode)}`}>{item.contribution}</span>
                     </div>
-                    <span className="text-[10px] bg-emerald-500/15 text-emerald-400 font-bold px-2 py-0.5 rounded font-mono">{item.esgBenefit}</span>
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md font-mono shrink-0 ${ui.badgePositive(darkMode)}`}>{item.esgBenefit}</span>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className={`p-4 rounded-xl border border-dashed text-center text-xs ${darkMode ? 'border-gray-800 text-slate-400' : 'border-gray-200 text-slate-600'}`}>
+              <div className={`p-4 rounded-xl border border-dashed text-center text-xs ${darkMode ? 'border-neutral-700 text-neutral-500' : 'border-neutral-300 text-neutral-600'}`}>
                 No direct vertical upstream dependencies mapped in holding ledger.
               </div>
             )}
@@ -409,23 +426,23 @@ export default function BuDrilldown({
 
           {/* Supplier Downstream */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-pink-400 flex items-center space-x-1">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-warning-600 dark:text-warning-400 flex items-center space-x-1">
               <span>Downstream Buyers</span>
             </h4>
             {localSynergies.downstream.length > 0 ? (
               <div className="space-y-2.5">
                 {localSynergies.downstream.map((item, id) => (
-                  <div key={`downstream-${id}`} className={`p-3 rounded-xl border flex justify-between items-center ${darkMode ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
-                    <div>
-                      <span className={`block text-xs font-bold ${darkMode ? 'text-white' : 'text-zinc-800'}`}>{item.name}</span>
-                      <span className="block text-[10px] text-slate-400 mt-0.5">{item.contribution}</span>
+                  <div key={`downstream-${id}`} className={`p-3 rounded-xl border flex justify-between items-center gap-3 ${ui.cardInset(darkMode)}`}>
+                    <div className="min-w-0">
+                      <span className={`block text-xs font-bold ${ui.value(darkMode)}`}>{item.name}</span>
+                      <span className={`block text-[10px] mt-0.5 ${ui.label(darkMode)}`}>{item.contribution}</span>
                     </div>
-                    <span className="text-[10px] bg-indigo-500/15 text-indigo-400 font-bold px-2 py-0.5 rounded font-mono">{item.esgBenefit}</span>
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md font-mono shrink-0 ${darkMode ? 'bg-primary-500/15 text-primary-400' : 'bg-primary-50 text-primary-700'}`}>{item.esgBenefit}</span>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className={`p-4 rounded-xl border border-dashed text-center text-xs ${darkMode ? 'border-gray-800 text-slate-400' : 'border-gray-200 text-slate-600'}`}>
+              <div className={`p-4 rounded-xl border border-dashed text-center text-xs ${darkMode ? 'border-neutral-700 text-neutral-500' : 'border-neutral-300 text-neutral-600'}`}>
                 No direct vertical downstream flows mapped in holding ledger.
               </div>
             )}
