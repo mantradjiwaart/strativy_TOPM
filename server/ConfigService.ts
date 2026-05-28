@@ -1,8 +1,6 @@
 import dotenv from 'dotenv';
 
 const GEMINI_ENV_KEY = 'MONEY_FLOW_GEMINI_API';
-const GEMINI_MODEL_ENV_KEY = 'GEMINI_MODEL';
-const DEFAULT_GEMINI_MODEL = 'gemini-2.5-flash';
 
 export class ConfigService {
   private loaded = false;
@@ -23,11 +21,5 @@ export class ConfigService {
       );
     }
     return apiKey.trim();
-  }
-
-  getGeminiModel(): string {
-    this.load();
-    const model = process.env[GEMINI_MODEL_ENV_KEY]?.trim();
-    return model || DEFAULT_GEMINI_MODEL;
   }
 }

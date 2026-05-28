@@ -20,6 +20,6 @@ describe('toGeminiApiError', () => {
       new Error('limit: 0, model: gemini-2.0-flash quota exceeded 429')
     );
 
-    expect(err.message).toContain('GEMINI_MODEL');
+    expect(err.message).toContain('dropdown');
   });
 });

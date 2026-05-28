@@ -37,7 +37,7 @@ export function toGeminiApiError(error: unknown): GeminiApiError {
       : ' Please wait a minute and try again.';
 
     const modelHint = lower.includes('limit: 0')
-      ? ' This model may not be available on the free tier — set GEMINI_MODEL=gemini-2.5-flash in .env.'
+      ? ' Try another model from the Gemini model dropdown in the AI Advisor tab.'
       : '';
 
     return new GeminiApiError(

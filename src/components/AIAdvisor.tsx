@@ -15,6 +15,7 @@ import {
 import ReactMarkdown from 'react-markdown';
 import { BoardAdvisorClient } from '../clients/BoardAdvisorClient';
 import { TelemetryContextBuilder } from '../domain';
+import type { GeminiModelId } from '../config/gemini';
 import type { BusinessUnit, GroupMetrics } from '../types';
 
 const boardAdvisorClient = new BoardAdvisorClient();
@@ -24,12 +25,18 @@ interface AIAdvisorProps {
   darkMode: boolean;
   simulatedBUs: Record<string, BusinessUnit>;
   groupMetrics: GroupMetrics;
+  geminiModel: GeminiModelId;
+  geminiModels: readonly GeminiModelId[];
+  onGeminiModelChange: (model: GeminiModelId) => void;
 }
 
 export default function AIAdvisor({
   darkMode,
   simulatedBUs,
-  groupMetrics
+  groupMetrics,
+  geminiModel,
+  geminiModels,
+  onGeminiModelChange,
 }: AIAdvisorProps) {
   
   const [prompt, setPrompt] = useState<string>(
@@ -72,6 +79,7 @@ export default function AIAdvisor({
       const text = await boardAdvisorClient.generate({
         prompt: promptToSend,
         systemPrompt: telemetryContext,
+        model: geminiModel,
       });
       setResponse(text);
     } catch (e: unknown) {
@@ -122,6 +130,25 @@ export default function AIAdvisor({
       <div id="advisor-dialog-console" className="lg:col-span-8 flex flex-col justify-between space-y-4">
         
         <div className="space-y-2">
+          <label htmlFor="gemini-model-select" className="text-xs font-black text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-mono block">
+            Gemini model
+          </label>
+          <select
+            id="gemini-model-select"
+            value={geminiModel}
+            onChange={(e) => onGeminiModelChange(e.target.value as GeminiModelId)}
+            disabled={loading}
+            className={`w-full p-3 text-xs rounded-xl font-mono border focus:outline-none focus:ring-1 focus:ring-blue-500 ${
+              darkMode ? 'bg-zinc-950 border-zinc-800 text-white' : 'bg-white border-zinc-200 text-zinc-800'
+            }`}
+          >
+            {geminiModels.map((id) => (
+              <option key={id} value={id}>
+                {id}
+              </option>
+            ))}
+          </select>
+
           <label htmlFor="board-query-textbox" className="text-xs font-black text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-mono block">Custom Board query</label>
           <textarea
             id="board-query-textbox"

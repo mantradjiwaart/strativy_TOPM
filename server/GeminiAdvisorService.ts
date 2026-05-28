@@ -1,3 +1,4 @@
+import { resolveGeminiModel } from '../src/config/gemini';
 import { GeminiGateway } from './GeminiGateway';
 
 const DEFAULT_SYSTEM_INSTRUCTION =
@@ -6,12 +7,13 @@ const DEFAULT_SYSTEM_INSTRUCTION =
 export class GeminiAdvisorService {
   private readonly temperature = 0.7;
 
-  constructor(
-    private readonly gateway: GeminiGateway,
-    private readonly model: string
-  ) {}
+  constructor(private readonly gateway: GeminiGateway) {}
 
-  async advise(prompt: string, systemPrompt?: string): Promise<string> {
+  async advise(
+    prompt: string,
+    systemPrompt?: string,
+    model?: string
+  ): Promise<string> {
     if (!prompt?.trim()) {
       throw new Error('Prompt is required');
     }
@@ -19,7 +21,7 @@ export class GeminiAdvisorService {
     return this.gateway.generateContent({
       prompt: prompt.trim(),
       systemPrompt: systemPrompt?.trim() || DEFAULT_SYSTEM_INSTRUCTION,
-      model: this.model,
+      model: resolveGeminiModel(model),
       temperature: this.temperature,
     });
   }

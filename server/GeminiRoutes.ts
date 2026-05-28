@@ -8,12 +8,17 @@ export class GeminiRoutes {
   register(app: Express): void {
     app.post('/api/gemini/generate', async (req: Request, res: Response) => {
       try {
-        const { prompt, systemPrompt } = req.body as {
+        const { prompt, systemPrompt, model } = req.body as {
           prompt?: string;
           systemPrompt?: string;
+          model?: string;
         };
 
-        const text = await this.advisorService.advise(prompt ?? '', systemPrompt);
+        const text = await this.advisorService.advise(
+          prompt ?? '',
+          systemPrompt,
+          model
+        );
         res.json({ text });
       } catch (error) {
         const status = error instanceof GeminiApiError ? error.statusCode : 500;
