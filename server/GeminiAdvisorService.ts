@@ -4,10 +4,12 @@ const DEFAULT_SYSTEM_INSTRUCTION =
   'You are the Strativy Strategic AI Agent, an elite boardroom advisor assisting the Chairman.';
 
 export class GeminiAdvisorService {
-  private readonly model = 'gemini-2.0-flash';
   private readonly temperature = 0.7;
 
-  constructor(private readonly gateway: GeminiGateway) {}
+  constructor(
+    private readonly gateway: GeminiGateway,
+    private readonly model: string
+  ) {}
 
   async advise(prompt: string, systemPrompt?: string): Promise<string> {
     if (!prompt?.trim()) {

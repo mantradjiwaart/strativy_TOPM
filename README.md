@@ -34,6 +34,14 @@ Run all commands from this directory (`strativy-boardroom-core`), or from the pa
 
 4. Open [http://localhost:3000](http://localhost:3000) and use the **AI Advisor** tab to verify Gemini connectivity.
 
+### Quota / 429 errors
+
+If you see `RESOURCE_EXHAUSTED` or `limit: 0` for a model, your free-tier quota for that model is exhausted or disabled. Try:
+
+1. Set `GEMINI_MODEL=gemini-2.5-flash` in `.env` (default after this update)
+2. Wait for the retry window (the app auto-retries using the API’s `retry in Ns` hint)
+3. Check usage at [ai.dev/rate-limit](https://ai.dev/rate-limit) or enable billing in [Google AI Studio](https://aistudio.google.com/)
+
 ## Scripts
 
 | Command | Description |

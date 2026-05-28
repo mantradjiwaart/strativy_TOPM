@@ -1,9 +1,14 @@
 import { GoogleGenAI } from '@google/genai';
+import { GeminiApiError, toGeminiApiError } from './GeminiApiError';
 
-const MAX_ATTEMPTS = 3;
+const MAX_ATTEMPTS = 4;
 const INITIAL_BACKOFF_MS = 500;
+const MAX_RETRY_WAIT_MS = 60_000;
 
 function isRetryableError(error: unknown): boolean {
+  if (error instanceof GeminiApiError) {
+    return error.statusCode === 429 || error.statusCode >= 500;
+  }
   if (!(error instanceof Error)) return true;
   const msg = error.message.toLowerCase();
   if (msg.includes('429') || msg.includes('rate') || msg.includes('quota')) return true;
@@ -11,6 +16,13 @@ function isRetryableError(error: unknown): boolean {
     return true;
   if (msg.includes('network') || msg.includes('fetch') || msg.includes('timeout')) return true;
   return false;
+}
+
+function getRetryDelayMs(error: unknown, attempt: number): number {
+  if (error instanceof GeminiApiError && error.retryAfterMs) {
+    return Math.min(error.retryAfterMs, MAX_RETRY_WAIT_MS);
+  }
+  return INITIAL_BACKOFF_MS * Math.pow(2, attempt - 1);
 }
 
 function delay(ms: number): Promise<void> {
@@ -58,17 +70,16 @@ export class GeminiGateway {
         }
         return text;
       } catch (error) {
-        lastError = error;
-        if (attempt >= MAX_ATTEMPTS || !isRetryableError(error)) {
+        lastError = toGeminiApiError(error);
+        if (attempt >= MAX_ATTEMPTS || !isRetryableError(lastError)) {
           break;
         }
-        await delay(INITIAL_BACKOFF_MS * Math.pow(2, attempt - 1));
+        await delay(getRetryDelayMs(lastError, attempt));
       }
     }
 
-    if (lastError instanceof Error) {
-      throw lastError;
-    }
-    throw new Error('Gemini request failed after retries');
+    throw lastError instanceof GeminiApiError
+      ? lastError
+      : toGeminiApiError(lastError);
   }
 }

@@ -1,10 +1,6 @@
 import type { Express, Request, Response } from 'express';
+import { GeminiApiError } from './GeminiApiError';
 import { GeminiAdvisorService } from './GeminiAdvisorService';
-
-function getErrorMessage(error: unknown): string {
-  if (error instanceof Error) return error.message;
-  return 'The AI Strategist is momentarily offline. Please try again.';
-}
 
 export class GeminiRoutes {
   constructor(private readonly advisorService: GeminiAdvisorService) {}
@@ -20,7 +16,16 @@ export class GeminiRoutes {
         const text = await this.advisorService.advise(prompt ?? '', systemPrompt);
         res.json({ text });
       } catch (error) {
-        res.status(500).json({ error: getErrorMessage(error) });
+        const status = error instanceof GeminiApiError ? error.statusCode : 500;
+        const message =
+          error instanceof Error
+            ? error.message
+            : 'The AI Strategist is momentarily offline. Please try again.';
+        res.status(status).json({
+          error: message,
+          retryAfterMs:
+            error instanceof GeminiApiError ? error.retryAfterMs : undefined,
+        });
       }
     });
   }

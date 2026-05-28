@@ -16,8 +16,9 @@ export class BoardroomServer {
     app.use(express.json());
 
     const apiKey = this.config.getGeminiApiKey();
+    const model = this.config.getGeminiModel();
     const gateway = new GeminiGateway(apiKey);
-    const advisorService = new GeminiAdvisorService(gateway);
+    const advisorService = new GeminiAdvisorService(gateway, model);
     new GeminiRoutes(advisorService).register(app);
 
     if (process.env.NODE_ENV !== 'production') {
