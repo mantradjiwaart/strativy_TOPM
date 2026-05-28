@@ -23,5 +23,6 @@
     "allowImportingTsExtensions": true,
     "noEmit": true,
     "strict": true
-  }
+  },
+  "include": ["src", "server", "server.ts", "vitest.config.ts"]
 }

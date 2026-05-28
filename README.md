@@ -8,6 +8,8 @@ Strativy Boardroom Core — holding-company ecosystem pulse, simulation, and Gem
 
 ## Run locally
 
+Run all commands from this directory (`strativy-boardroom-core`), or from the parent `money-flow` folder using `npm run dev` (delegates here).
+
 1. Install dependencies:
 
    ```bash
