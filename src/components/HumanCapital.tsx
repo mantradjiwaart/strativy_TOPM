@@ -214,11 +214,11 @@ export default function HumanCapital({
             Visualizes employee burnout (top-right) and high-performance safety zones (bottom-right). Click any sector bubble to focus detailed parameters.
           </p>
 
-          <div className="w-full h-80 relative bg-[#09090b] border border-zinc-800/60 rounded-xl p-2.5">
+          <div className={`w-full h-80 relative border rounded-xl p-2.5 ${darkMode ? 'bg-[#09090b] border-zinc-800/60' : 'bg-zinc-100/50 border-zinc-200'}`}>
             {/* Visual quadrant labels overlays */}
-            <div className="absolute top-4 left-4 bg-zinc-900/95 px-2 py-0.5 rounded text-[9px] text-rose-450 border border-rose-500/10 font-mono">💥 H1 RISK: Burnout / Tension risk (High Attrition, High Output)</div>
-            <div className="absolute bottom-4 left-4 bg-zinc-900/95 px-2 py-0.5 rounded text-[9px] text-zinc-400 border border-zinc-500/10 font-mono">💤 Q3 STAGNATION: Skill stagnation (Low Attrition, Low Output)</div>
-            <div className="absolute bottom-4 right-4 bg-zinc-900/95 px-2 py-0.5 rounded text-[9px] text-emerald-400 border border-emerald-500/10 font-mono">✨ Q4 IDEAL: Peak Engagement (Low Attrition, High Output)</div>
+            <div className={`absolute top-4 left-4 px-2 py-0.5 rounded text-[9px] text-rose-500 border border-rose-500/10 font-mono ${darkMode ? 'bg-zinc-900/95' : 'bg-white/95'}`}>💥 H1 RISK: Burnout / Tension risk (High Attrition, High Output)</div>
+            <div className={`absolute bottom-4 left-4 px-2 py-0.5 rounded text-[9px] text-zinc-500 border border-zinc-500/10 font-mono ${darkMode ? 'bg-zinc-900/95 text-zinc-400' : 'bg-white/95'}`}>💤 Q3 STAGNATION: Skill stagnation (Low Attrition, Low Output)</div>
+            <div className={`absolute bottom-4 right-4 px-2 py-0.5 rounded text-[9px] text-emerald-500 border border-emerald-500/10 font-mono ${darkMode ? 'bg-zinc-900/95 text-emerald-400' : 'bg-white/95'}`}>✨ Q4 IDEAL: Peak Engagement (Low Attrition, High Output)</div>
 
             <ResponsiveContainer width="100%" height="100%">
               <ScatterChart margin={{ top: 30, right: 20, bottom: 20, left: -20 }}>
@@ -285,9 +285,9 @@ export default function HumanCapital({
               <div id="telemetry-inner-indicators" className="space-y-3.5 pt-2 text-left">
                 
                 {/* indicator headcount */}
-                <div className="flex justify-between items-center text-xs border-b border-gray-800/10 pb-2">
+                <div className={`flex justify-between items-center text-xs border-b pb-2 ${darkMode ? 'border-gray-800/10' : 'border-zinc-200'}`}>
                   <span className="text-gray-400">Headcount FTE / Contacts</span>
-                  <span className="font-bold font-mono text-white">{focusedBU.headcount} FTE / {focusedBU.contractors}</span>
+                  <span className={`font-bold font-mono ${darkMode ? 'text-white' : 'text-zinc-800'}`}>{focusedBU.headcount} FTE / {focusedBU.contractors}</span>
                 </div>
 
                 {/* indicator engagement slider ratio */}
@@ -296,7 +296,7 @@ export default function HumanCapital({
                     <span className="text-gray-400">Employee Engagement</span>
                     <span className="font-bold text-emerald-400 font-mono">{focusedBU.engagementScore} / 100</span>
                   </div>
-                  <div className="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden">
+                  <div className={`w-full h-1.5 rounded-full overflow-hidden ${darkMode ? 'bg-slate-900' : 'bg-zinc-200'}`}>
                     <div className="bg-emerald-500 h-full rounded-full" style={{ width: `${focusedBU.engagementScore}%` }}></div>
                   </div>
                 </div>
@@ -305,9 +305,9 @@ export default function HumanCapital({
                 <div className="space-y-1">
                   <div className="flex justify-between items-center text-xs">
                     <span className="text-gray-400">Direct Attrition Risk</span>
-                    <span className="font-bold text-rose-450 font-mono">{focusedBU.attritionRate}%</span>
+                    <span className="font-bold text-rose-500 font-mono">{focusedBU.attritionRate}%</span>
                   </div>
-                  <div className="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden">
+                  <div className={`w-full h-1.5 rounded-full overflow-hidden ${darkMode ? 'bg-slate-900' : 'bg-zinc-200'}`}>
                     <div className="bg-rose-500 h-full rounded-full" style={{ width: `${(focusedBU.attritionRate / 15 * 100)}%` }}></div>
                   </div>
                 </div>
@@ -318,13 +318,13 @@ export default function HumanCapital({
                     <span className="text-gray-400">Wellness Program participation</span>
                     <span className="font-bold text-green-400 font-mono">{focusedBU.wellnessParticipation}%</span>
                   </div>
-                  <div className="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden">
+                  <div className={`w-full h-1.5 rounded-full overflow-hidden ${darkMode ? 'bg-slate-900' : 'bg-zinc-200'}`}>
                     <div className="bg-green-400 h-full rounded-full" style={{ width: `${focusedBU.wellnessParticipation}%` }}></div>
                   </div>
                 </div>
 
                 {/* leadership readiness */}
-                <div className="flex justify-between items-center text-xs border-t border-gray-800/10 pt-2">
+                <div className={`flex justify-between items-center text-xs border-t pt-2 ${darkMode ? 'border-gray-800/10' : 'border-zinc-200'}`}>
                   <span className="text-gray-400">Leadership Readiness index</span>
                   <span className="font-bold text-indigo-400 flex items-center space-x-1 font-mono">
                     <Award className="w-4 h-4 text-indigo-400" />
@@ -399,7 +399,7 @@ export default function HumanCapital({
           </div>
 
           {/* Dual Axis chart 8 cols */}
-          <div className="lg:col-span-8 bg-[#070A13] p-4 rounded-xl relative">
+          <div className={`lg:col-span-8 p-4 rounded-xl relative ${darkMode ? 'bg-[#070A13]' : 'bg-zinc-100/50'}`}>
             <h5 className="text-[10px] uppercase font-bold text-slate-400 tracking-wider mb-2">Simulated attrition reduction curve</h5>
             <div className="w-full h-48">
               <ResponsiveContainer width="100%" height="100%">

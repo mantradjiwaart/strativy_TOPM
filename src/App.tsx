@@ -27,7 +27,7 @@ import { useSimulation } from './hooks/useSimulation';
 import { StrategicProject } from './types';
 
 export default function App() {
-  const [darkMode, setDarkMode] = useState<boolean>(true);
+  const [darkMode, setDarkMode] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>('core-holding');
   const [selectedBU, setSelectedBU] = useState<string>('oilAndGas');
   const [projects, setProjects] = useState<StrategicProject[]>(defaultProjects);
@@ -102,7 +102,7 @@ export default function App() {
             </button>
 
             {/* Board user tag */}
-            <div className="flex items-center space-x-2 border-l pl-4 border-zinc-800">
+            <div className={`flex items-center space-x-2 border-l pl-4 ${darkMode ? 'border-zinc-800' : 'border-zinc-200'}`}>
               <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center font-bold text-sm text-white shadow-sm">
                 CB
               </div>

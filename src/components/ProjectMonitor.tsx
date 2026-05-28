@@ -135,14 +135,14 @@ export default function ProjectMonitor({
             <Clock className="w-4 h-4 text-blue-500" />
             <span>Interactive gantt roadmap & timeline</span>
           </h3>
-          <span className="text-[9px] bg-zinc-800 text-zinc-305 text-zinc-300 px-2 py-0.5 rounded font-mono">Pure SVG Matrix</span>
+          <span className={`text-[9px] px-2 py-0.5 rounded font-mono ${darkMode ? 'bg-zinc-800 text-zinc-300' : 'bg-zinc-200 text-zinc-700'}`}>Pure SVG Matrix</span>
         </div>
         <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-4 font-mono">
           Gantt bars represent start-to-finish schedules. Lines map chronological project dependencies.
         </p>
 
         {/* Gantt viewport coordinates */}
-        <div id="gantt-vector-stage" className="relative w-full aspect-[10/3.2] border border-zinc-800/10 rounded-xl overflow-hidden bg-zinc-950 p-1.5">
+        <div id="gantt-vector-stage" className={`relative w-full aspect-[10/3.2] border rounded-xl overflow-hidden p-1.5 ${darkMode ? 'bg-zinc-950 border-zinc-800/10' : 'bg-zinc-50 border-zinc-200'}`}>
           <svg viewBox="0 0 1000 320" className="w-full h-full">
             {/* Timeline months grid lines */}
             <g opacity="0.10">
@@ -302,7 +302,7 @@ export default function ProjectMonitor({
           <div key={p.id} className={`p-4 rounded-xl border ${darkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'} space-y-3`}>
             <div className="flex justify-between items-start">
               <div>
-                <span className="text-[10px] font-bold bg-slate-800 text-slate-300 px-2 py-0.5 rounded uppercase">{p.id}</span>
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase ${darkMode ? 'bg-slate-800 text-slate-300' : 'bg-slate-200 text-slate-700'}`}>{p.id}</span>
                 <h4 className="text-sm font-bold mt-1.5">{p.name}</h4>
               </div>
               <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${
@@ -317,12 +317,12 @@ export default function ProjectMonitor({
                 <span>Milestone progress:</span>
                 <span>{p.progress}% Completed</span>
               </div>
-              <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div className={`w-full h-1.5 rounded-full overflow-hidden ${darkMode ? 'bg-slate-800' : 'bg-zinc-200'}`}>
                 <div className={`h-full rounded-full ${p.status === 'green' ? 'bg-emerald-500' : p.status === 'amber' ? 'bg-amber-500' : 'bg-rose-500'}`} style={{ width: `${p.progress}%` }}></div>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 text-xs mt-2.5 pt-2.5 border-t border-gray-800/15">
+            <div className={`grid grid-cols-2 gap-4 text-xs mt-2.5 pt-2.5 border-t ${darkMode ? 'border-gray-800/15' : 'border-zinc-200'}`}>
               <div>
                 <span className="text-gray-400">Segment budget allocation:</span>
                 <span className="block font-bold">${p.budgetSpent}MSpent / ${p.totalBudget}M Total</span>

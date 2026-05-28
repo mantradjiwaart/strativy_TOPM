@@ -339,7 +339,7 @@ export default function BuDrilldown({
 
                 {selectedBU !== 'hotel' && selectedBU !== 'renewableEnergy' && (
                   <div className="space-y-2 text-xs">
-                    <div className="p-2.5 rounded bg-indigo-500/5 text-slate-300 border border-indigo-500/10">
+                    <div className={`p-2.5 rounded bg-indigo-500/5 border border-indigo-500/10 ${darkMode ? 'text-slate-300' : 'text-slate-700'}`}>
                       <strong>Ecosystem automation sync:</strong> High-velocity software adoption improves physical capacity parameters by 18% group-wide.
                     </div>
                     {!auditMessage ? (
@@ -393,7 +393,7 @@ export default function BuDrilldown({
                 {localSynergies.upstream.map((item, id) => (
                   <div key={`upstream-${id}`} className={`p-3 rounded-xl border flex justify-between items-center ${darkMode ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
                     <div>
-                      <span className="block text-xs font-bold text-white">{item.name}</span>
+                      <span className={`block text-xs font-bold ${darkMode ? 'text-white' : 'text-zinc-800'}`}>{item.name}</span>
                       <span className="block text-[10px] text-slate-400 mt-0.5">{item.contribution}</span>
                     </div>
                     <span className="text-[10px] bg-emerald-500/15 text-emerald-400 font-bold px-2 py-0.5 rounded font-mono">{item.esgBenefit}</span>
@@ -401,7 +401,7 @@ export default function BuDrilldown({
                 ))}
               </div>
             ) : (
-              <div className="p-4 rounded-xl border border-dashed border-gray-800 text-center text-xs text-slate-400">
+              <div className={`p-4 rounded-xl border border-dashed text-center text-xs ${darkMode ? 'border-gray-800 text-slate-400' : 'border-gray-200 text-slate-600'}`}>
                 No direct vertical upstream dependencies mapped in holding ledger.
               </div>
             )}
@@ -417,7 +417,7 @@ export default function BuDrilldown({
                 {localSynergies.downstream.map((item, id) => (
                   <div key={`downstream-${id}`} className={`p-3 rounded-xl border flex justify-between items-center ${darkMode ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
                     <div>
-                      <span className="block text-xs font-bold text-white">{item.name}</span>
+                      <span className={`block text-xs font-bold ${darkMode ? 'text-white' : 'text-zinc-800'}`}>{item.name}</span>
                       <span className="block text-[10px] text-slate-400 mt-0.5">{item.contribution}</span>
                     </div>
                     <span className="text-[10px] bg-indigo-500/15 text-indigo-400 font-bold px-2 py-0.5 rounded font-mono">{item.esgBenefit}</span>
@@ -425,7 +425,7 @@ export default function BuDrilldown({
                 ))}
               </div>
             ) : (
-              <div className="p-4 rounded-xl border border-dashed border-gray-800 text-center text-xs text-slate-400">
+              <div className={`p-4 rounded-xl border border-dashed text-center text-xs ${darkMode ? 'border-gray-800 text-slate-400' : 'border-gray-200 text-slate-600'}`}>
                 No direct vertical downstream flows mapped in holding ledger.
               </div>
             )}

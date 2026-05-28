@@ -385,7 +385,7 @@ export default function HoldingOverview({
                   <span className="w-2.5 h-2.5 rounded-full bg-blue-500 inline-block animate-ping"></span>
                   <span>Ecosystem Pulse Map</span>
                 </h3>
-                <span className="text-[10px] bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded font-mono">
+                <span className={`text-[10px] px-2 py-0.5 rounded font-mono ${darkMode ? 'bg-zinc-800 text-zinc-300' : 'bg-zinc-200 text-zinc-700'}`}>
                   Vector coordinates grid (800 x 480)
                 </span>
               </div>
@@ -487,7 +487,7 @@ export default function HoldingOverview({
                     strokeWidth="3.5"
                     filter="url(#glow)"
                   />
-                  <text y="4" textAnchor="middle" fill="#FFFFFF" fontSize="11" fontWeight="bold" className="select-none pointer-events-none">O&G</text>
+                  <text y="4" textAnchor="middle" fill={darkMode ? "#FFFFFF" : "#18181B"} fontSize="11" fontWeight="bold" className="select-none pointer-events-none">O&G</text>
                   <text y={Math.max(30, (simulatedBUs.oilAndGas.baseRevenue / 18) + 14)} textAnchor="middle" fill="#94A3B8" fontSize="10" fontWeight="bold">
                     ${simulatedBUs.oilAndGas.baseRevenue.toFixed(0)}M
                   </text>
@@ -503,7 +503,7 @@ export default function HoldingOverview({
                     strokeWidth="3.5"
                     filter="url(#glow)"
                   />
-                  <text y="4" textAnchor="middle" fill="#FFFFFF" fontSize="11" fontWeight="bold" className="select-none pointer-events-none">RE</text>
+                  <text y="4" textAnchor="middle" fill={darkMode ? "#FFFFFF" : "#18181B"} fontSize="11" fontWeight="bold" className="select-none pointer-events-none">RE</text>
                   <text y={Math.max(30, (simulatedBUs.renewableEnergy.baseRevenue / 18) + 14)} textAnchor="middle" fill="#94A3B8" fontSize="10" fontWeight="bold">
                     ${simulatedBUs.renewableEnergy.baseRevenue.toFixed(0)}M
                   </text>
@@ -519,7 +519,7 @@ export default function HoldingOverview({
                     strokeWidth="3.5"
                     filter="url(#glow)"
                   />
-                  <text y="4" textAnchor="middle" fill="#FFFFFF" fontSize="11" fontWeight="bold" className="select-none pointer-events-none">PROP</text>
+                  <text y="4" textAnchor="middle" fill={darkMode ? "#FFFFFF" : "#18181B"} fontSize="11" fontWeight="bold" className="select-none pointer-events-none">PROP</text>
                   <text y={Math.max(30, (simulatedBUs.property.baseRevenue / 18) + 14)} textAnchor="middle" fill="#94A3B8" fontSize="10" fontWeight="bold">
                     ${simulatedBUs.property.baseRevenue.toFixed(0)}M
                   </text>
@@ -535,7 +535,7 @@ export default function HoldingOverview({
                     strokeWidth="3.5"
                     filter="url(#glow)"
                   />
-                  <text y="4" textAnchor="middle" fill="#FFFFFF" fontSize="11" fontWeight="bold" className="select-none pointer-events-none">HTL</text>
+                  <text y="4" textAnchor="middle" fill={darkMode ? "#FFFFFF" : "#18181B"} fontSize="11" fontWeight="bold" className="select-none pointer-events-none">HTL</text>
                   <text y={Math.max(30, (simulatedBUs.hotel.baseRevenue / 18) + 14)} textAnchor="middle" fill="#94A3B8" fontSize="10" fontWeight="bold">
                     ${simulatedBUs.hotel.baseRevenue.toFixed(0)}M
                   </text>
@@ -551,7 +551,7 @@ export default function HoldingOverview({
                     strokeWidth="3.5"
                     filter="url(#glow)"
                   />
-                  <text y="4" textAnchor="middle" fill="#FFFFFF" fontSize="11" fontWeight="bold" className="select-none pointer-events-none">AGRI</text>
+                  <text y="4" textAnchor="middle" fill={darkMode ? "#FFFFFF" : "#18181B"} fontSize="11" fontWeight="bold" className="select-none pointer-events-none">AGRI</text>
                   <text y={Math.max(30, (simulatedBUs.agriculture.baseRevenue / 18) + 14)} textAnchor="middle" fill="#94A3B8" fontSize="10" fontWeight="bold">
                     ${simulatedBUs.agriculture.baseRevenue.toFixed(0)}M
                   </text>
@@ -567,7 +567,7 @@ export default function HoldingOverview({
                     strokeWidth="3.5"
                     filter="url(#glow)"
                   />
-                  <text y="4" textAnchor="middle" fill="#FFFFFF" fontSize="11" fontWeight="bold" className="select-none pointer-events-none">AQUA</text>
+                  <text y="4" textAnchor="middle" fill={darkMode ? "#FFFFFF" : "#18181B"} fontSize="11" fontWeight="bold" className="select-none pointer-events-none">AQUA</text>
                   <text y={Math.max(30, (simulatedBUs.aquaculture.baseRevenue / 18) + 14)} textAnchor="middle" fill="#94A3B8" fontSize="10" fontWeight="bold">
                     ${simulatedBUs.aquaculture.baseRevenue.toFixed(0)}M
                   </text>
@@ -583,14 +583,14 @@ export default function HoldingOverview({
                     strokeWidth="3.5"
                     filter="url(#glow)"
                   />
-                  <text y="4" textAnchor="middle" fill="#FFFFFF" fontSize="11" fontWeight="bold" className="select-none pointer-events-none">TECH</text>
+                  <text y="4" textAnchor="middle" fill={darkMode ? "#FFFFFF" : "#18181B"} fontSize="11" fontWeight="bold" className="select-none pointer-events-none">TECH</text>
                   <text y={Math.max(30, (simulatedBUs.innovation.baseRevenue / 18) + 14)} textAnchor="middle" fill="#94A3B8" fontSize="10" fontWeight="bold">
                     ${simulatedBUs.innovation.baseRevenue.toFixed(0)}M
                   </text>
                 </g>
               </svg>
 
-               <div id="coordinate-legend" className="absolute bottom-3 left-3 bg-zinc-950/95 border border-zinc-800 p-2 rounded-xl text-[9px] space-y-1 text-zinc-300 font-mono">
+               <div id="coordinate-legend" className={`absolute bottom-3 left-3 border p-2 rounded-xl text-[9px] space-y-1 font-mono ${darkMode ? 'bg-zinc-950/95 border-zinc-800 text-zinc-300' : 'bg-white/95 border-zinc-200 text-zinc-700'}`}>
                 <div className="font-extrabold text-zinc-400 mb-0.5">Scenographic Mapping Coordinates</div>
                 <div className="flex items-center space-x-1.5"><span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span> <span>O&G Node: (180, 140)</span></div>
                 <div className="flex items-center space-x-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> <span>Renewable Node: (200, 340)</span></div>
@@ -622,7 +622,7 @@ export default function HoldingOverview({
                 </button>
               </div>
             ) : (
-              <div id="flow-hint-slate" className="p-3.5 rounded-xl border border-dashed border-zinc-200 dark:border-zinc-805 text-center text-xs text-zinc-400 font-mono">
+              <div id="flow-hint-slate" className={`p-3.5 rounded-xl border border-dashed text-center text-xs font-mono ${darkMode ? 'border-zinc-805 text-zinc-400' : 'border-zinc-200 text-zinc-500'}`}>
                 💡 Hint: Click on any colored bezier connection vector on the map to evaluate flow SLAs and ESG dependencies.
               </div>
             )}
@@ -705,22 +705,22 @@ export default function HoldingOverview({
                 <g transform="translate(30, 20)">
                   {/* Revenue */}
                   <rect x="0" y="5" width="10" height="130" fill="#818CF8" rx="2" />
-                  <text x="18" y="50" fill="#FFFFFF" fontSize="11" fontWeight="bold">Holding Revenue</text>
+                  <text x="18" y="50" fill={darkMode ? "#FFFFFF" : "#18181B"} fontSize="11" fontWeight="bold">Holding Revenue</text>
                   <text x="18" y="65" fill="#818CF8" fontSize="10" fontWeight="mono">${groupMetrics.totalRevenue}M</text>
 
                   {/* External Invest */}
                   <rect x="0" y="155" width="10" height="70" fill="#34D399" rx="2" />
-                  <text x="18" y="185" fill="#FFFFFF" fontSize="11" fontWeight="bold">External Funds</text>
+                  <text x="18" y="185" fill={darkMode ? "#FFFFFF" : "#18181B"} fontSize="11" fontWeight="bold">External Funds</text>
                   <text x="18" y="200" fill="#34D399" fontSize="10" fontWeight="mono">$350.0M</text>
 
                   {/* Debt Financing */}
                   <rect x="0" y="245" width="10" height="60" fill="#F472B6" rx="2" />
-                  <text x="18" y="270" fill="#FFFFFF" fontSize="11" fontWeight="bold">Debt Finance</text>
+                  <text x="18" y="270" fill={darkMode ? "#FFFFFF" : "#18181B"} fontSize="11" fontWeight="bold">Debt Finance</text>
                   <text x="18" y="285" fill="#F472B6" fontSize="10" fontWeight="mono">$220.0M</text>
 
                   {/* Internal reserves */}
                   <rect x="0" y="325" width="10" height="50" fill="#A78BFA" rx="2" />
-                  <text x="18" y="350" fill="#FFFFFF" fontSize="11" fontWeight="bold">Retained Reserves</text>
+                  <text x="18" y="350" fill={darkMode ? "#FFFFFF" : "#18181B"} fontSize="11" fontWeight="bold">Retained Reserves</text>
                   <text x="18" y="365" fill="#A78BFA" fontSize="10" fontWeight="mono">$150.0M</text>
                 </g>
 
@@ -734,27 +734,27 @@ export default function HoldingOverview({
                 <g transform="translate(420, 20)">
                   {/* Oil & Gas */}
                   <rect x="0" y="10" width="10" height="70" fill="#F59E0B" rx="2" />
-                  <text x="16" y="38" fill="#FFFFFF" fontSize="11" fontWeight="bold">O&G Extraction</text>
+                  <text x="16" y="38" fill={darkMode ? "#FFFFFF" : "#18181B"} fontSize="11" fontWeight="bold">O&G Extraction</text>
                   <text x="16" y="52" fill="#F59E0B" fontSize="10" fontWeight="mono">${simulatedBUs.oilAndGas.baseRevenue.toFixed(0)}M</text>
 
                   {/* Property */}
                   <rect x="0" y="100" width="10" height="60" fill="#6366F1" rx="2" />
-                  <text x="16" y="125" fill="#FFFFFF" fontSize="11" fontWeight="bold">Property & Leases</text>
+                  <text x="16" y="125" fill={darkMode ? "#FFFFFF" : "#18181B"} fontSize="11" fontWeight="bold">Property & Leases</text>
                   <text x="16" y="138" fill="#6366F1" fontSize="10" fontWeight="mono">${simulatedBUs.property.baseRevenue.toFixed(0)}M</text>
 
                   {/* Renewables */}
                   <rect x="0" y="180" width="10" height="70" fill="#10B981" rx="2" />
-                  <text x="16" y="205" fill="#FFFFFF" fontSize="11" fontWeight="bold">Renewables Grid</text>
+                  <text x="16" y="205" fill={darkMode ? "#FFFFFF" : "#18181B"} fontSize="11" fontWeight="bold">Renewables Grid</text>
                   <text x="16" y="218" fill="#10B981" fontSize="10" fontWeight="mono">${simulatedBUs.renewableEnergy.baseRevenue.toFixed(0)}M</text>
 
                   {/* Hotels */}
                   <rect x="0" y="270" width="10" height="50" fill="#EC4899" rx="2" />
-                  <text x="16" y="295" fill="#FFFFFF" fontSize="11" fontWeight="bold">Luxe Hotels</text>
+                  <text x="16" y="295" fill={darkMode ? "#FFFFFF" : "#18181B"} fontSize="11" fontWeight="bold">Luxe Hotels</text>
                   <text x="16" y="308" fill="#EC4899" fontSize="10" fontWeight="mono">${simulatedBUs.hotel.baseRevenue.toFixed(0)}M</text>
 
                   {/* Agri & Aquaculture & Tech */}
                   <rect x="0" y="340" width="10" height="55" fill="#84CC16" rx="2" />
-                  <text x="16" y="365" fill="#FFFFFF" fontSize="11" fontWeight="bold">Other Sectors</text>
+                  <text x="16" y="365" fill={darkMode ? "#FFFFFF" : "#18181B"} fontSize="11" fontWeight="bold">Other Sectors</text>
                   <text x="16" y="378" fill="#84CC16" fontSize="9" fontWeight="mono">Agri/Aqua/VC</text>
                 </g>
 
@@ -767,22 +767,22 @@ export default function HoldingOverview({
                 <g transform="translate(840, 20)">
                   {/* Operations */}
                   <rect x="0" y="5" width="10" height="110" fill="#F43F5E" rx="2" />
-                  <text x="16" y="45" fill="#FFFFFF" fontSize="11" fontWeight="bold">Operational Opex</text>
+                  <text x="16" y="45" fill={darkMode ? "#FFFFFF" : "#18181B"} fontSize="11" fontWeight="bold">Operational Opex</text>
                   <text x="16" y="60" fill="#F43F5E" fontSize="10" fontWeight="mono">$580.0M</text>
 
                   {/* CAPEX Projects */}
                   <rect x="0" y="130" width="10" height="90" fill="#3B82F6" rx="2" />
-                  <text x="16" y="165" fill="#FFFFFF" fontSize="11" fontWeight="bold">Strategic Capex</text>
+                  <text x="16" y="165" fill={darkMode ? "#FFFFFF" : "#18181B"} fontSize="11" fontWeight="bold">Strategic Capex</text>
                   <text x="16" y="180" fill="#3B82F6" fontSize="10" fontWeight="mono">${groupMetrics.capex}M</text>
 
                   {/* Growth / Acquisitions */}
                   <rect x="0" y="235" width="10" height="70" fill="#EC4899" rx="2" />
-                  <text x="16" y="260" fill="#FFFFFF" fontSize="11" fontWeight="bold">Portfolio M&A</text>
+                  <text x="16" y="260" fill={darkMode ? "#FFFFFF" : "#18181B"} fontSize="11" fontWeight="bold">Portfolio M&A</text>
                   <text x="16" y="275" fill="#EC4899" fontSize="10" fontWeight="mono">$290.0M</text>
 
                   {/* ESG Compliance */}
                   <rect x="0" y="320" width="10" height="85" fill="#10B981" rx="2" />
-                  <text x="16" y="350" fill="#FFFFFF" fontSize="11" fontWeight="bold">ESG Carbon Offset</text>
+                  <text x="16" y="350" fill={darkMode ? "#FFFFFF" : "#18181B"} fontSize="11" fontWeight="bold">ESG Carbon Offset</text>
                   <text x="16" y="365" fill="#10B981" fontSize="10" fontWeight="mono">${(100 + (esgInvestmentFactor * 1.5)).toFixed(0)}M</text>
                 </g>
 
