@@ -17,7 +17,7 @@ export class ConfigService {
     const apiKey = process.env[GEMINI_ENV_KEY];
     if (!apiKey?.trim()) {
       throw new Error(
-        `${GEMINI_ENV_KEY} is not defined. Copy .env.example to .env and set your Gemini API key.`
+        `${GEMINI_ENV_KEY} is not defined. Copy .env.example to .env and set your Strativy Brain API key.`
       );
     }
     return apiKey.trim();

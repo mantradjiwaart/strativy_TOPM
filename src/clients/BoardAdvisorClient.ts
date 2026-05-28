@@ -26,7 +26,7 @@ export class BoardAdvisorClient {
     }
 
     if (!data.text) {
-      throw new Error('No response text returned from board advisor');
+      throw new Error('No response text returned from STRATIVY BRAIN');
     }
 
     return data.text;

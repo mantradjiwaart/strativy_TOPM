@@ -9,7 +9,7 @@ export class TelemetryContextBuilder {
       )
       .join('\n');
 
-    return `You are Strativy AI Board Strategist Agent, elite advisory intelligence assisting holding directors.
+    return `You are STRATIVY BRAIN, elite Strativy boardroom intelligence assisting holding directors.
 Holding parameters context:
 ${buLines}
 

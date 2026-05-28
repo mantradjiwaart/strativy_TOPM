@@ -22,7 +22,7 @@ import HoldingOverview from './components/HoldingOverview';
 import BuDrilldown from './components/BuDrilldown';
 import HumanCapital from './components/HumanCapital';
 import ProjectMonitor from './components/ProjectMonitor';
-import AIAdvisor from './components/AIAdvisor';
+import StrativyBrain from './components/StrativyBrain';
 import { useSimulation } from './hooks/useSimulation';
 import { StrategicProject } from './types';
 
@@ -68,7 +68,7 @@ export default function App() {
                   Boardroom Core
                 </span>
               </div>
-              <p className="text-[10px] text-zinc-400 font-mono">Ecosystem Pulse, AI Strategy & Bento Modeling Panel</p>
+              <p className="text-[10px] text-zinc-400 font-mono">Ecosystem Pulse, STRATIVY BRAIN Strategy & Bento Modeling Panel</p>
             </div>
           </div>
 
@@ -185,16 +185,16 @@ export default function App() {
             </button>
 
             <button
-              onClick={() => setActiveTab('ai-advisor')}
+              onClick={() => setActiveTab('strativy-brain')}
               className={`flex flex-col items-center justify-center min-w-[120px] px-3 py-3 rounded-xl text-[11px] font-bold transition-all duration-300 hover:scale-[1.02] ${
-                activeTab === 'ai-advisor' 
+                activeTab === 'strativy-brain' 
                   ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' 
                   : (darkMode ? 'hover:bg-zinc-900 text-zinc-300 bg-zinc-900/40 border border-zinc-800' : 'hover:bg-white text-zinc-650 bg-transparent border border-zinc-300 hover:shadow-sm')
               }`}
               type="button"
             >
               <Sparkles className="w-5 h-5 text-blue-500 animate-pulse mb-1.5" />
-              <span className="font-mono tracking-wide">✨ AI Advisor</span>
+              <span className="font-mono tracking-wide">✨ STRATIVY BRAIN</span>
             </button>
 
           </div>
@@ -256,8 +256,8 @@ export default function App() {
           />
         )}
 
-        {activeTab === 'ai-advisor' && (
-          <AIAdvisor
+        {activeTab === 'strativy-brain' && (
+          <StrativyBrain
             darkMode={darkMode}
             simulatedBUs={simulatedBUs}
             groupMetrics={groupMetrics}

@@ -173,7 +173,7 @@ export default function StrativyPerformance({ darkMode }: StrativyPerformancePro
             </div>
           </div>
 
-          {/* Dark Panel - AI Insights */}
+          {/* Dark Panel - STRATIVY BRAIN Insights */}
           <div className="flex flex-col rounded-2xl p-5 border border-purple-500/20 bg-gradient-to-br from-indigo-950 via-indigo-900 to-purple-950 shadow-inner relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/20 rounded-full blur-[80px] -mr-20 -mt-20"></div>
             
@@ -259,7 +259,7 @@ export default function StrativyPerformance({ darkMode }: StrativyPerformancePro
             </div>
           </div>
 
-          {/* Dark Panel - AI Insights */}
+          {/* Dark Panel - STRATIVY BRAIN Insights */}
           <div className="flex flex-col rounded-2xl p-5 border border-blue-500/20 bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-950 shadow-inner relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px] -mr-20 -mt-20"></div>
             

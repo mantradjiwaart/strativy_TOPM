@@ -2,7 +2,7 @@ import { GEMINI_MODEL } from '../src/config/gemini';
 import { GeminiGateway } from './GeminiGateway';
 
 const DEFAULT_SYSTEM_INSTRUCTION =
-  'You are the Strativy Strategic AI Agent, an elite boardroom advisor assisting the Chairman.';
+  'You are STRATIVY BRAIN, the elite Strativy boardroom intelligence advisor assisting the Chairman.';
 
 export class GeminiAdvisorService {
   private readonly temperature = 0.7;

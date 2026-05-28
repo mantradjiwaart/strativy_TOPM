@@ -102,7 +102,7 @@ export const defaultBUs: Record<string, BusinessUnit> = {
     portfolioGrowth: 42.1,
     color: '#A855F7', // Purple
     icon: 'Lightbulb',
-    description: 'Incubator for proprietary neural networks, grid load-balancing AI engines, and precision AgriTech algorithms deployed client-side across the group.'
+    description: 'Incubator for proprietary neural networks, grid load-balancing STRATIVY BRAIN engines, and precision AgriTech algorithms deployed client-side across the group.'
   }
 };
 
@@ -132,15 +132,15 @@ export const defaultFlows: DependencyFlow[] = [
     from: 'innovation', 
     to: 'renewableEnergy', 
     type: 'Grid Automation', 
-    text: 'Smart power router AI systems and grid transmission managers dispatch utility electricity based on forecast demands, lowering grid curtailment.',
+    text: 'Smart power router STRATIVY BRAIN systems and grid transmission managers dispatch utility electricity based on forecast demands, lowering grid curtailment.',
     metric: 'R&D synergy output: Neural routing increases active wind yield by 14.0%' 
   },
   { 
     from: 'innovation', 
     to: 'agriculture', 
-    type: 'AgriTech AI', 
+    type: 'AgriTech STRATIVY BRAIN',
     text: 'Autonomous crop schedules, moisture monitoring sensors, and robotic yield trackers maximize sustainable tonnage per hectare.',
-    metric: 'Technology lift: AI automation increases harvest yields by 18.2%' 
+    metric: 'Technology lift: STRATIVY BRAIN automation increases harvest yields by 18.2%' 
   }
 ];
 
@@ -186,7 +186,7 @@ export const defaultProjects: StrategicProject[] = [
   },
   {
     id: 'PRJ-AI-04',
-    name: 'Ecosystem AI Process Automation v2',
+    name: 'Ecosystem STRATIVY BRAIN Process Automation v2',
     sector: 'innovation',
     status: 'green',
     budgetSpent: 40,

@@ -60,7 +60,7 @@ export default function ProjectMonitor({
     };
   }, [projects]);
 
-  // Handle reallocating capital suggestion from AI Brain
+  // Handle reallocating capital suggestion from STRATIVY BRAIN
   const reallocateFunds = () => {
     const updated = projects.map(p => {
       // Reallocate $15M from PRJ-LAND-02 to PRJ-WIND-03 to solve shipping/import delays!
@@ -83,7 +83,7 @@ export default function ProjectMonitor({
       return p;
     });
     setProjects(updated);
-    setReallocationMsg('AI Strategic Reallocation executed: $15M transferred from Commercial Property Acquisition to Offshore wind turbine arrays. Shipping expedited!');
+    setReallocationMsg('STRATIVY BRAIN Strategic Reallocation executed: $15M transferred from Commercial Property Acquisition to Offshore wind turbine arrays. Shipping expedited!');
   };
 
   const selectedProject = projects.find(p => p.id === selectedProjectId);
@@ -179,7 +179,7 @@ export default function ProjectMonitor({
               {/* Land bank endpoints (350, 200) connects to Nusa Dua resorts foundation (380, 80) */}
               <path d="M 320,210 L 350,210 L 350,75 L 380,75" strokeDasharray="3,3" />
               
-              {/* Wind phase manufacturing endpoint connects directly to AI Software grid automation deploy */}
+              {/* Wind phase manufacturing endpoint connects directly to STRATIVY BRAIN Software grid automation deploy */}
               <path d="M 450,145 L 480,145 L 480,275 L 500,275" strokeDasharray="3,3" />
             </g>
 
@@ -239,7 +239,7 @@ export default function ProjectMonitor({
               <text x="12" y="22" fill="#FFFFFF" fontSize="10" fontWeight="bold">Commercial Land Acquisition ({projects[1].progress}%)</text>
             </g>
 
-            {/* Ecosystem AI automation software */}
+            {/* Ecosystem STRATIVY BRAIN automation software */}
             <g 
               transform="translate(500,255)" 
               className="cursor-pointer group"
@@ -254,7 +254,7 @@ export default function ProjectMonitor({
                 stroke={selectedProjectId === 'PRJ-AI-04' ? '#FFF' : 'none'}
                 strokeWidth="2.5"
               />
-              <text x="12" y="22" fill="#FFFFFF" fontSize="10" fontWeight="bold">AI Ecosystem Router software ({projects[3].progress}%)</text>
+              <text x="12" y="22" fill="#FFFFFF" fontSize="10" fontWeight="bold">STRATIVY BRAIN Ecosystem Router ({projects[3].progress}%)</text>
             </g>
           </svg>
         </div>
@@ -337,19 +337,19 @@ export default function ProjectMonitor({
 
             {p.status === 'red' && (
               <div className="p-2 bg-rose-500/10 text-rose-400 border border-rose-500/15 rounded text-[10px] leading-snug">
-                🚨 <strong>Critical bottleneck detected:</strong> {p.rootCause} Use the AI advice panel below to reallocate surplus property funds to unlock expedited shipping logs.
+                🚨 <strong>Critical bottleneck detected:</strong> {p.rootCause} Use the STRATIVY BRAIN panel below to reallocate surplus property funds to unlock expedited shipping logs.
               </div>
             )}
           </div>
         ))}
       </div>
 
-      {/* 4. EXECUTIVE AI REALLOCATION PANEL (POWER LAYER) */}
+      {/* 4. EXECUTIVE STRATIVY BRAIN REALLOCATION PANEL (POWER LAYER) */}
       <div id="capital-reallocation-decision-board" className={`p-5 rounded-2xl border transition-all duration-300 ${darkMode ? 'bg-zinc-950 border-zinc-800' : 'bg-zinc-50 border-zinc-200'} flex flex-col md:flex-row justify-between items-center gap-4`}>
         <div className="space-y-1 text-left flex-1">
           <h4 className="font-extrabold text-sm text-blue-600 dark:text-blue-400 flex items-center space-x-1.5 uppercase tracking-wider font-mono">
             <Sparkles className="w-4 h-4 animate-pulse text-blue-500" />
-            <span>AI Project Allocation Strategist</span>
+            <span>STRATIVY BRAIN Project Allocation</span>
           </h4>
           <p className="text-xs text-zinc-400 font-mono leading-relaxed">
             "100MW Wind Grid Phase 3 is experiencing deepwater turbine procurement blocks. We recommend reallocating $15M from the Property landbank acquisition budget to lock express logistics, resolving 40 days of construction delay and preserving consolidated holding EBITDA targets."
@@ -369,7 +369,7 @@ export default function ProjectMonitor({
             type="button"
           >
             <Sparkles className="w-4 h-4" />
-            <span>Execute AI Reallocation</span>
+            <span>Execute STRATIVY BRAIN Reallocation</span>
           </button>
         ) : (
           <div className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 px-4 py-2 rounded-xl text-xs font-semibold font-mono flex items-center space-x-1.5 shrink-0">

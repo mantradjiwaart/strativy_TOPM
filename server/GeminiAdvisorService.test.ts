@@ -24,7 +24,7 @@ describe('GeminiAdvisorService', () => {
     expect(generateContent).toHaveBeenCalledWith(
       expect.objectContaining({
         prompt: 'Analyze capex',
-        systemPrompt: expect.stringContaining('Strativy Strategic AI Agent'),
+        systemPrompt: expect.stringContaining('STRATIVY BRAIN'),
         model: GEMINI_MODEL,
         temperature: 0.7,
       })

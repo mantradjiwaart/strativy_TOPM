@@ -1,6 +1,6 @@
 # strativy_TOPM
 
-Strativy Boardroom Core — holding-company ecosystem pulse, simulation, and Gemini-powered board AI advisor.
+Strativy Boardroom Core — holding-company ecosystem pulse, simulation, and STRATIVY BRAIN board advisor.
 
 ## Prerequisites
 
@@ -16,15 +16,13 @@ Run all commands from this directory (`strativy-boardroom-core`), or from the pa
    npm install
    ```
 
-2. Copy environment template and set your Gemini key:
+2. Copy environment template and set your Strativy Brain API key:
 
    ```bash
    cp .env.example .env
    ```
 
-   Edit `.env` and set `MONEY_FLOW_GEMINI_API` to your [Google AI Studio](https://aistudio.google.com/apikey) API key.
-
-   > **Note:** Older setups used `GEMINI_API_KEY`; this project uses `MONEY_FLOW_GEMINI_API` only.
+   Edit `.env` and set `MONEY_FLOW_GEMINI_API` to your Strativy API key.
 
 3. Start the dev server:
 
@@ -32,14 +30,14 @@ Run all commands from this directory (`strativy-boardroom-core`), or from the pa
    npm run dev
    ```
 
-4. Open [http://localhost:3000](http://localhost:3000) and use the **AI Advisor** tab to verify Gemini connectivity.
+4. Open [http://localhost:3000](http://localhost:3000) and use the **STRATIVY BRAIN** tab to verify connectivity.
 
 ### Quota / 429 errors
 
-If you see `RESOURCE_EXHAUSTED` or `limit: 0` for a model, your free-tier quota for that model is exhausted or disabled. Try:
+If you see `RESOURCE_EXHAUSTED` or `limit: 0` for a model, your API quota may be exhausted. Try:
 
 1. Wait for the retry window (the app auto-retries using the API’s `retry in Ns` hint)
-3. Check usage at [ai.dev/rate-limit](https://ai.dev/rate-limit) or enable billing in [Google AI Studio](https://aistudio.google.com/)
+2. Check your API usage dashboard or enable billing on your Strativy API provider account
 
 ## Scripts
 
@@ -57,6 +55,6 @@ Pushes to `main` run lint, test, build, and deploy the static app to **GitHub Pa
 
 **Live site:** https://mantradjiwaart.github.io/strativy_TOPM/
 
-> **Note:** GitHub Pages hosts the dashboard UI only. The Gemini AI Advisor requires the Express API (`npm run dev` or a Node host). For full features locally, run `npm run dev`.
+> **Note:** GitHub Pages hosts the dashboard UI only. STRATIVY BRAIN requires the Express API (`npm run dev` or a Node host). For full features locally, run `npm run dev`.
 
 **One-time repo setup:** In GitHub → **Settings** → **Pages** → **Build and deployment** → Source: **GitHub Actions**.

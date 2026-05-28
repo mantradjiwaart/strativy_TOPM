@@ -41,7 +41,7 @@ export function toGeminiApiError(error: unknown): GeminiApiError {
       : '';
 
     return new GeminiApiError(
-      `Gemini API quota exceeded.${retryHint}${modelHint} Check usage at https://ai.dev/rate-limit`,
+      `STRATIVY BRAIN API quota exceeded.${retryHint}${modelHint} Check usage at https://ai.dev/rate-limit`,
       429,
       retryAfterMs
     );
@@ -52,7 +52,7 @@ export function toGeminiApiError(error: unknown): GeminiApiError {
   }
 
   return new GeminiApiError(
-    'The AI Strategist is momentarily offline. Please try again.',
+    'STRATIVY BRAIN is momentarily offline. Please try again.',
     500
   );
 }
