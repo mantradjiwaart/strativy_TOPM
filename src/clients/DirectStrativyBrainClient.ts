@@ -1,5 +1,6 @@
 import { GoogleGenAI } from '@google/genai';
 import { GEMINI_MODEL } from '../config/gemini';
+import { BRAIN_USER_MESSAGES } from '../lib/brainUserMessages';
 import type { BoardAdvisorRequest } from './BoardAdvisorClient';
 
 const DEFAULT_SYSTEM_INSTRUCTION =
@@ -22,7 +23,7 @@ export class DirectStrativyBrainClient {
 
     const text = response.text;
     if (!text) {
-      throw new Error('STRATIVY BRAIN returned an empty response');
+      throw new Error(BRAIN_USER_MESSAGES.empty);
     }
 
     return text;

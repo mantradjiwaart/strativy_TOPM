@@ -11,15 +11,15 @@ describe('toGeminiApiError', () => {
 
     expect(err.statusCode).toBe(429);
     expect(err.retryAfterMs).toBeGreaterThanOrEqual(33000);
-    expect(err.message).toContain('quota exceeded');
-    expect(err.message).toMatch(/retry in about \d+ seconds/);
+    expect(err.message).toContain('busy');
+    expect(err.message).toMatch(/wait about \d+ seconds/);
   });
 
-  it('suggests model change when free tier limit is zero', () => {
+  it('maps quota limit errors to user-friendly busy message', () => {
     const err = toGeminiApiError(
       new Error('limit: 0, model: gemini-2.0-flash quota exceeded 429')
     );
 
-    expect(err.message).toContain('rate-limit');
+    expect(err.message).toContain('busy');
   });
 });

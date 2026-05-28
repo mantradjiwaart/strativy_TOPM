@@ -1,3 +1,4 @@
+import { BRAIN_USER_MESSAGES } from '../lib/brainUserMessages';
 import { DirectStrativyBrainClient } from './DirectStrativyBrainClient';
 
 export interface BoardAdvisorRequest {
@@ -20,17 +21,13 @@ function parseApiResponse(
   }
 
   if (!contentType.includes('application/json')) {
-    throw new Error(
-      `STRATIVY BRAIN returned an unexpected response (${res.status}). Ensure the dev server is running with \`npm run dev\`.`
-    );
+    throw new Error('SERVER_UNAVAILABLE');
   }
 
   try {
     return JSON.parse(body) as { text?: string; error?: string };
   } catch {
-    throw new Error(
-      'STRATIVY BRAIN returned invalid JSON. Check that `npm run dev` is running and GEMINI_API_KEY is set in `.env`.'
-    );
+    throw new Error('SERVER_UNAVAILABLE');
   }
 }
 
@@ -46,10 +43,7 @@ export class BoardAdvisorClient {
       return await this.generateViaServer(request);
     } catch (error) {
       if (error instanceof Error && error.message === 'SERVER_UNAVAILABLE') {
-        throw new Error(
-          'STRATIVY BRAIN needs GEMINI_API_KEY. For GitHub Pages, add a repository secret named GEMINI_API_KEY ' +
-            'and rebuild. For local use, set GEMINI_API_KEY in `.env` and run `npm run dev`, or run `npm run build` with the key in your environment.'
-        );
+        throw new Error(BRAIN_USER_MESSAGES.notConnected);
       }
       throw error;
     }
@@ -66,7 +60,7 @@ export class BoardAdvisorClient {
     const data = parseApiResponse(res, body);
 
     if (!res.ok) {
-      throw new Error(data.error ?? `Request failed with status ${res.status}`);
+      throw new Error(data.error ?? BRAIN_USER_MESSAGES.offline);
     }
 
     if (data.error) {
@@ -74,7 +68,7 @@ export class BoardAdvisorClient {
     }
 
     if (!data.text) {
-      throw new Error('No response text returned from STRATIVY BRAIN');
+      throw new Error(BRAIN_USER_MESSAGES.empty);
     }
 
     return data.text;

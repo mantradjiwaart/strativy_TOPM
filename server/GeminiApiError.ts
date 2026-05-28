@@ -33,26 +33,34 @@ export function toGeminiApiError(error: unknown): GeminiApiError {
     lower.includes('rate limit')
   ) {
     const retryHint = retryAfterMs
-      ? ` Please retry in about ${Math.ceil(retryAfterMs / 1000)} seconds.`
+      ? ` Please wait about ${Math.ceil(retryAfterMs / 1000)} seconds and try again.`
       : ' Please wait a minute and try again.';
 
-    const modelHint = lower.includes('limit: 0')
-      ? ' Your API quota for this model may be exhausted — check https://ai.dev/rate-limit'
-      : '';
-
     return new GeminiApiError(
-      `STRATIVY BRAIN API quota exceeded.${retryHint}${modelHint} Check usage at https://ai.dev/rate-limit`,
+      `STRATIVY BRAIN is busy at the moment.${retryHint}`,
       429,
       retryAfterMs
     );
   }
 
-  if (error instanceof Error) {
+  if (error instanceof Error && !looksTechnical(error.message)) {
     return new GeminiApiError(error.message, 500);
   }
 
   return new GeminiApiError(
-    'STRATIVY BRAIN is momentarily offline. Please try again.',
+    'STRATIVY BRAIN is temporarily unavailable. Please try again.',
     500
+  );
+}
+
+function looksTechnical(message: string): boolean {
+  const lower = message.toLowerCase();
+  return (
+    lower.includes('gemini') ||
+    lower.includes('api key') ||
+    lower.includes('quota exceeded') ||
+    lower.includes('resource_exhausted') ||
+    lower.includes('google') ||
+    lower.includes('http')
   );
 }

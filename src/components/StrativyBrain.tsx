@@ -8,6 +8,7 @@ import { Sparkles, Info, ChevronRight } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { BoardAdvisorClient } from '../clients/BoardAdvisorClient';
 import { TelemetryContextBuilder } from '../domain';
+import { BRAIN_USER_MESSAGES, toUserFacingBrainError } from '../lib/brainUserMessages';
 import type { BusinessUnit, GroupMetrics } from '../types';
 
 const boardAdvisorClient = new BoardAdvisorClient();
@@ -69,11 +70,7 @@ export default function StrativyBrain({
       });
       setResponse(text);
     } catch (e: unknown) {
-      const message =
-        e instanceof Error
-          ? e.message
-          : 'STRATIVY BRAIN is momentarily offline. Verify GEMINI_API_KEY in `.env` and try again.';
-      setErrorMsg(message);
+      setErrorMsg(toUserFacingBrainError(e));
     } finally {
       setLoading(false);
     }
@@ -198,8 +195,7 @@ export default function StrativyBrain({
             <div className="space-y-3 py-10 text-center">
               <span className="text-rose-500 block font-bold font-mono">{errorMsg}</span>
               <p className="text-[10px] text-zinc-400 dark:text-zinc-500 max-w-sm mx-auto leading-normal font-mono">
-                Set **GEMINI_API_KEY** in `.env` for local dev, or add it as a GitHub repository
-                secret for Pages deploys.
+                {BRAIN_USER_MESSAGES.helpHint}
               </p>
             </div>
           ) : (

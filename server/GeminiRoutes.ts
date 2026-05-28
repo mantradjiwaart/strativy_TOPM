@@ -20,7 +20,7 @@ export class GeminiRoutes {
         const message =
           error instanceof Error
             ? error.message
-            : 'STRATIVY BRAIN is momentarily offline. Please try again.';
+            : 'STRATIVY BRAIN is temporarily unavailable. Please try again.';
         res.status(status).json({
           error: message,
           retryAfterMs:
