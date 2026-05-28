@@ -6,8 +6,8 @@ vi.mock('dotenv', () => ({
 
 import { ConfigService } from './ConfigService';
 
-const PRIMARY_KEY = 'MONEY_FLOW_GEMINI_API';
-const LEGACY_KEY = 'GEMINI_API_KEY';
+const PRIMARY_KEY = 'GEMINI_API_KEY';
+const LEGACY_KEY = 'MONEY_FLOW_GEMINI_API';
 
 describe('ConfigService', () => {
   const originalPrimary = process.env[PRIMARY_KEY];
@@ -30,17 +30,17 @@ describe('ConfigService', () => {
     delete process.env[PRIMARY_KEY];
     delete process.env[LEGACY_KEY];
     const config = new ConfigService();
-    expect(() => config.getGeminiApiKey()).toThrow(/MONEY_FLOW_GEMINI_API/);
+    expect(() => config.getGeminiApiKey()).toThrow(/GEMINI_API_KEY/);
   });
 
-  it('returns trimmed API key from MONEY_FLOW_GEMINI_API', () => {
+  it('returns trimmed API key from GEMINI_API_KEY', () => {
     delete process.env[LEGACY_KEY];
     process.env[PRIMARY_KEY] = '  test-key-value  ';
     const config = new ConfigService();
     expect(config.getGeminiApiKey()).toBe('test-key-value');
   });
 
-  it('falls back to legacy GEMINI_API_KEY', () => {
+  it('falls back to legacy MONEY_FLOW_GEMINI_API', () => {
     delete process.env[PRIMARY_KEY];
     process.env[LEGACY_KEY] = 'legacy-key';
     const config = new ConfigService();

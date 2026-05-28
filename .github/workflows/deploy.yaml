@@ -33,6 +33,8 @@ jobs:
       - run: npm run lint
       - run: npm test
       - run: npm run build
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       - name: Add SPA fallback for GitHub Pages
         run: cp dist/index.html dist/404.html
       - uses: actions/upload-artifact@v5

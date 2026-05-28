@@ -72,7 +72,7 @@ export default function StrativyBrain({
       const message =
         e instanceof Error
           ? e.message
-          : 'STRATIVY BRAIN is momentarily offline. Verify your Strativy API key in .env and try again.';
+          : 'STRATIVY BRAIN is momentarily offline. Verify GEMINI_API_KEY in `.env` and try again.';
       setErrorMsg(message);
     } finally {
       setLoading(false);
@@ -198,8 +198,8 @@ export default function StrativyBrain({
             <div className="space-y-3 py-10 text-center">
               <span className="text-rose-500 block font-bold font-mono">{errorMsg}</span>
               <p className="text-[10px] text-zinc-400 dark:text-zinc-500 max-w-sm mx-auto leading-normal font-mono">
-                If the key is missing, set **MONEY_FLOW_GEMINI_API** in your local `.env` file
-                (Strativy boardroom configuration).
+                Set **GEMINI_API_KEY** in `.env` for local dev, or add it as a GitHub repository
+                secret for Pages deploys.
               </p>
             </div>
           ) : (

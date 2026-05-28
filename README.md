@@ -22,7 +22,7 @@ Run all commands from this directory (`strativy-boardroom-core`), or from the pa
    cp .env.example .env
    ```
 
-   Edit `.env` and set `MONEY_FLOW_GEMINI_API` to your Strativy API key (legacy name `GEMINI_API_KEY` also works).
+   Edit `.env` and set `GEMINI_API_KEY` to your Strativy API key.
 
 3. Start the dev server:
 
@@ -55,6 +55,8 @@ Pushes to `main` run lint, test, build, and deploy the static app to **GitHub Pa
 
 **Live site:** https://mantradjiwaart.github.io/strativy_TOPM/
 
-> **Note:** GitHub Pages hosts the dashboard UI only. STRATIVY BRAIN requires the Express API (`npm run dev` or a Node host). For full features locally, run `npm run dev`.
+> **GitHub Pages + STRATIVY BRAIN:** Add a repository secret named `GEMINI_API_KEY` (Settings → Secrets → Actions), then push to `main` to rebuild. The key is embedded in the static build — use a restricted key and avoid public repos for production secrets.
+
+> **Local dev:** Run `npm run dev` — the API key stays on the server via `.env` (`GEMINI_API_KEY`).
 
 **One-time repo setup:** In GitHub → **Settings** → **Pages** → **Build and deployment** → Source: **GitHub Actions**.
