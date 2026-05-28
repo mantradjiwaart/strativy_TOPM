@@ -22,7 +22,7 @@ Run all commands from this directory (`strativy-boardroom-core`), or from the pa
    cp .env.example .env
    ```
 
-   Edit `.env` and set `MONEY_FLOW_GEMINI_API` to your Strativy API key.
+   Edit `.env` and set `MONEY_FLOW_GEMINI_API` to your Strativy API key (legacy name `GEMINI_API_KEY` also works).
 
 3. Start the dev server:
 

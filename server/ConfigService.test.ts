@@ -6,28 +6,44 @@ vi.mock('dotenv', () => ({
 
 import { ConfigService } from './ConfigService';
 
-const ENV_KEY = 'MONEY_FLOW_GEMINI_API';
+const PRIMARY_KEY = 'MONEY_FLOW_GEMINI_API';
+const LEGACY_KEY = 'GEMINI_API_KEY';
 
 describe('ConfigService', () => {
-  const original = process.env[ENV_KEY];
+  const originalPrimary = process.env[PRIMARY_KEY];
+  const originalLegacy = process.env[LEGACY_KEY];
 
   afterEach(() => {
-    if (original === undefined) {
-      delete process.env[ENV_KEY];
+    if (originalPrimary === undefined) {
+      delete process.env[PRIMARY_KEY];
     } else {
-      process.env[ENV_KEY] = original;
+      process.env[PRIMARY_KEY] = originalPrimary;
+    }
+    if (originalLegacy === undefined) {
+      delete process.env[LEGACY_KEY];
+    } else {
+      process.env[LEGACY_KEY] = originalLegacy;
     }
   });
 
-  it('throws when MONEY_FLOW_GEMINI_API is missing', () => {
-    delete process.env[ENV_KEY];
+  it('throws when both env keys are missing', () => {
+    delete process.env[PRIMARY_KEY];
+    delete process.env[LEGACY_KEY];
     const config = new ConfigService();
     expect(() => config.getGeminiApiKey()).toThrow(/MONEY_FLOW_GEMINI_API/);
   });
 
-  it('returns trimmed API key when set', () => {
-    process.env[ENV_KEY] = '  test-key-value  ';
+  it('returns trimmed API key from MONEY_FLOW_GEMINI_API', () => {
+    delete process.env[LEGACY_KEY];
+    process.env[PRIMARY_KEY] = '  test-key-value  ';
     const config = new ConfigService();
     expect(config.getGeminiApiKey()).toBe('test-key-value');
+  });
+
+  it('falls back to legacy GEMINI_API_KEY', () => {
+    delete process.env[PRIMARY_KEY];
+    process.env[LEGACY_KEY] = 'legacy-key';
+    const config = new ConfigService();
+    expect(config.getGeminiApiKey()).toBe('legacy-key');
   });
 });
