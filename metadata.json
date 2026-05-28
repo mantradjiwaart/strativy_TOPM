@@ -1,0 +1,6 @@
+{
+  "name": "Strativy Boardroom Core",
+  "description": "Interactive boardroom intelligence layer for holding executives featuring AI advisory reasoning, interactive synergy maps, ESG modeling, Gantt timelines, and human capital matrixes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
