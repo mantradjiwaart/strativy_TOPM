@@ -51,6 +51,12 @@ If you see `RESOURCE_EXHAUSTED` or `limit: 0` for a model, your free-tier quota 
 | `npm run lint` | TypeScript check |
 | `npm test` | Vitest unit tests |
 
-## CI
+## CI & GitHub Pages
 
-Pushes to `main` run lint, test, and build via [`.github/workflows/deploy.yaml`](.github/workflows/deploy.yaml).
+Pushes to `main` run lint, test, build, and deploy the static app to **GitHub Pages** via [`.github/workflows/deploy.yaml`](.github/workflows/deploy.yaml).
+
+**Live site:** https://mantradjiwaart.github.io/strativy_TOPM/
+
+> **Note:** GitHub Pages hosts the dashboard UI only. The Gemini AI Advisor requires the Express API (`npm run dev` or a Node host). For full features locally, run `npm run dev`.
+
+**One-time repo setup:** In GitHub → **Settings** → **Pages** → **Build and deployment** → Source: **GitHub Actions**.
