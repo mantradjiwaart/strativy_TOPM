@@ -1,5 +1,4 @@
 import { BRAIN_USER_MESSAGES } from '../lib/brainUserMessages';
-import { DirectStrativyBrainClient } from './DirectStrativyBrainClient';
 
 export interface BoardAdvisorRequest {
   prompt: string;
@@ -36,6 +35,7 @@ export class BoardAdvisorClient {
     const clientKey = getClientApiKey();
 
     if (clientKey) {
+      const { DirectStrativyBrainClient } = await import('./DirectStrativyBrainClient');
       return new DirectStrativyBrainClient(clientKey).generate(request);
     }
 

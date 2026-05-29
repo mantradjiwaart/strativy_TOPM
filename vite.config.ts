@@ -22,6 +22,9 @@ export default defineConfig(({ mode }) => {
         '@': path.resolve(__dirname, '.'),
       },
     },
+    optimizeDeps: {
+      include: ['@openrouter/sdk'],
+    },
     define: injectClientKey
       ? {
           'import.meta.env.VITE_OPENROUTER_API_KEY': JSON.stringify(openRouterApiKey),

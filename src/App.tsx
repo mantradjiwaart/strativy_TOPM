@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.5
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import {
   Building,
   Layers,
@@ -20,7 +20,7 @@ import HoldingOverview from './components/HoldingOverview';
 import BuDrilldown from './components/BuDrilldown';
 import HumanCapital from './components/HumanCapital';
 import ProjectMonitor from './components/ProjectMonitor';
-import StrativyBrain from './components/StrativyBrain';
+const StrativyBrain = React.lazy(() => import('./components/StrativyBrain'));
 import { useSimulation } from './hooks/useSimulation';
 import { StrategicProject } from './types';
 import { Badge } from './components/ui';
@@ -215,11 +215,19 @@ export default function App() {
         )}
 
         {activeTab === 'strativy-brain' && (
-          <StrativyBrain
-            darkMode={darkMode}
-            simulatedBUs={simulatedBUs}
-            groupMetrics={groupMetrics}
-          />
+          <Suspense
+            fallback={
+              <div className="py-16 text-center text-sm text-[var(--color-text-muted)]">
+                Loading STRATIVY BRAIN…
+              </div>
+            }
+          >
+            <StrativyBrain
+              darkMode={darkMode}
+              simulatedBUs={simulatedBUs}
+              groupMetrics={groupMetrics}
+            />
+          </Suspense>
         )}
 
       </main>
