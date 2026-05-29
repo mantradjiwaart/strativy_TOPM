@@ -88,125 +88,125 @@ export default function HoldingOverview({
       {/* 1. OVERVIEW GRID METRICS (KPI Cards Grid) */}
       <div id="holding-kpis-grid" className="grid grid-cols-2 md:grid-cols-5 gap-4">
         
-        <div id="kpi-card-1" className={`p-5 rounded-2xl border transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.01] ${darkMode ? 'bg-neutral-900/50 border-neutral-800' : 'bg-white border-neutral-200 shadow-sm'}`}>
+        <div id="kpi-card-1" className={`p-5 rounded-[var(--radius-xl)] border transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.01] ${ui.card(darkMode)}`}>
           <div className="flex justify-between items-start">
-            <span className="text-[10px] text-neutral-600 dark:text-neutral-400 font-extrabold uppercase tracking-widest font-mono">Total Revenue</span>
-            <div className="p-1.5 rounded bg-primary-500/10 text-primary-600 dark:text-primary-400"><DollarSign className="w-4 h-4" /></div>
+            <span className="text-[10px] text-[var(--color-text-secondary)] font-semibold uppercase tracking-widest">Total Revenue</span>
+            <div className="p-1.5 rounded bg-[var(--color-bg-surface)] text-[var(--color-action-main)]"><DollarSign className="w-4 h-4" /></div>
           </div>
           <div className="mt-3 text-left">
-            <span className="text-2xl font-black tracking-tight text-primary-600 dark:text-primary-400">${groupMetrics.totalRevenue}M</span>
-            <span className="flex items-center text-[10px] text-success-600 dark:text-success-400 mt-1.5 font-bold font-mono">
+            <span className="text-2xl font-bold tracking-tight text-[var(--color-action-main)]">${groupMetrics.totalRevenue}M</span>
+            <span className="flex items-center text-[10px] text-[var(--color-success-text)] mt-1.5 font-bold">
               <ArrowUpRight className="w-3 h-3 mr-0.5" /> +12.4% YoY
             </span>
           </div>
         </div>
 
-        <div id="kpi-card-2" className={`p-5 rounded-2xl border transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.01] ${darkMode ? 'bg-neutral-900/50 border-neutral-800' : 'bg-white border-neutral-200 shadow-sm'}`}>
+        <div id="kpi-card-2" className={`p-5 rounded-[var(--radius-xl)] border transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.01] ${ui.card(darkMode)}`}>
           <div className="flex justify-between items-start">
-            <span className="text-[10px] text-neutral-600 dark:text-neutral-400 font-extrabold uppercase tracking-widest font-mono">EBITDA</span>
-            <div className="p-1.5 rounded bg-success-500/10 text-success-600 dark:text-success-400"><Coins className="w-4 h-4" /></div>
+            <span className="text-[10px] text-[var(--color-text-secondary)] font-semibold uppercase tracking-widest">EBITDA</span>
+            <div className="p-1.5 rounded bg-[var(--color-success-bg)] text-[var(--color-success-text)]"><Coins className="w-4 h-4" /></div>
           </div>
           <div className="mt-3 text-left">
-            <span className="text-2xl font-black tracking-tight text-success-600 dark:text-success-400">${groupMetrics.ebitda}M</span>
-            <span className="block text-[10px] text-neutral-600 dark:text-neutral-400 mt-1.5 font-mono">
-              Margin: <span className="font-extrabold text-success-600 dark:text-success-400">{((parseFloat(groupMetrics.ebitda) / parseFloat(groupMetrics.totalRevenue)) * 100).toFixed(0)}%</span>
+            <span className="text-2xl font-bold tracking-tight text-[var(--color-success-text)]">${groupMetrics.ebitda}M</span>
+            <span className="block text-[10px] text-[var(--color-text-secondary)] mt-1.5">
+              Margin: <span className="font-semibold text-[var(--color-success-text)]">{((parseFloat(groupMetrics.ebitda) / parseFloat(groupMetrics.totalRevenue)) * 100).toFixed(0)}%</span>
             </span>
           </div>
         </div>
 
-        <div id="kpi-card-3" className={`p-5 rounded-2xl border transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.01] ${darkMode ? 'bg-neutral-900/50 border-neutral-800' : 'bg-white border-neutral-200 shadow-sm'}`}>
+        <div id="kpi-card-3" className={`p-5 rounded-[var(--radius-xl)] border transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.01] ${ui.card(darkMode)}`}>
           <div className="flex justify-between items-start">
-            <span className="text-[10px] text-neutral-600 dark:text-neutral-400 font-extrabold uppercase tracking-widest font-mono">Net Profit</span>
-            <div className="p-1.5 rounded bg-teal-500/10 text-teal-500"><BarChart3 className="w-4 h-4" /></div>
+            <span className="text-[10px] text-[var(--color-text-secondary)] font-semibold uppercase tracking-widest">Net Profit</span>
+            <div className="p-1.5 rounded bg-[var(--color-bg-surface)] text-[var(--color-text-primary)]"><BarChart3 className="w-4 h-4" /></div>
           </div>
           <div className="mt-3 text-left">
-            <span className="text-2xl font-black tracking-tight text-teal-500">${groupMetrics.netProfit}M</span>
-            <span className="flex items-center text-[10px] text-success-600 dark:text-success-400 mt-1.5 font-bold font-mono">
+            <span className="text-2xl font-bold tracking-tight text-[var(--color-text-primary)]">${groupMetrics.netProfit}M</span>
+            <span className="flex items-center text-[10px] text-[var(--color-success-text)] mt-1.5 font-bold">
               <ArrowUpRight className="w-3 h-3 mr-0.5" /> +8.2% vs target
             </span>
           </div>
         </div>
 
-        <div id="kpi-card-4" className={`p-5 rounded-2xl border transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.01] ${darkMode ? 'bg-neutral-900/50 border-neutral-800' : 'bg-white border-neutral-200 shadow-sm'}`}>
+        <div id="kpi-card-4" className={`p-5 rounded-[var(--radius-xl)] border transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.01] ${ui.card(darkMode)}`}>
           <div className="flex justify-between items-start">
-            <span className="text-[10px] text-neutral-600 dark:text-neutral-400 font-extrabold uppercase tracking-widest font-mono">Cash Position</span>
-            <div className="p-1.5 rounded bg-cyan-500/10 text-cyan-500"><Coins className="w-4 h-4" /></div>
+            <span className="text-[10px] text-[var(--color-text-secondary)] font-semibold uppercase tracking-widest">Cash Position</span>
+            <div className="p-1.5 rounded bg-[var(--color-bg-surface)] text-[var(--color-text-primary)]"><Coins className="w-4 h-4" /></div>
           </div>
           <div className="mt-3 text-left">
-            <span className="text-2xl font-black tracking-tight text-cyan-500">${groupMetrics.cashPosition}M</span>
-            <span className="block text-[10px] text-neutral-600 dark:text-neutral-400 mt-1.5 font-mono">High reserves liquidity</span>
+            <span className="text-2xl font-bold tracking-tight text-[var(--color-text-primary)]">${groupMetrics.cashPosition}M</span>
+            <span className="block text-[10px] text-[var(--color-text-secondary)] mt-1.5">High reserves liquidity</span>
           </div>
         </div>
 
-        <div id="kpi-card-5" className={`p-5 rounded-2xl border transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.01] ${darkMode ? 'bg-neutral-900/50 border-neutral-800' : 'bg-white border-neutral-200 shadow-sm'}`}>
+        <div id="kpi-card-5" className={`p-5 rounded-[var(--radius-xl)] border transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.01] ${ui.card(darkMode)}`}>
           <div className="flex justify-between items-start">
-            <span className="text-[10px] text-neutral-600 dark:text-neutral-400 font-extrabold uppercase tracking-widest font-mono">Asset Valuation</span>
-            <div className="p-1.5 rounded bg-purple-500/10 text-purple-500"><Layers className="w-4 h-4" /></div>
+            <span className="text-[10px] text-[var(--color-text-secondary)] font-semibold uppercase tracking-widest">Asset Valuation</span>
+            <div className="p-1.5 rounded bg-[var(--color-bg-surface)] text-[var(--color-text-primary)]"><Layers className="w-4 h-4" /></div>
           </div>
           <div className="mt-3 text-left">
-            <span className="text-2xl font-black tracking-tight text-purple-500">${groupMetrics.assetValuation}B</span>
-            <span className="block text-[10px] text-purple-500 mt-1.5 font-mono">Revalued current cycle</span>
+            <span className="text-2xl font-bold tracking-tight text-[var(--color-text-primary)]">${groupMetrics.assetValuation}B</span>
+            <span className="block text-[10px] text-[var(--color-text-primary)] mt-1.5">Revalued current cycle</span>
           </div>
         </div>
 
-        <div id="kpi-card-6" className={`p-5 rounded-2xl border transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.01] ${darkMode ? 'bg-neutral-900/50 border-neutral-800' : 'bg-white border-neutral-200 shadow-sm'}`}>
+        <div id="kpi-card-6" className={`p-5 rounded-[var(--radius-xl)] border transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.01] ${ui.card(darkMode)}`}>
           <div className="flex justify-between items-start">
-            <span className="text-[10px] text-neutral-600 dark:text-neutral-400 font-extrabold uppercase tracking-widest font-mono">CAPEX Spend</span>
-            <div className="p-1.5 rounded bg-amber-500/10 text-amber-500"><TrendingDown className="w-4 h-4" /></div>
+            <span className="text-[10px] text-[var(--color-text-secondary)] font-semibold uppercase tracking-widest">CAPEX Spend</span>
+            <div className="p-1.5 rounded bg-[var(--color-warning-bg)] text-[var(--color-warning-text)]"><TrendingDown className="w-4 h-4" /></div>
           </div>
           <div className="mt-3 text-left">
-            <span className="text-2xl font-black tracking-tight text-amber-500">${groupMetrics.capex}M</span>
-            <span className="block text-[10px] text-neutral-600 dark:text-neutral-400 mt-1.5 font-mono">
-              Budget: <span className="font-semibold text-neutral-600 dark:text-neutral-400">${groupMetrics.capexBudget}M</span>
+            <span className="text-2xl font-bold tracking-tight text-[var(--color-warning-text)]">${groupMetrics.capex}M</span>
+            <span className="block text-[10px] text-[var(--color-text-secondary)] mt-1.5">
+              Budget: <span className="font-semibold text-[var(--color-text-secondary)]">${groupMetrics.capexBudget}M</span>
             </span>
           </div>
         </div>
 
-        <div id="kpi-card-7" className={`p-5 rounded-2xl border transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.01] ${darkMode ? 'bg-neutral-900/50 border-neutral-800' : 'bg-white border-neutral-200 shadow-sm'}`}>
+        <div id="kpi-card-7" className={`p-5 rounded-[var(--radius-xl)] border transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.01] ${ui.card(darkMode)}`}>
           <div className="flex justify-between items-start">
-            <span className="text-[10px] text-neutral-600 dark:text-neutral-400 font-extrabold uppercase tracking-widest font-mono">Ops Efficiency</span>
-            <div className="p-1.5 rounded bg-success-500/10 text-success-600 dark:text-success-400"><Activity className="w-4 h-4" /></div>
+            <span className="text-[10px] text-[var(--color-text-secondary)] font-semibold uppercase tracking-widest">Ops Efficiency</span>
+            <div className="p-1.5 rounded bg-[var(--color-success-bg)] text-[var(--color-success-text)]"><Activity className="w-4 h-4" /></div>
           </div>
           <div className="mt-3 text-left">
-            <span className="text-2xl font-black tracking-tight text-success-600 dark:text-success-400">{groupMetrics.operationalEfficiency}%</span>
-            <span className="block text-[10px] text-success-600 dark:text-success-400 mt-1.5 font-bold font-mono">
+            <span className="text-2xl font-bold tracking-tight text-[var(--color-success-text)]">{groupMetrics.operationalEfficiency}%</span>
+            <span className="block text-[10px] text-[var(--color-success-text)] mt-1.5 font-bold">
               Automation: {techAdoptionRate}%
             </span>
           </div>
         </div>
 
-        <div id="kpi-card-8" className={`p-5 rounded-2xl border transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.01] ${darkMode ? 'bg-neutral-900/50 border-neutral-800' : 'bg-white border-neutral-200 shadow-sm'}`}>
+        <div id="kpi-card-8" className={`p-5 rounded-[var(--radius-xl)] border transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.01] ${ui.card(darkMode)}`}>
           <div className="flex justify-between items-start">
-            <span className="text-[10px] text-neutral-600 dark:text-neutral-400 font-extrabold uppercase tracking-widest font-mono">Weighted ESG</span>
-            <div className="p-1.5 rounded bg-green-500/10 text-green-500"><Leaf className="w-4 h-4" /></div>
+            <span className="text-[10px] text-[var(--color-text-secondary)] font-semibold uppercase tracking-widest">Weighted ESG</span>
+            <div className="p-1.5 rounded bg-[var(--color-success-bg)] text-[var(--color-success-text)]"><Leaf className="w-4 h-4" /></div>
           </div>
           <div className="mt-3 text-left">
-            <span className="text-2xl font-black tracking-tight text-green-500">{groupMetrics.esgScore}/100</span>
-            <span className="block text-[10px] mt-1.5 text-green-500 font-bold font-mono">
+            <span className="text-2xl font-bold tracking-tight text-[var(--color-success-text)]">{groupMetrics.esgScore}/100</span>
+            <span className="block text-[10px] mt-1.5 text-[var(--color-success-text)] font-bold">
               {groupMetrics.esgScore >= 75 ? 'Grade A compliance' : 'Grade B compliance'}
             </span>
           </div>
         </div>
 
-        <div id="kpi-card-9" className={`p-5 rounded-2xl border transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.01] ${darkMode ? 'bg-neutral-900/50 border-neutral-800' : 'bg-white border-neutral-200 shadow-sm'}`}>
+        <div id="kpi-card-9" className={`p-5 rounded-[var(--radius-xl)] border transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.01] ${ui.card(darkMode)}`}>
           <div className="flex justify-between items-start">
-            <span className="text-[10px] text-neutral-600 dark:text-neutral-400 font-extrabold uppercase tracking-widest font-mono">Portfolio Growth</span>
-            <div className="p-1.5 rounded bg-pink-500/10 text-pink-500"><Compass className="w-4 h-4" /></div>
+            <span className="text-[10px] text-[var(--color-text-secondary)] font-semibold uppercase tracking-widest">Portfolio Growth</span>
+            <div className="p-1.5 rounded bg-[var(--color-bg-surface)] text-[var(--color-text-primary)]"><Compass className="w-4 h-4" /></div>
           </div>
           <div className="mt-3 text-left">
-            <span className="text-2xl font-black tracking-tight text-pink-500">{groupMetrics.portfolioGrowth}%</span>
-            <span className="block text-[10px] text-neutral-600 dark:text-neutral-400 mt-1.5 font-mono">Composite yield</span>
+            <span className="text-2xl font-bold tracking-tight text-[var(--color-text-primary)]">{groupMetrics.portfolioGrowth}%</span>
+            <span className="block text-[10px] text-[var(--color-text-secondary)] mt-1.5">Composite yield</span>
           </div>
         </div>
 
-        <div id="kpi-card-10" className={`p-5 rounded-2xl border transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.01] ${darkMode ? 'bg-neutral-900/50 border-neutral-800' : 'bg-white border-neutral-200 shadow-sm'}`}>
+        <div id="kpi-card-10" className={`p-5 rounded-[var(--radius-xl)] border transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.01] ${ui.card(darkMode)}`}>
           <div className="flex justify-between items-start">
-            <span className="text-[10px] text-neutral-600 dark:text-neutral-400 font-extrabold uppercase tracking-widest font-mono">Risk Exposure</span>
-            <div className="p-1.5 rounded bg-rose-500/10 text-danger-600 dark:text-danger-400"><ShieldAlert className="w-4 h-4" /></div>
+            <span className="text-[10px] text-[var(--color-text-secondary)] font-semibold uppercase tracking-widest">Risk Exposure</span>
+            <div className="p-1.5 rounded bg-[var(--color-error-bg)] text-[var(--color-error-text)]"><ShieldAlert className="w-4 h-4" /></div>
           </div>
           <div className="mt-3 text-left">
-            <span className="text-2xl font-black tracking-tight text-danger-600 dark:text-danger-400">{groupMetrics.riskExposure}/100</span>
-            <span className={`block text-[10px] mt-1.5 font-bold font-mono ${groupMetrics.riskExposure > 60 ? 'text-danger-600 dark:text-danger-400' : 'text-amber-500'}`}>
+            <span className="text-2xl font-bold tracking-tight text-[var(--color-error-text)]">{groupMetrics.riskExposure}/100</span>
+            <span className={`block text-[10px] mt-1.5 font-bold ${groupMetrics.riskExposure > 60 ? 'text-[var(--color-error-text)]' : 'text-[var(--color-warning-text)]'}`}>
               {groupMetrics.riskExposure > 60 ? 'MODERATE HIGH' : 'SAFE INDEX'}
             </span>
           </div>
@@ -220,11 +220,11 @@ export default function HoldingOverview({
         {/* Scenario Selectors Sidebar (4 Cols) */}
         <div id="scenarios-telemetry-panel" className="lg:col-span-4 space-y-6">
           
-          <div id="scenario-simulator-card" className={`p-5 rounded-2xl border transition-all duration-300 ${darkMode ? 'bg-neutral-900/50 border-neutral-800' : 'bg-white border-neutral-200 shadow-sm'} shadow-sm`}>
+          <div id="scenario-simulator-card" className={`p-5 rounded-[var(--radius-xl)] border transition-all duration-300 ${ui.card(darkMode)} shadow-sm`}>
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-2">
-                <Sliders className="w-5 h-5 text-primary-500" />
-                <h3 className={`text-sm font-bold uppercase tracking-wider ${darkMode ? 'text-neutral-100' : 'text-neutral-900'}`}>Executive Scenario Sliders</h3>
+                <Sliders className="w-5 h-5 text-[var(--color-text-secondary)]" />
+                <h3 className={`text-sm font-bold uppercase tracking-wider ${ui.value(darkMode)}`}>Executive Scenario Sliders</h3>
               </div>
               <button 
                 id="reset-simulator-btn"
@@ -234,7 +234,7 @@ export default function HoldingOverview({
                   setEsgInvestmentFactor(60);
                   setTechAdoptionRate(50);
                 }}
-                className={`text-[10px] px-2 py-1 rounded-md border transition-all flex items-center space-x-1 ${darkMode ? 'bg-primary-500/10 text-primary-400 border-primary-500/20 hover:bg-primary-500/15' : 'bg-primary-50 text-primary-700 border-primary-200 hover:bg-primary-100'}`}
+                className={`text-[10px] px-2 py-1 rounded-[var(--radius-md)] border transition-all flex items-center space-x-1 ${darkMode ? 'bg-[var(--color-bg-surface)] text-[var(--color-action-main)] border-[var(--color-border-default)] hover:bg-[var(--color-bg-surface)]' : 'bg-[var(--color-bg-surface)] text-[var(--color-action-main)] border-[var(--color-border-default)] hover:bg-[var(--color-bg-surface)]'}`}
                 title="Reset Sliders"
                 type="button"
               >
@@ -253,7 +253,7 @@ export default function HoldingOverview({
               <div id="slider-transition-container" className="space-y-2">
                 <div className={`flex justify-between text-xs font-semibold ${ui.value(darkMode)}`}>
                   <span>O&G energy transition speed</span>
-                  <span className="text-warning-600 dark:text-warning-400 font-bold tabular-nums">{oilTransitionSpeed}% Speed</span>
+                  <span className="text-[var(--color-warning-text)] font-bold tabular-nums">{oilTransitionSpeed}% Speed</span>
                 </div>
                 <input 
                   id="oil-transition-slider"
@@ -262,7 +262,7 @@ export default function HoldingOverview({
                   max="100" 
                   value={oilTransitionSpeed} 
                   onChange={(e) => setOilTransitionSpeed(Number(e.target.value))}
-                  className={`w-full h-2 rounded-lg appearance-none cursor-pointer accent-warning-500 ${darkMode ? 'bg-neutral-800' : 'bg-neutral-200'}`}
+                  className={`w-full h-2 rounded-[var(--radius-lg)] appearance-none cursor-pointer accent-[var(--color-warning-text)] ${'bg-[var(--color-bg-surface)]'}`}
                   aria-label="Oil and gas transition speed"
                 />
                 <div className={`flex justify-between text-[9px] ${ui.labelMuted(darkMode)}`}>
@@ -275,7 +275,7 @@ export default function HoldingOverview({
               <div id="slider-property-container" className="space-y-2">
                 <div className={`flex justify-between text-xs font-semibold ${ui.value(darkMode)}`}>
                   <span>Hospitality & property expansion</span>
-                  <span className="text-primary-600 dark:text-primary-400 font-bold tabular-nums">{propertyExpansionRate}% Velocity</span>
+                  <span className="text-[var(--color-action-main)] font-bold tabular-nums">{propertyExpansionRate}% Velocity</span>
                 </div>
                 <input 
                   id="property-expansion-slider"
@@ -284,7 +284,7 @@ export default function HoldingOverview({
                   max="100" 
                   value={propertyExpansionRate} 
                   onChange={(e) => setPropertyExpansionRate(Number(e.target.value))}
-                  className={`w-full h-2 rounded-lg appearance-none cursor-pointer accent-primary-500 ${darkMode ? 'bg-neutral-800' : 'bg-neutral-200'}`}
+                  className={`w-full h-2 rounded-[var(--radius-lg)] appearance-none cursor-pointer accent-[var(--color-action-main)] ${'bg-[var(--color-bg-surface)]'}`}
                   aria-label="Property expansion rate"
                 />
                 <div className={`flex justify-between text-[9px] ${ui.labelMuted(darkMode)}`}>
@@ -297,7 +297,7 @@ export default function HoldingOverview({
               <div id="slider-esg-container" className="space-y-2">
                 <div className={`flex justify-between text-xs font-semibold ${ui.value(darkMode)}`}>
                   <span>Carbon-Offset investments</span>
-                  <span className="text-success-600 dark:text-success-400 font-bold tabular-nums">{esgInvestmentFactor}% Alloc.</span>
+                  <span className="text-[var(--color-success-text)] font-bold tabular-nums">{esgInvestmentFactor}% Alloc.</span>
                 </div>
                 <input 
                   id="esg-investment-slider"
@@ -306,7 +306,7 @@ export default function HoldingOverview({
                   max="100" 
                   value={esgInvestmentFactor} 
                   onChange={(e) => setEsgInvestmentFactor(Number(e.target.value))}
-                  className={`w-full h-2 rounded-lg appearance-none cursor-pointer accent-success-500 ${darkMode ? 'bg-neutral-800' : 'bg-neutral-200'}`}
+                  className={`w-full h-2 rounded-[var(--radius-lg)] appearance-none cursor-pointer accent-[var(--color-success-text)] ${'bg-[var(--color-bg-surface)]'}`}
                   aria-label="ESG investment factor"
                 />
                 <div className={`flex justify-between text-[9px] ${ui.labelMuted(darkMode)}`}>
@@ -319,7 +319,7 @@ export default function HoldingOverview({
               <div id="slider-tech-container" className="space-y-2">
                 <div className={`flex justify-between text-xs font-semibold ${ui.value(darkMode)}`}>
                   <span>DeepTech automation index</span>
-                  <span className="text-primary-700 dark:text-primary-300 font-bold tabular-nums">{techAdoptionRate}% Adoption</span>
+                  <span className="text-[var(--color-action-main)] font-bold tabular-nums">{techAdoptionRate}% Adoption</span>
                 </div>
                 <input 
                   id="tech-adoption-slider"
@@ -328,7 +328,7 @@ export default function HoldingOverview({
                   max="100" 
                   value={techAdoptionRate} 
                   onChange={(e) => setTechAdoptionRate(Number(e.target.value))}
-                  className={`w-full h-2 rounded-lg appearance-none cursor-pointer accent-primary-600 ${darkMode ? 'bg-neutral-800' : 'bg-neutral-200'}`}
+                  className={`w-full h-2 rounded-[var(--radius-lg)] appearance-none cursor-pointer accent-[var(--color-action-main)] ${'bg-[var(--color-bg-surface)]'}`}
                   aria-label="Technology adoption rate"
                 />
                 <div className={`flex justify-between text-[9px] ${ui.labelMuted(darkMode)}`}>
@@ -341,39 +341,39 @@ export default function HoldingOverview({
           </div>
 
           {/* Sector HUD Telemetry display */}
-          <div id="sector-hud-card" className={`p-5 rounded-2xl border transition-all duration-300 shadow-sm ${darkMode ? 'bg-neutral-900/60 border-neutral-800 bg-gradient-to-br from-neutral-900/70 to-neutral-950/40' : 'bg-primary-50/50 border-primary-100'}`}>
-            <div className="flex items-center space-x-2 text-primary-600 dark:text-primary-400 mb-2">
+          <div id="sector-hud-card" className={`p-5 rounded-[var(--radius-xl)] border transition-all duration-300 shadow-sm ${ui.cardInset(darkMode)}`}>
+            <div className="flex items-center space-x-2 text-[var(--color-action-main)] mb-2">
               {renderBUIcon(selectedBUData.icon, "w-5 h-5")}
-              <h4 className="font-extrabold text-xs uppercase tracking-widest font-mono">Sector HUD Telemetry</h4>
+              <h4 className="font-semibold text-xs uppercase tracking-widest">Sector HUD Telemetry</h4>
             </div>
-            <h3 className="text-lg font-black tracking-tight">{selectedBUData.name} ({selectedBUData.short})</h3>
-            <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1 leading-relaxed font-mono">{selectedBUData.description}</p>
+            <h3 className="text-lg font-bold tracking-tight">{selectedBUData.name} ({selectedBUData.short})</h3>
+            <p className="text-xs text-[var(--color-text-secondary)] mt-1 leading-relaxed">{selectedBUData.description}</p>
 
-            <div className="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-zinc-200 dark:border-zinc-800 text-left">
+            <div className="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-[var(--color-border-subtle)] text-left">
               <div>
-                <span className="block text-[10px] text-neutral-600 dark:text-neutral-400 uppercase font-extrabold font-mono tracking-wider">Simulated Revenue</span>
-                <span className="text-base font-black tracking-tight text-primary-600 dark:text-primary-400">${selectedBUData.baseRevenue.toFixed(1)}M</span>
+                <span className="block text-[10px] text-[var(--color-text-secondary)] uppercase font-semibold tracking-wider">Simulated Revenue</span>
+                <span className="text-base font-bold tracking-tight text-[var(--color-action-main)]">${selectedBUData.baseRevenue.toFixed(1)}M</span>
               </div>
               <div>
-                <span className="block text-[10px] text-neutral-600 dark:text-neutral-400 uppercase font-extrabold font-mono tracking-wider">Simulated EBITDA</span>
-                <span className={`text-base font-black tracking-tight ${selectedBUData.baseEbitda >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
+                <span className="block text-[10px] text-[var(--color-text-secondary)] uppercase font-semibold tracking-wider">Simulated EBITDA</span>
+                <span className={`text-base font-bold tracking-tight ${selectedBUData.baseEbitda >= 0 ? 'text-[var(--color-success-text)]' : 'text-[var(--color-error-text)]'}`}>
                   ${selectedBUData.baseEbitda.toFixed(1)}M
                 </span>
               </div>
               <div>
-                <span className="block text-[10px] text-neutral-600 dark:text-neutral-400 uppercase font-extrabold font-mono tracking-wider">ESG Rating Score</span>
-                <span className="text-sm font-black text-green-500 font-mono">{selectedBUData.esgScore}/100</span>
+                <span className="block text-[10px] text-[var(--color-text-secondary)] uppercase font-semibold tracking-wider">ESG Rating Score</span>
+                <span className="text-sm font-bold text-[var(--color-success-text)]">{selectedBUData.esgScore}/100</span>
               </div>
               <div>
-                <span className="block text-[10px] text-neutral-600 dark:text-neutral-400 uppercase font-extrabold font-mono tracking-wider">Portfolio Risk</span>
-                <span className="text-sm font-black text-danger-600 dark:text-danger-400 font-mono">{selectedBUData.riskIndex}/100</span>
+                <span className="block text-[10px] text-[var(--color-text-secondary)] uppercase font-semibold tracking-wider">Portfolio Risk</span>
+                <span className="text-sm font-bold text-[var(--color-error-text)]">{selectedBUData.riskIndex}/100</span>
               </div>
             </div>
 
             {selectedBUData.riskIndex > 65 && (
-              <div id="crit-exposure-warning" className="mt-4 p-2.5 rounded-xl bg-amber-500/10 text-amber-500 border border-amber-500/20 flex items-start space-x-2">
+              <div id="crit-exposure-warning" className="mt-4 p-2.5 rounded-[var(--radius-lg)] bg-[var(--color-warning-bg)] text-[var(--color-warning-text)] border border-amber-500/20 flex items-start space-x-2">
                 <ShieldAlert className="w-4 h-4 mt-0.5 shrink-0" />
-                <p className="text-[10px] leading-snug font-mono">
+                <p className="text-[10px] leading-snug">
                   <strong>Critical Exposure warning:</strong> High portfolio risk detected. Board recommends immediate asset hedge.
                 </p>
               </div>
@@ -384,24 +384,24 @@ export default function HoldingOverview({
 
         {/* Network Map Visual (8 Cols) */}
         <div id="network-pulse-map-panel" className="lg:col-span-8 flex flex-col space-y-4">
-          <div className={`p-5 rounded-2xl border flex-1 flex flex-col justify-between transition-all duration-300 ${darkMode ? 'bg-neutral-900/50 border-neutral-800' : 'bg-white border-neutral-200 shadow-sm'} shadow-sm`}>
+          <div className={`p-5 rounded-[var(--radius-xl)] border flex-1 flex flex-col justify-between transition-all duration-300 ${ui.card(darkMode)} shadow-sm`}>
             <div>
               <div className="flex justify-between items-center mb-1">
-                <h3 className="font-extrabold text-sm uppercase tracking-wider flex items-center space-x-2">
+                <h3 className="font-semibold text-sm uppercase tracking-wider flex items-center space-x-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-blue-500 inline-block animate-ping"></span>
                   <span>Ecosystem Pulse Map</span>
                 </h3>
-                <span className={`text-[10px] px-2 py-0.5 rounded font-mono ${darkMode ? 'bg-zinc-800 text-zinc-300' : 'bg-zinc-200 text-zinc-700'}`}>
+                <span className={`text-[10px] px-2 py-0.5 rounded ${'bg-[var(--color-bg-surface)] text-[var(--color-text-secondary)]'}`}>
                   Vector coordinates grid (800 x 480)
                 </span>
               </div>
-              <p className="text-xs text-gray-400 mb-4">
+              <p className="text-xs text-[var(--color-text-muted)] mb-4">
                 Scalable coordinate mapping showing cross-sector dependencies. Node radius scales with simulated revenue contribution. Click on a node to update the slider telemetry HUD.
               </p>
             </div>
 
             {/* SVG STAGE */}
-            <div id="svg-map-stage" className={`relative w-full aspect-[8/5] border rounded-2xl overflow-hidden ${darkMode ? 'bg-neutral-950 border-neutral-800' : 'bg-neutral-50 border-neutral-200'}`}>
+            <div id="svg-map-stage" className={`relative w-full aspect-[8/5] border rounded-[var(--radius-xl)] overflow-hidden ${'bg-[var(--color-bg-surface)] border-[var(--color-border-subtle)]'}`}>
               <svg viewBox="0 0 800 480" className="w-full h-full">
                 <defs>
                   {/* Glowing Filter */}
@@ -596,8 +596,8 @@ export default function HoldingOverview({
                 </g>
               </svg>
 
-               <div id="coordinate-legend" className={`absolute bottom-3 left-3 border p-2 rounded-xl text-[9px] space-y-1 font-mono ${darkMode ? 'bg-zinc-950/95 border-zinc-800 text-zinc-300' : 'bg-white/95 border-zinc-200 text-zinc-700'}`}>
-                <div className="font-extrabold text-neutral-600 dark:text-neutral-400 mb-0.5">Scenographic Mapping Coordinates</div>
+               <div id="coordinate-legend" className={`absolute bottom-3 left-3 border p-2 rounded-[var(--radius-lg)] text-[9px] space-y-1 ${'bg-[var(--color-bg-elevated)]/95 border-[var(--color-border-subtle)] text-[var(--color-text-secondary)]'}`}>
+                <div className="font-semibold text-[var(--color-text-secondary)] mb-0.5">Scenographic Mapping Coordinates</div>
                 <div className="flex items-center space-x-1.5"><span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span> <span>O&G Node: (180, 140)</span></div>
                 <div className="flex items-center space-x-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> <span>Renewable Node: (200, 340)</span></div>
                 <div className="flex items-center space-x-1.5"><span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span> <span>Property Node: (580, 180)</span></div>
@@ -606,29 +606,29 @@ export default function HoldingOverview({
 
             {/* FLOW EXPANDED READOUT */}
             {selectedFlow ? (
-              <div id="flow-connection-readout" className="p-3.5 rounded-xl bg-blue-600/10 border border-blue-500/25 flex justify-between items-start text-left font-mono">
+              <div id="flow-connection-readout" className="p-3.5 rounded-[var(--radius-lg)] bg-[var(--color-info-bg)] border border-[var(--color-info-border)] flex justify-between items-start text-left">
                 <div className="space-y-1">
-                  <div className="text-[10px] uppercase tracking-wider font-extrabold text-blue-555 dark:text-blue-400">Dependency Integration SLA</div>
-                  <div className="text-sm font-black text-zinc-800 dark:text-white flex items-center">
+                  <div className="text-[10px] uppercase tracking-wider font-semibold text-[var(--color-info-text)]">Dependency Integration SLA</div>
+                  <div className="text-sm font-bold text-zinc-800 dark:text-white flex items-center">
                     <span>{simulatedBUs[selectedFlow.from]?.short}</span>
-                    <ChevronRight className="w-4 h-4 mx-1 text-blue-500" />
+                    <ChevronRight className="w-4 h-4 mx-1 text-[var(--color-info-text)]" />
                     <span>{simulatedBUs[selectedFlow.to]?.short}</span>
-                    <span className="ml-2 text-xs bg-primary-500/10 px-1.5 py-0.5 rounded text-primary-700 dark:text-primary-400">{selectedFlow.type}</span>
+                    <span className="ml-2 text-xs bg-[var(--color-bg-surface)] px-1.5 py-0.5 rounded text-[var(--color-action-main)] dark:text-[var(--color-action-main)]">{selectedFlow.type}</span>
                   </div>
-                  <p className={`text-xs ${darkMode ? 'text-neutral-300' : 'text-neutral-700'}`}>{selectedFlow.text}</p>
-                  <p className="text-xs text-success-600 dark:text-success-400 font-bold">{selectedFlow.metric}</p>
+                  <p className={`text-xs ${ui.valueSoft(darkMode)}`}>{selectedFlow.text}</p>
+                  <p className="text-xs text-[var(--color-success-text)] font-bold">{selectedFlow.metric}</p>
                 </div>
                 <button 
                   id="close-flow-details-btn"
                   onClick={() => setSelectedFlow(null)}
-                  className={`text-xs transition-colors ${darkMode ? 'text-neutral-500 hover:text-neutral-200' : 'text-neutral-600 hover:text-neutral-900'}`}
+                  className={`text-xs transition-colors ${darkMode ? 'text-neutral-500 hover:text-neutral-200' : 'text-[var(--color-text-secondary)] hover:text-neutral-900'}`}
                   type="button"
                 >
                   Close
                 </button>
               </div>
             ) : (
-              <div id="flow-hint-slate" className={`p-3.5 rounded-xl border border-dashed text-center text-xs font-mono ${darkMode ? 'border-neutral-700 text-neutral-500' : 'border-neutral-300 text-neutral-600'}`}>
+              <div id="flow-hint-slate" className={`p-3.5 rounded-[var(--radius-lg)] border border-dashed text-center text-xs ${darkMode ? 'border-neutral-700 text-neutral-500' : 'border-neutral-300 text-[var(--color-text-secondary)]'}`}>
                 💡 Hint: Click on any colored bezier connection vector on the map to evaluate flow SLAs and ESG dependencies.
               </div>
             )}
@@ -639,21 +639,21 @@ export default function HoldingOverview({
       </div>
 
       {/* 3. SANKEY CAPITAL DISTRIBUTION SECTION */}
-      <div id="money-flow-sankey-panel" className={`p-5 rounded-2xl border transition-all duration-300 ${darkMode ? 'bg-neutral-900/50 border-neutral-800' : 'bg-white border-neutral-200 shadow-sm'} shadow-sm text-left`}>
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between pb-4 border-b border-zinc-200 dark:border-zinc-800/80 mb-4">
+      <div id="money-flow-sankey-panel" className={`p-5 rounded-[var(--radius-xl)] border transition-all duration-300 ${ui.card(darkMode)} shadow-sm text-left`}>
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between pb-4 border-b border-[var(--color-border-subtle)]/80 mb-4">
           <div>
-            <div className="flex items-center space-x-2 text-primary-600 dark:text-primary-400">
+            <div className="flex items-center space-x-2 text-[var(--color-action-main)]">
               <Coins className="w-5 h-5" />
-              <h3 className="font-extrabold text-base">The Capital Distribution Sankey</h3>
+              <h3 className="font-semibold text-base">The Capital Distribution Sankey</h3>
             </div>
-            <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1">
+            <p className="text-xs text-[var(--color-text-secondary)] mt-1">
               Visualizes how aggregate holding capital (Sources) flows into the sector business units, and then streams out into destinations.
             </p>
           </div>
           <button 
             id="redirect-to-capex-btn"
             onClick={() => setActiveTab('capex')}
-            className="text-xs text-primary-600 dark:text-primary-400 hover:underline flex items-center space-x-1 font-bold"
+            className="text-xs text-[var(--color-action-main)] hover:underline flex items-center space-x-1 font-bold"
             type="button"
           >
             <span>Monitor Capex projects ➔</span>
@@ -662,10 +662,10 @@ export default function HoldingOverview({
 
         <div id="sankey-grid-layout" className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           
-          <div id="sankey-svg-holder" className={`lg:col-span-9 rounded-2xl p-4 overflow-x-auto relative border ${darkMode ? 'bg-neutral-950 border-neutral-800' : 'bg-neutral-100/60 border-neutral-200'}`}>
+          <div id="sankey-svg-holder" className={`lg:col-span-9 rounded-[var(--radius-xl)] p-4 overflow-x-auto relative border ${darkMode ? 'bg-neutral-950 border-neutral-800' : 'bg-neutral-100/60 border-neutral-200'}`}>
             <div className="min-w-[800px]">
               
-              <div className="flex justify-between text-[10px] font-black text-neutral-600 dark:text-neutral-400 uppercase tracking-widest mb-3 px-6 font-mono">
+              <div className="flex justify-between text-[10px] font-bold text-[var(--color-text-secondary)] uppercase tracking-widest mb-3 px-6">
                 <span>1. Funding Pools (Sources)</span>
                 <span>2. Ecosystem Business Units</span>
                 <span>3. Allocation Destination</span>
@@ -799,23 +799,23 @@ export default function HoldingOverview({
 
           {/* Sidebar Capital consumption */}
           <div id="capital-consumption-sidebar" className="lg:col-span-3 space-y-4">
-            <div className={`p-5 rounded-2xl border transition-all duration-300 ${darkMode ? 'bg-zinc-900/45 border-zinc-800' : 'bg-white border-zinc-200'} space-y-4 text-left`}>
-              <div className="flex items-center space-x-2 text-primary-600 dark:text-primary-400">
+            <div className={`p-5 rounded-[var(--radius-xl)] border transition-all duration-300 ${ui.card(darkMode)} space-y-4 text-left`}>
+              <div className="flex items-center space-x-2 text-[var(--color-action-main)]">
                 <BarChart3 className="w-4 h-4" />
-                <h4 className="text-xs font-extrabold uppercase tracking-widest font-mono">Capital Consumption</h4>
+                <h4 className="text-xs font-semibold uppercase tracking-widest">Capital Consumption</h4>
               </div>
 
-              <p className={`text-[11px] leading-snug ${darkMode ? 'text-neutral-400' : 'text-neutral-600'}`}>
+              <p className={`text-[11px] leading-snug ${darkMode ? 'text-neutral-400' : 'text-[var(--color-text-secondary)]'}`}>
                 Real-time mapping of capital consumption (Capex allocated) against direct sector EBITDA income.
               </p>
 
               <div className="space-y-3.5">
                 
                 {/* Item 1 */}
-                <div id="consumption-item-1" className={`p-3 rounded-xl border ${darkMode ? 'bg-neutral-950/80 border-neutral-800' : 'bg-neutral-50 border-neutral-200'}`}>
+                <div id="consumption-item-1" className={`p-3 rounded-[var(--radius-lg)] border ${'bg-[var(--color-bg-surface)] border-[var(--color-border-subtle)]'}`}>
                   <div className="flex justify-between items-center text-xs">
-                    <span className="font-semibold text-warning-600 dark:text-warning-400">O&G Extraction</span>
-                    <span className="text-[10px] text-warning-600 dark:text-warning-400 font-mono font-bold">Yield Ratio: 1.3</span>
+                    <span className="font-semibold text-[var(--color-warning-text)]">O&G Extraction</span>
+                    <span className="text-[10px] text-[var(--color-warning-text)] font-bold">Yield Ratio: 1.3</span>
                   </div>
                   <ProgressBar
                     value={(simulatedBUs.oilAndGas.baseEbitda / simulatedBUs.oilAndGas.baseCapex) * 100}
@@ -824,17 +824,17 @@ export default function HoldingOverview({
                     className="mt-2"
                     aria-label="O&G capital yield"
                   />
-                  <div className={`flex justify-between text-[9px] mt-1.5 font-mono ${darkMode ? 'text-neutral-500' : 'text-neutral-600'}`}>
+                  <div className={`flex justify-between text-[9px] mt-1.5 ${darkMode ? 'text-neutral-500' : 'text-[var(--color-text-secondary)]'}`}>
                     <span>CAPEX: ${simulatedBUs.oilAndGas.baseCapex.toFixed(0)}M</span>
                     <span>EBITDA: ${simulatedBUs.oilAndGas.baseEbitda.toFixed(0)}M</span>
                   </div>
                 </div>
 
                 {/* Item 2 */}
-                <div id="consumption-item-2" className={`p-3 rounded-xl border ${darkMode ? 'bg-neutral-950/80 border-neutral-800' : 'bg-neutral-50 border-neutral-200'}`}>
+                <div id="consumption-item-2" className={`p-3 rounded-[var(--radius-lg)] border ${'bg-[var(--color-bg-surface)] border-[var(--color-border-subtle)]'}`}>
                   <div className="flex justify-between items-center text-xs">
-                    <span className="font-semibold text-success-600 dark:text-success-400">Renewables Power</span>
-                    <span className="text-[10px] text-success-600 dark:text-success-400 font-mono font-bold">Yield Ratio: 0.4</span>
+                    <span className="font-semibold text-[var(--color-success-text)]">Renewables Power</span>
+                    <span className="text-[10px] text-[var(--color-success-text)] font-bold">Yield Ratio: 0.4</span>
                   </div>
                   <ProgressBar
                     value={(simulatedBUs.renewableEnergy.baseEbitda / simulatedBUs.renewableEnergy.baseCapex) * 100}
@@ -843,26 +843,26 @@ export default function HoldingOverview({
                     className="mt-2"
                     aria-label="Renewables capital yield"
                   />
-                  <div className={`flex justify-between text-[9px] mt-1.5 font-mono ${darkMode ? 'text-neutral-500' : 'text-neutral-600'}`}>
+                  <div className={`flex justify-between text-[9px] mt-1.5 ${darkMode ? 'text-neutral-500' : 'text-[var(--color-text-secondary)]'}`}>
                     <span>CAPEX: ${simulatedBUs.renewableEnergy.baseCapex.toFixed(0)}M</span>
                     <span>EBITDA: ${simulatedBUs.renewableEnergy.baseEbitda.toFixed(0)}M</span>
                   </div>
                 </div>
 
                 {/* Item 3 */}
-                <div id="consumption-item-3" className={`p-3 rounded-xl border ${darkMode ? 'bg-neutral-950/80 border-neutral-800' : 'bg-neutral-50 border-neutral-200'}`}>
+                <div id="consumption-item-3" className={`p-3 rounded-[var(--radius-lg)] border ${'bg-[var(--color-bg-surface)] border-[var(--color-border-subtle)]'}`}>
                   <div className="flex justify-between items-center text-xs">
-                    <span className="font-semibold text-primary-600 dark:text-primary-400">Property & Land</span>
-                    <span className="text-[10px] text-primary-600 dark:text-primary-400 font-mono font-bold">Yield Ratio: 1.4</span>
+                    <span className="font-semibold text-[var(--color-action-main)]">Property & Land</span>
+                    <span className="text-[10px] text-[var(--color-action-main)] font-bold">Yield Ratio: 1.4</span>
                   </div>
                   <ProgressBar
                     value={(simulatedBUs.property.baseEbitda / simulatedBUs.property.baseCapex) * 100}
-                    variant="primary"
+                    variant="default"
                     darkMode={darkMode}
                     className="mt-2"
                     aria-label="Property capital yield"
                   />
-                  <div className={`flex justify-between text-[9px] mt-1.5 font-mono ${darkMode ? 'text-neutral-500' : 'text-neutral-600'}`}>
+                  <div className={`flex justify-between text-[9px] mt-1.5 ${darkMode ? 'text-neutral-500' : 'text-[var(--color-text-secondary)]'}`}>
                     <span>CAPEX: ${simulatedBUs.property.baseCapex.toFixed(0)}M</span>
                     <span>EBITDA: ${simulatedBUs.property.baseEbitda.toFixed(0)}M</span>
                   </div>
@@ -870,7 +870,7 @@ export default function HoldingOverview({
 
               </div>
 
-              <div className="p-3 rounded-xl bg-primary-600/10 text-primary-700 dark:text-primary-400 border border-primary-500/20 text-[10px] leading-relaxed font-mono">
+              <div className="p-3 rounded-[var(--radius-lg)] bg-[var(--color-action-main)]/10 text-[var(--color-action-main)] dark:text-[var(--color-action-main)] border border-[var(--color-border-default)] text-[10px] leading-relaxed">
                 <strong>Strategic Insight:</strong> Changing the transition speed shift slider on top directly updates the Renewable and O&G ribbons shown here. Note the ROI offsets.
               </div>
 
@@ -881,14 +881,14 @@ export default function HoldingOverview({
       </div>
 
       {/* 4. BUSINESS UNIT LEDGER & ESG AUDITING */}
-      <div id="bu-ledger-esg-auditing" className={`p-5 rounded-2xl border transition-all duration-300 shadow-sm text-left font-mono ${darkMode ? 'bg-neutral-900/50 border-neutral-800' : 'bg-white border-neutral-200'}`}>
-        <div className={`flex flex-col md:flex-row items-start md:items-center justify-between pb-4 border-b mb-4 ${darkMode ? 'border-neutral-800' : 'border-neutral-200'}`}>
+      <div id="bu-ledger-esg-auditing" className={`p-5 rounded-[var(--radius-xl)] border transition-all duration-300 shadow-sm text-left ${darkMode ? 'bg-neutral-900/50 border-neutral-800' : 'bg-white border-neutral-200'}`}>
+        <div className={`flex flex-col md:flex-row items-start md:items-center justify-between pb-4 border-b mb-4 ${'border-[var(--color-border-subtle)]'}`}>
           <div>
-            <div className="flex items-center space-x-2 text-primary-600 dark:text-primary-400">
+            <div className="flex items-center space-x-2 text-[var(--color-action-main)]">
               <Layers className="w-5 h-5" />
-              <h3 className={`font-extrabold text-base tracking-widest uppercase ${darkMode ? 'text-neutral-100' : 'text-neutral-800'}`}>BUSINESS UNIT LEDGER & ESG AUDITING</h3>
+              <h3 className={`font-semibold text-base tracking-widest uppercase ${darkMode ? 'text-neutral-100' : 'text-neutral-800'}`}>BUSINESS UNIT LEDGER & ESG AUDITING</h3>
             </div>
-            <p className={`text-xs mt-1 font-sans ${darkMode ? 'text-neutral-400' : 'text-neutral-600'}`}>
+            <p className={`text-xs mt-1 font-sans ${darkMode ? 'text-neutral-400' : 'text-[var(--color-text-secondary)]'}`}>
               Drill down into individual operational records. Click on any row to load into telemetry panels.
             </p>
           </div>
@@ -897,7 +897,7 @@ export default function HoldingOverview({
         <div className="overflow-x-auto">
           <table className="strativy-table w-full text-left border-collapse min-w-[800px]">
             <thead>
-              <tr className={`border-b text-[10px] font-semibold uppercase tracking-widest ${darkMode ? 'border-neutral-800 bg-neutral-900/30' : 'border-neutral-200 bg-neutral-50'}`}>
+              <tr className={`border-b text-[10px] font-semibold uppercase tracking-widest ${'border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)]'}`}>
                 <th className="py-4 px-4 font-sans">Business Unit (Sector)</th>
                 <th className="py-4 px-4">Annualized Rev</th>
                 <th className="py-4 px-4">EBITDA Margin</th>
@@ -908,11 +908,11 @@ export default function HoldingOverview({
                 <th className="py-4 px-4 text-right font-sans">Actions</th>
               </tr>
             </thead>
-            <tbody className={`divide-y ${darkMode ? 'divide-neutral-800/80' : 'divide-neutral-200'}`}>
+            <tbody className={`divide-y ${'divide-[var(--color-border-subtle)]'}`}>
               {esgTableData.map((row) => (
                 <tr 
                   key={row.id}
-                  className={`group transition-all duration-300 cursor-pointer hover:shadow-sm relative ${darkMode ? 'hover:bg-neutral-800/50' : 'hover:bg-primary-50'}`}
+                  className={`group transition-all duration-300 cursor-pointer hover:shadow-sm relative ${darkMode ? 'hover:bg-neutral-800/50' : 'hover:bg-[var(--color-bg-surface)]'}`}
                   onClick={() => {
                     const buMap: Record<string, string> = {
                       bu_001: 'oilAndGas',
@@ -929,7 +929,7 @@ export default function HoldingOverview({
                 >
                   <td className="py-4 px-4">
                     <div className="flex items-center space-x-3">
-                      <span className={`p-2 rounded-lg ${darkMode ? 'bg-neutral-800 text-neutral-300' : 'bg-neutral-100 text-neutral-600'}`}>
+                      <span className={`p-2 rounded-[var(--radius-lg)] ${darkMode ? 'bg-neutral-800 text-neutral-300' : 'bg-neutral-100 text-[var(--color-text-secondary)]'}`}>
                         {row.sector.icon === 'flame' && <Flame className="w-4 h-4" />}
                         {row.sector.icon === 'lightning' && <Zap className="w-4 h-4" />}
                         {row.sector.icon === 'building' && <Building className="w-4 h-4" />}
@@ -943,31 +943,31 @@ export default function HoldingOverview({
                       </span>
                     </div>
                   </td>
-                  <td className="py-4 px-4 font-bold font-mono ledger-metric">
+                  <td className="py-4 px-4 font-bold ledger-metric">
                     ${row.annualizedRev_M.toFixed(1)}M
                   </td>
                   <td className="py-4 px-4">
-                    <span className={`px-2.5 py-1 rounded-md font-bold text-[10px] tracking-wider ${
+                    <span className={`px-2.5 py-1 rounded-[var(--radius-md)] font-bold text-[10px] tracking-wider ${
                       row.ebitdaMargin.status === 'positive' 
-                        ? 'bg-success-50 text-success-600 dark:bg-success-500/15 dark:text-success-400' 
-                        : 'bg-warning-50 text-warning-700 dark:bg-warning-500/15 dark:text-warning-400'
+                        ? 'bg-success-50 text-[var(--color-success-text)] dark:bg-[var(--color-success-text)]/15 dark:text-success-400' 
+                        : 'bg-[var(--color-warning-bg)] text-[var(--color-warning-text)]'
                     }`}>
                       {row.ebitdaMargin.value}%
                     </span>
                   </td>
-                  <td className="py-4 px-4 font-bold font-mono ledger-metric">
+                  <td className="py-4 px-4 font-bold ledger-metric">
                     ${row.allocatedCapex_M.toFixed(1)}M
                   </td>
                   <td className="py-4 px-4">
-                    <div className={`flex items-center space-x-2 font-semibold ${darkMode ? 'text-neutral-300' : 'text-neutral-700'}`}>
+                    <div className={`flex items-center space-x-2 font-semibold ${ui.valueSoft(darkMode)}`}>
                       <span className={`w-2 h-2 rounded-full shrink-0 ${
-                        row.esgScore.status === 'positive' ? 'bg-success-500' : 'bg-warning-500'
+                        row.esgScore.status === 'positive' ? 'bg-[var(--color-success-text)]' : 'bg-[var(--color-warning-text)]'
                       }`}></span>
                       <span>{row.esgScore.value}</span>
                     </div>
                   </td>
                   <td className="py-4 px-4 font-bold">
-                    <span className={row.growthPercent >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}>
+                    <span className={row.growthPercent >= 0 ? 'text-[var(--color-success-text)]' : 'text-[var(--color-error-text)]'}>
                       {row.growthPercent >= 0 ? '+' : ''}{row.growthPercent.toFixed(1)}%
                     </span>
                   </td>
@@ -975,20 +975,20 @@ export default function HoldingOverview({
                     <div className="flex items-center gap-2.5 min-w-[7rem]">
                       <ProgressBar
                         value={row.portfolioRisk_percent}
-                        variant="danger"
+                        variant="error"
                         darkMode={darkMode}
                         size="md"
                         className="flex-1 max-w-24"
                         aria-label={`Portfolio risk ${row.portfolioRisk_percent}%`}
                       />
-                      <span className={`text-[10px] font-bold tabular-nums shrink-0 ${darkMode ? 'text-neutral-400' : 'text-neutral-600'}`}>
+                      <span className={`text-[10px] font-bold tabular-nums shrink-0 ${darkMode ? 'text-neutral-400' : 'text-[var(--color-text-secondary)]'}`}>
                         {row.portfolioRisk_percent}%
                       </span>
                     </div>
                   </td>
                   <td className="py-4 px-4 text-right">
                     <span 
-                      className="inline-flex items-center text-xs font-bold text-primary-600 dark:text-primary-400 group-hover:text-primary-700 dark:group-hover:text-primary-300 font-sans tracking-wide transition-all duration-300"
+                      className="inline-flex items-center text-xs font-bold text-[var(--color-action-main)] group-hover:text-[var(--color-action-main)] dark:group-hover:text-primary-300 font-sans tracking-wide transition-all duration-300"
                     >
                       {row.actionLabel} <span className="ml-1 transition-transform duration-300 group-hover:translate-x-1">➔</span>
                     </span>

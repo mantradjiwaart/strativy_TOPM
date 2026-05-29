@@ -3,18 +3,16 @@
  * SPDX-License-Identifier: Apache-2.5
  */
 
-import React, { useState } from 'react';
-import { 
-  Building, 
-  Layers, 
-  Users, 
-  Clock, 
-  Sparkles, 
-  Sun, 
-  Moon, 
-  Activity, 
-  Sliders, 
-  RefreshCw 
+import React, { useState, useEffect } from 'react';
+import {
+  Building,
+  Layers,
+  Users,
+  Clock,
+  Sparkles,
+  Sun,
+  Moon,
+  Sliders,
 } from 'lucide-react';
 
 import { defaultBUs, defaultFlows, defaultProjects, defaultHRData } from './data';
@@ -25,15 +23,17 @@ import ProjectMonitor from './components/ProjectMonitor';
 import StrativyBrain from './components/StrativyBrain';
 import { useSimulation } from './hooks/useSimulation';
 import { StrategicProject } from './types';
+import { Badge } from './components/ui';
+import * as ui from './lib/uiTheme';
+import { cn } from './lib/cn';
 
 export default function App() {
-  const [darkMode, setDarkMode] = useState<boolean>(false);
+  const [darkMode, setDarkMode] = useState<boolean>(true);
   const [activeTab, setActiveTab] = useState<string>('core-holding');
   const [selectedBU, setSelectedBU] = useState<string>('oilAndGas');
   const [projects, setProjects] = useState<StrategicProject[]>(defaultProjects);
   const [timeframe, setTimeframe] = useState<string>('FY 2026 (Forecast)');
 
-  // Dynamic board sliders driving the entire core simulation engine
   const [oilTransitionSpeed, setOilTransitionSpeed] = useState<number>(50);
   const [propertyExpansionRate, setPropertyExpansionRate] = useState<number>(40);
   const [esgInvestmentFactor, setEsgInvestmentFactor] = useState<number>(60);
@@ -46,42 +46,50 @@ export default function App() {
     techAdoptionRate,
   });
 
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', darkMode);
+  }, [darkMode]);
+
+  const tabs = [
+    { id: 'core-holding', icon: Layers, label: 'L1: Ecosystem Pulse' },
+    { id: 'bu-performance', icon: Building, label: 'L2: BU Performance' },
+    { id: 'human-capital', icon: Users, label: 'L3: Human Capital' },
+    { id: 'capex', icon: Clock, label: 'L4: Capex Gantt' },
+    { id: 'strativy-brain', icon: Sparkles, label: '✨ STRATIVY BRAIN' },
+  ];
+
   return (
-    <div className={`min-h-screen transition-colors duration-200 font-sans ${
-      darkMode ? 'bg-neutral-950 text-neutral-50' : 'bg-neutral-50 text-neutral-950'
-    }`}>
-      
-      {/* 1. HEADER SECTION */}
-      <header className={`border-b sticky top-0 z-40 transition-colors duration-200 ${
-        darkMode ? 'border-neutral-800 bg-neutral-900/90 backdrop-blur-md' : 'border-neutral-200 bg-white/95 backdrop-blur-md shadow-xs'
-      }`}>
+    <div className="min-h-screen transition-colors duration-200 font-sans bg-[var(--color-bg-page)] text-[var(--color-text-primary)]">
+
+      {/* HEADER */}
+      <header className="border-b border-[var(--color-border-subtle)] sticky top-0 z-40 bg-[var(--color-bg-elevated)]/95 backdrop-blur-md shadow-[var(--shadow-sm)]">
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          
+
           <div className="flex items-center space-x-3 text-left w-full sm:w-auto">
-            <div className="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-md transition-transform hover:scale-105">
+            <div className="w-10 h-10 bg-[var(--color-action-main)] rounded-[var(--radius-xl)] flex items-center justify-center text-[var(--color-action-text)] font-bold text-xl shadow-[var(--shadow-sm)] transition-transform hover:scale-105">
               S
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <span className="font-extrabold tracking-tight text-lg">STRATIVY</span>
-                <span className="text-[10px] uppercase font-bold px-1.5 py-0.5 rounded bg-primary-500/10 border border-primary-500/20 text-primary-700 dark:text-primary-400">
-                  Boardroom Core
-                </span>
+                <span className="font-bold tracking-tight text-lg">STRATIVY</span>
+                <Badge variant="default">Boardroom Core</Badge>
               </div>
-              <p className={`text-[10px] font-mono ${darkMode ? 'text-neutral-400' : 'text-neutral-600'}`}>Ecosystem Pulse, STRATIVY BRAIN Strategy & Bento Modeling Panel</p>
+              <p className={cn('text-[10px]', ui.label(darkMode))}>
+                Ecosystem Pulse, STRATIVY BRAIN Strategy & Bento Modeling Panel
+              </p>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center justify-end gap-3 w-full sm:w-auto">
-            {/* Time selector */}
-            <div className={`flex items-center space-x-2 px-3 py-1.5 rounded-lg border text-xs font-mono ${
-              darkMode ? 'bg-neutral-900 border-neutral-800 text-neutral-300' : 'bg-white border-neutral-200 text-neutral-800'
-            }`}>
-              <span className={`font-medium ${darkMode ? 'text-neutral-400' : 'text-neutral-600'}`}>Scenario:</span>
+            <div className={cn(
+              'flex items-center space-x-2 px-3 py-1.5 rounded-[var(--radius-lg)] border text-xs',
+              'bg-[var(--color-bg-elevated)] border-[var(--color-border-default)] text-[var(--color-text-primary)]',
+            )}>
+              <span className={cn('font-medium', ui.label(darkMode))}>Scenario:</span>
               <select
                 value={timeframe}
                 onChange={(e) => setTimeframe(e.target.value)}
-                className="bg-transparent text-primary-600 dark:text-primary-400 font-bold focus:outline-none cursor-pointer"
+                className="bg-transparent text-[var(--color-action-main)] font-semibold focus:outline-none cursor-pointer"
               >
                 <option value="FY 2026 (Forecast)">FY 2026 (Forecast)</option>
                 <option value="Q3 2026 Shift Matrix">Q3 2026 Shift Matrix</option>
@@ -89,26 +97,26 @@ export default function App() {
               </select>
             </div>
 
-            {/* Dark mode selector */}
             <button
               onClick={() => setDarkMode(!darkMode)}
-              className={`p-2 rounded-xl transition-all border ${
-                darkMode ? 'bg-neutral-900 border-neutral-800 text-warning-400 hover:bg-neutral-800' : 'bg-white border-neutral-200 text-primary-600 hover:bg-neutral-100'
-              }`}
-              title="Toggle theme visualizer"
+              className={cn(
+                'p-2 rounded-[var(--radius-xl)] transition-all border',
+                'bg-[var(--color-bg-elevated)] border-[var(--color-border-default)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-surface)]',
+              )}
+              title="Toggle theme"
               type="button"
+              aria-label="Toggle dark mode"
             >
               {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
 
-            {/* Board user tag */}
-            <div className={`flex items-center space-x-2 border-l pl-4 ${darkMode ? 'border-neutral-800' : 'border-neutral-200'}`}>
-              <div className="w-8 h-8 rounded-xl bg-primary-600 flex items-center justify-center font-bold text-sm text-white shadow-sm">
+            <div className="flex items-center space-x-2 border-l border-[var(--color-border-subtle)] pl-4">
+              <div className="w-8 h-8 rounded-[var(--radius-xl)] bg-[var(--color-action-main)] flex items-center justify-center font-semibold text-sm text-[var(--color-action-text)] shadow-[var(--shadow-sm)]">
                 CB
               </div>
               <div className="hidden md:block text-left">
-                <span className="block text-xs font-bold leading-none">Chairman of Board</span>
-                <span className={`text-[9px] block mt-0.5 font-mono ${darkMode ? 'text-neutral-400' : 'text-neutral-600'}`}>Holding Executive</span>
+                <span className="block text-xs font-semibold leading-none">Chairman of Board</span>
+                <span className={cn('text-[9px] block mt-0.5', ui.label(darkMode))}>Holding Executive</span>
               </div>
             </div>
           </div>
@@ -116,95 +124,45 @@ export default function App() {
         </div>
       </header>
 
-      {/* 2. TAB MULTI-NAVIGATION BAR */}
-      <div className={`border-b transition-all duration-300 shadow-sm relative ${darkMode ? 'border-neutral-800 bg-neutral-900/60' : 'border-neutral-200 bg-neutral-100/80'}`}>
+      {/* TAB NAVIGATION */}
+      <div className="border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] shadow-[var(--shadow-sm)]">
         <div className="max-w-7xl mx-auto px-6 py-3.5 flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8">
-          
+
           <div className="flex items-center space-x-3 shrink-0">
-            <div className={`p-2 rounded-lg ${darkMode ? 'bg-neutral-800 text-primary-400' : 'bg-white shadow-sm text-primary-600'}`}>
+            <div className="p-2 rounded-[var(--radius-lg)] bg-[var(--color-bg-elevated)] text-[var(--color-text-secondary)] shadow-[var(--shadow-sm)]">
               <Sliders className="w-4 h-4" />
             </div>
             <div>
-              <h2 className={`text-[11px] font-black uppercase tracking-widest font-mono ${darkMode ? 'text-zinc-200' : 'text-zinc-800'}`}>Active Module Set</h2>
-              <p className="text-[10px] text-zinc-500 font-sans mt-0.5">Select a strategic tier below to inspect</p>
+              <h2 className={ui.sectionEyebrow(darkMode)}>Active Module Set</h2>
+              <p className={cn('text-[10px] mt-0.5', ui.labelMuted(darkMode))}>
+                Select a strategic tier below to inspect
+              </p>
             </div>
           </div>
 
           <div className="flex flex-wrap gap-2.5">
-            
-            <button
-              onClick={() => setActiveTab('core-holding')}
-              className={`flex flex-col items-center justify-center min-w-[120px] px-3 py-3 rounded-xl text-[11px] font-bold transition-all duration-300 hover:scale-[1.02] ${
-                activeTab === 'core-holding' 
-                  ? 'bg-primary-600 text-white shadow-md shadow-primary-500/20' 
-                  : (darkMode ? 'hover:bg-neutral-800 text-neutral-300 border border-neutral-800' : 'hover:bg-white text-neutral-700 bg-transparent border border-neutral-300 hover:shadow-sm')
-              }`}
-              type="button"
-            >
-              <Layers className="w-5 h-5 mb-1.5" />
-              <span className="font-mono tracking-wide">L1: Ecosystem Pulse</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('bu-performance')}
-              className={`flex flex-col items-center justify-center min-w-[120px] px-3 py-3 rounded-xl text-[11px] font-bold transition-all duration-300 hover:scale-[1.02] ${
-                activeTab === 'bu-performance' 
-                  ? 'bg-primary-600 text-white shadow-md shadow-primary-500/20' 
-                  : (darkMode ? 'hover:bg-neutral-800 text-neutral-300 border border-neutral-800' : 'hover:bg-white text-neutral-700 bg-transparent border border-neutral-300 hover:shadow-sm')
-              }`}
-              type="button"
-            >
-              <Building className="w-5 h-5 mb-1.5" />
-              <span className="font-mono tracking-wide">L2: BU Performance</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('human-capital')}
-              className={`flex flex-col items-center justify-center min-w-[120px] px-3 py-3 rounded-xl text-[11px] font-bold transition-all duration-300 hover:scale-[1.02] ${
-                activeTab === 'human-capital' 
-                  ? 'bg-primary-600 text-white shadow-md shadow-primary-500/20' 
-                  : (darkMode ? 'hover:bg-neutral-800 text-neutral-300 border border-neutral-800' : 'hover:bg-white text-neutral-700 bg-transparent border border-neutral-300 hover:shadow-sm')
-              }`}
-              type="button"
-            >
-              <Users className="w-5 h-5 mb-1.5" />
-              <span className="font-mono tracking-wide">L3: Human Capital</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('capex')}
-              className={`flex flex-col items-center justify-center min-w-[120px] px-3 py-3 rounded-xl text-[11px] font-bold transition-all duration-300 hover:scale-[1.02] ${
-                activeTab === 'capex' 
-                  ? 'bg-primary-600 text-white shadow-md shadow-primary-500/20' 
-                  : (darkMode ? 'hover:bg-neutral-800 text-neutral-300 border border-neutral-800' : 'hover:bg-white text-neutral-700 bg-transparent border border-neutral-300 hover:shadow-sm')
-              }`}
-              type="button"
-            >
-              <Clock className="w-5 h-5 mb-1.5" />
-              <span className="font-mono tracking-wide">L4: Capex Gantt</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('strativy-brain')}
-              className={`flex flex-col items-center justify-center min-w-[120px] px-3 py-3 rounded-xl text-[11px] font-bold transition-all duration-300 hover:scale-[1.02] ${
-                activeTab === 'strativy-brain' 
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' 
-                  : (darkMode ? 'hover:bg-neutral-900 text-neutral-300 bg-neutral-900/40 border border-neutral-800' : 'hover:bg-white text-neutral-700 bg-transparent border border-neutral-300 hover:shadow-sm')
-              }`}
-              type="button"
-            >
-              <Sparkles className="w-5 h-5 text-primary-500 animate-pulse mb-1.5" />
-              <span className="font-mono tracking-wide">✨ STRATIVY BRAIN</span>
-            </button>
-
+            {tabs.map(({ id, icon: Icon, label }) => (
+              <button
+                key={id}
+                onClick={() => setActiveTab(id)}
+                className={cn(
+                  'flex flex-col items-center justify-center min-w-[120px] px-3 py-3 rounded-[var(--radius-xl)] text-[11px] font-semibold transition-all duration-300 hover:scale-[1.02]',
+                  activeTab === id ? ui.navActive(darkMode) : ui.navInactive(darkMode),
+                )}
+                type="button"
+              >
+                <Icon className="w-5 h-5 mb-1.5" />
+                <span className="tracking-wide">{label}</span>
+              </button>
+            ))}
           </div>
 
         </div>
       </div>
 
-      {/* 3. MAIN CONTAINER VIEWPORT */}
+      {/* MAIN VIEWPORT */}
       <main className="max-w-7xl mx-auto p-6">
-        
+
         {activeTab === 'core-holding' && (
           <HoldingOverview
             darkMode={darkMode}
@@ -266,10 +224,11 @@ export default function App() {
 
       </main>
 
-      {/* 4. FOOTER */}
-      <footer className={`border-t py-6 mt-14 text-center text-[10px] font-mono transition-colors ${
-        darkMode ? 'border-neutral-800 text-neutral-500 bg-neutral-950' : 'border-neutral-200 text-neutral-500 bg-neutral-100/50'
-      }`}>
+      {/* FOOTER */}
+      <footer className={cn(
+        'border-t py-6 mt-14 text-center text-[10px] transition-colors',
+        'border-[var(--color-border-subtle)] text-[var(--color-text-muted)] bg-[var(--color-bg-surface)]',
+      )}>
         <p>© 2026 Strativy Boardroom Core. Designed under corporate board security standards & guidelines.</p>
         <p className="mt-1">Chairman & Board of Directors Authorized Session Only.</p>
       </footer>

@@ -2,7 +2,9 @@
  * Strativy design-system progress bar — token-based track & fill.
  */
 
-export type ProgressBarVariant = 'primary' | 'success' | 'warning' | 'danger';
+import { cn } from '../../lib/cn';
+
+export type ProgressBarVariant = 'default' | 'success' | 'warning' | 'error';
 
 interface ProgressBarProps {
   value: number;
@@ -14,15 +16,15 @@ interface ProgressBarProps {
 }
 
 const fillClasses: Record<ProgressBarVariant, string> = {
-  primary: 'bg-primary-500',
-  success: 'bg-success-500',
-  warning: 'bg-warning-500',
-  danger: 'bg-danger-500',
+  default: 'bg-[var(--color-action-main)]',
+  success: 'bg-[var(--color-success-text)]',
+  warning: 'bg-[var(--color-warning-text)]',
+  error: 'bg-[var(--color-error-text)]',
 };
 
 export function ProgressBar({
   value,
-  variant = 'primary',
+  variant = 'default',
   darkMode = false,
   size = 'sm',
   className = '',
@@ -30,11 +32,14 @@ export function ProgressBar({
 }: ProgressBarProps) {
   const clamped = Math.min(100, Math.max(0, value));
   const height = size === 'md' ? 'h-2' : 'h-1.5';
-  const track = darkMode ? 'bg-neutral-800' : 'bg-neutral-200';
 
   return (
     <div
-      className={`w-full ${height} rounded-full overflow-hidden ${track} ${className}`}
+      className={cn(
+        'w-full rounded-full overflow-hidden bg-[var(--color-bg-surface)]',
+        height,
+        className,
+      )}
       role="progressbar"
       aria-valuenow={clamped}
       aria-valuemin={0}
@@ -42,7 +47,10 @@ export function ProgressBar({
       aria-label={ariaLabel}
     >
       <div
-        className={`h-full rounded-full transition-all duration-300 ease-out ${fillClasses[variant]}`}
+        className={cn(
+          'h-full rounded-full transition-all duration-300 ease-out',
+          fillClasses[variant],
+        )}
         style={{ width: `${clamped}%` }}
       />
     </div>

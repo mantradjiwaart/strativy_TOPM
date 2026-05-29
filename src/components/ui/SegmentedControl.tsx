@@ -1,6 +1,8 @@
 /**
- * Light-mode-friendly segmented filter (Dept / Team / Employee).
+ * Segmented filter control — monochrome active state via action tokens.
  */
+
+import { cn } from '../../lib/cn';
 
 interface SegmentedControlProps {
   options: string[];
@@ -19,11 +21,11 @@ export function SegmentedControl({
 }: SegmentedControlProps) {
   return (
     <div
-      className={`inline-flex p-1 rounded-full border gap-0.5 ${
-        darkMode
-          ? 'bg-neutral-800 border-neutral-700'
-          : 'bg-neutral-100 border-neutral-200'
-      } ${className}`}
+      className={cn(
+        'inline-flex p-1 rounded-full border gap-0.5',
+        'bg-[var(--color-bg-surface)] border-[var(--color-border-default)]',
+        className,
+      )}
       role="tablist"
     >
       {options.map((option) => {
@@ -35,15 +37,12 @@ export function SegmentedControl({
             role="tab"
             aria-selected={active}
             onClick={() => onChange(option)}
-            className={`px-3 py-1.5 text-[10px] font-bold rounded-full transition-all duration-200 ${
+            className={cn(
+              'px-3 py-1.5 text-[10px] font-semibold rounded-full transition-all duration-200',
               active
-                ? darkMode
-                  ? 'bg-primary-600 text-white shadow-sm'
-                  : 'bg-primary-600 text-white shadow-sm'
-                : darkMode
-                  ? 'text-neutral-400 hover:text-neutral-200 hover:bg-neutral-700/50'
-                  : 'text-neutral-600 hover:text-neutral-800 hover:bg-white/80'
-            }`}
+                ? 'bg-[var(--color-action-main)] text-[var(--color-action-text)] shadow-[var(--shadow-sm)]'
+                : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]',
+            )}
           >
             {option}
           </button>

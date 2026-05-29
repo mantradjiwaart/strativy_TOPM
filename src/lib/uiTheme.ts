@@ -1,76 +1,78 @@
 /**
- * Strativy design-token class bundles for consistent light/dark UI.
+ * Strativy minimalist design-token class bundles for light/dark UI.
+ * Uses CSS custom properties from tokens.css — no hardcoded palette scales.
  */
 
-export function card(dark: boolean): string {
-  return dark
-    ? 'bg-neutral-900/50 border-neutral-800'
-    : 'bg-white border-neutral-200 shadow-sm';
+export function card(_dark: boolean): string {
+  return 'bg-[var(--color-bg-elevated)] border-[var(--color-border-subtle)] shadow-[var(--shadow-sm)]';
 }
 
-export function cardInset(dark: boolean): string {
-  return dark
-    ? 'bg-neutral-950 border-neutral-800'
-    : 'bg-neutral-50 border-neutral-200';
+export function cardInset(_dark: boolean): string {
+  return 'bg-[var(--color-bg-surface)] border-[var(--color-border-subtle)]';
 }
 
-export function label(dark: boolean): string {
-  return dark ? 'text-neutral-400' : 'text-neutral-600';
+export function label(_dark: boolean): string {
+  return 'text-[var(--color-text-secondary)]';
 }
 
-export function labelMuted(dark: boolean): string {
-  return dark ? 'text-neutral-500' : 'text-neutral-500';
+export function labelMuted(_dark: boolean): string {
+  return 'text-[var(--color-text-muted)]';
 }
 
-export function value(dark: boolean): string {
-  return dark ? 'text-neutral-100' : 'text-neutral-800';
+export function value(_dark: boolean): string {
+  return 'text-[var(--color-text-primary)]';
 }
 
-/** Softer body text — tables, secondary labels */
-export function valueSoft(dark: boolean): string {
-  return dark ? 'text-neutral-300' : 'text-neutral-700';
+export function valueSoft(_dark: boolean): string {
+  return 'text-[var(--color-text-secondary)]';
 }
 
-export function sectionEyebrow(dark: boolean): string {
-  return `text-xs font-black uppercase tracking-widest font-mono ${label(dark)}`;
+export function sectionEyebrow(_dark: boolean): string {
+  return `text-xs font-semibold uppercase tracking-widest ${label(_dark)}`;
 }
 
-export function kpiLabel(dark: boolean): string {
-  return `block text-[10px] font-extrabold uppercase tracking-widest font-mono ${label(dark)}`;
+export function kpiLabel(_dark: boolean): string {
+  return `block text-[10px] font-semibold uppercase tracking-widest ${label(_dark)}`;
 }
 
-export function calloutPrimary(dark: boolean): string {
-  return dark
-    ? 'bg-primary-500/10 text-primary-300 border-primary-500/20'
-    : 'bg-primary-50 text-primary-800 border-primary-200';
+export function calloutPrimary(_dark: boolean): string {
+  return 'bg-[var(--color-bg-surface)] text-[var(--color-text-primary)] border-[var(--color-border-default)]';
 }
 
-export function calloutSuccess(dark: boolean): string {
-  return dark
-    ? 'bg-success-500/10 text-success-400 border-success-500/20'
-    : 'bg-success-50 text-success-800 border-success-200';
+export function calloutSuccess(_dark: boolean): string {
+  return 'bg-[var(--color-success-bg)] text-[var(--color-success-text)] border-[var(--color-success-border)]';
 }
 
-export function calloutWarning(dark: boolean): string {
-  return dark
-    ? 'bg-warning-500/10 text-warning-400 border-warning-500/20'
-    : 'bg-warning-50 text-warning-800 border-warning-200';
+export function calloutWarning(_dark: boolean): string {
+  return 'bg-[var(--color-warning-bg)] text-[var(--color-warning-text)] border-[var(--color-warning-border)]';
 }
 
-export function calloutDanger(dark: boolean): string {
-  return dark
-    ? 'bg-danger-500/10 text-danger-400 border-danger-500/20'
-    : 'bg-danger-50 text-danger-800 border-danger-200';
+export function calloutDanger(_dark: boolean): string {
+  return 'bg-[var(--color-error-bg)] text-[var(--color-error-text)] border-[var(--color-error-border)]';
 }
 
-export function badgePositive(dark: boolean): string {
-  return dark
-    ? 'bg-success-500/15 text-success-400'
-    : 'bg-success-50 text-success-700';
+export function calloutInfo(_dark: boolean): string {
+  return 'bg-[var(--color-info-bg)] text-[var(--color-info-text)] border-[var(--color-info-border)]';
 }
 
-export function badgeNegative(dark: boolean): string {
-  return dark
-    ? 'bg-danger-500/15 text-danger-400'
-    : 'bg-danger-50 text-danger-700';
+export function badgePositive(_dark: boolean): string {
+  return 'bg-[var(--color-success-bg)] text-[var(--color-success-text)]';
+}
+
+export function badgeNegative(_dark: boolean): string {
+  return 'bg-[var(--color-error-bg)] text-[var(--color-error-text)]';
+}
+
+export function navActive(_dark: boolean): string {
+  return 'bg-[var(--color-action-main)] text-[var(--color-action-text)] shadow-[var(--shadow-sm)]';
+}
+
+export function navInactive(_dark: boolean): string {
+  return _dark
+    ? 'text-[var(--color-text-secondary)] border border-[var(--color-border-subtle)] hover:bg-[var(--color-bg-surface)]'
+    : 'text-[var(--color-text-secondary)] border border-[var(--color-border-default)] hover:bg-[var(--color-bg-elevated)] hover:shadow-[var(--shadow-sm)]';
+}
+
+export function actionText(_dark: boolean): string {
+  return 'text-[var(--color-action-main)]';
 }

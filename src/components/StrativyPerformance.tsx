@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import * as ui from '../lib/uiTheme';
+import { cn } from '../lib/cn';
 import { SegmentedControl } from './ui/SegmentedControl';
 import { ChevronDown, Trophy, Users, Briefcase, ChevronRight, BarChart3, PieChart, Info, Layers, TrendingUp, Cpu } from 'lucide-react';
 import { AreaChart, Area, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
@@ -108,7 +109,7 @@ export default function StrativyPerformance({ darkMode }: StrativyPerformancePro
     <div className={`p-6 rounded-2xl border transition-all duration-300 ${ui.card(darkMode)}`}>
       <div className={`flex flex-col md:flex-row items-start md:items-center justify-between pb-4 border-b mb-6 ${darkMode ? 'border-neutral-800' : 'border-neutral-200'}`}>
         <div>
-          <div className="flex items-center space-x-2 text-primary-600 dark:text-primary-400">
+          <div className="flex items-center space-x-2 text-[var(--color-text-secondary)]">
             <BarChart3 className="w-5 h-5" />
             <h3 className={`font-extrabold text-base tracking-widest uppercase ${ui.value(darkMode)}`}>Strativy - Performance Data</h3>
           </div>
@@ -148,8 +149,8 @@ export default function StrativyPerformance({ darkMode }: StrativyPerformancePro
                 >
                   <defs>
                     <linearGradient id="colorOkr" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#2563EB" stopOpacity={0.15}/>
-                      <stop offset="95%" stopColor="#2563EB" stopOpacity={0}/>
+                      <stop offset="5%" stopColor="var(--color-action-main)" stopOpacity={0.15}/>
+                      <stop offset="95%" stopColor="var(--color-action-main)" stopOpacity={0}/>
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={darkMode ? "#3f3f46" : "#e4e4e7"} />
@@ -157,46 +158,44 @@ export default function StrativyPerformance({ darkMode }: StrativyPerformancePro
                   <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#a1a1aa', fontFamily: 'inherit' }} />
                   <Tooltip 
                     contentStyle={{ backgroundColor: darkMode ? '#18181b' : '#ffffff', borderRadius: '8px', border: darkMode ? '1px solid #27272a' : '1px solid #e4e4e7', fontSize: '12px' }}
-                    itemStyle={{ color: '#2563EB', fontWeight: 'bold' }}
+                    itemStyle={{ color: 'var(--color-action-main)', fontWeight: 'bold' }}
                   />
-                  <Area type="monotone" dataKey="value" stroke="#2563EB" strokeWidth={2} fillOpacity={1} fill="url(#colorOkr)" activeDot={{ r: 6 }} dot={{ r: 4, strokeWidth: 2, fill: darkMode ? '#27272a' : '#ffffff', stroke: '#2563EB' }} />
+                  <Area type="monotone" dataKey="value" stroke="var(--color-action-main)" strokeWidth={2} fillOpacity={1} fill="url(#colorOkr)" activeDot={{ r: 6 }} dot={{ r: 4, strokeWidth: 2, fill: 'var(--color-bg-elevated)', stroke: 'var(--color-action-main)' }} />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
 
             <div className={`mt-4 rounded-lg p-3 border text-xs ${ui.calloutSuccess(darkMode)}`}>
-              <span className="font-bold text-success-700 dark:text-success-400 mr-2">{dashboardData.dashboard.okrPerformance.chartPanel.footerInsight.highlight}</span>
+              <span className="font-semibold text-[var(--color-success-text)] mr-2">{dashboardData.dashboard.okrPerformance.chartPanel.footerInsight.highlight}</span>
               <span className={ui.label(darkMode)}>{dashboardData.dashboard.okrPerformance.chartPanel.footerInsight.text}</span>
             </div>
           </div>
 
-          {/* Dark Panel - STRATIVY BRAIN Insights */}
-          <div className="flex flex-col rounded-2xl p-5 border border-primary-500/25 bg-gradient-to-br from-primary-950 via-neutral-900 to-primary-900 shadow-inner relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/20 rounded-full blur-[80px] -mr-20 -mt-20"></div>
-            
-            <div className="relative z-10">
-              <div className="flex items-center space-x-2 text-purple-300 mb-1">
+          {/* Brain Insights Panel — elevated monochrome surface */}
+          <div className={`flex flex-col rounded-[var(--radius-xl)] p-5 border ${ui.cardInset(darkMode)} relative overflow-hidden`}>
+            <div>
+              <div className="flex items-center space-x-2 text-[var(--color-text-secondary)] mb-1">
                 <Cpu className="w-4 h-4" />
-                <h4 className="font-bold text-sm text-white">{dashboardData.dashboard.okrPerformance.stratifyBrainPanel.title}</h4>
+                <h4 className={`font-semibold text-sm ${ui.value(darkMode)}`}>{dashboardData.dashboard.okrPerformance.stratifyBrainPanel.title}</h4>
               </div>
-              <p className="text-[10px] text-purple-300/70 mb-5">Last update: {dashboardData.dashboard.okrPerformance.stratifyBrainPanel.lastUpdate}</p>
+              <p className={cn('text-[10px] mb-5', ui.labelMuted(darkMode))}>Last update: {dashboardData.dashboard.okrPerformance.stratifyBrainPanel.lastUpdate}</p>
               
-              <div className="bg-white/10 border border-white/10 rounded-xl p-4 mb-5 backdrop-blur-sm">
-                <p className="text-xs text-purple-100 leading-relaxed">
+              <div className={`rounded-[var(--radius-xl)] p-4 mb-5 border ${ui.calloutInfo(darkMode)}`}>
+                <p className={`text-xs leading-relaxed ${ui.value(darkMode)}`}>
                   {dashboardData.dashboard.okrPerformance.stratifyBrainPanel.overallSummary}
                 </p>
               </div>
 
-              <h5 className="text-[10px] uppercase font-bold text-purple-300/70 mb-3 tracking-widest">Insights</h5>
+              <h5 className={cn('text-[10px] uppercase font-semibold mb-3 tracking-widest', ui.labelMuted(darkMode))}>Insights</h5>
               <div className="space-y-3 max-h-[160px] overflow-y-auto pr-2 custom-scrollbar">
                 {dashboardData.dashboard.okrPerformance.stratifyBrainPanel.insights.map((insight, i) => (
-                  <div key={i} className="flex gap-4 p-3 rounded-lg hover:bg-white/5 transition-colors group">
+                  <div key={i} className="flex gap-4 p-3 rounded-[var(--radius-lg)] hover:bg-[var(--color-bg-surface)] transition-colors group">
                     <div className="w-20 shrink-0">
-                      <span className="text-xs font-bold text-white/90 group-hover:text-purple-300 transition-colors">{insight.period}</span>
+                      <span className={`text-xs font-semibold ${ui.value(darkMode)}`}>{insight.period}</span>
                     </div>
                     <div>
-                      <h5 className="text-xs font-bold text-white mb-1 group-hover:text-purple-200 transition-colors">{insight.title}</h5>
-                      <p className="text-[10px] text-purple-200/70 leading-normal">{insight.description}</p>
+                      <h5 className={`text-xs font-semibold mb-1 ${ui.value(darkMode)}`}>{insight.title}</h5>
+                      <p className={cn('text-[10px] leading-normal', ui.label(darkMode))}>{insight.description}</p>
                     </div>
                   </div>
                 ))}
@@ -237,47 +236,45 @@ export default function StrativyPerformance({ darkMode }: StrativyPerformancePro
                   <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#a1a1aa', fontFamily: 'inherit' }} domain={[0, 5]} />
                   <Tooltip 
                     contentStyle={{ backgroundColor: darkMode ? '#18181b' : '#ffffff', borderRadius: '8px', border: darkMode ? '1px solid #27272a' : '1px solid #e4e4e7', fontSize: '12px' }}
-                    itemStyle={{ color: '#2563EB', fontWeight: 'bold' }}
+                    itemStyle={{ color: 'var(--color-action-main)', fontWeight: 'bold' }}
                   />
-                  <ReferenceLine y={3.6} stroke={darkMode ? "#71717a" : "#A1A1AA"} strokeDasharray="3 3" label={{ position: 'top', value: 'TARGET: 3.6', fill: darkMode ? '#71717a' : '#A1A1AA', fontSize: 10, fontWeight: 'bold' }} />
-                  <Line type="monotone" dataKey="value" stroke="#2563EB" strokeWidth={2} activeDot={{ r: 6 }} dot={{ r: 4, strokeWidth: 2, fill: darkMode ? '#27272a' : '#ffffff', stroke: '#2563EB' }} />
+                  <ReferenceLine y={3.6} stroke="var(--color-text-muted)" strokeDasharray="3 3" label={{ position: 'top', value: 'TARGET: 3.6', fill: 'var(--color-text-muted)', fontSize: 10, fontWeight: 'bold' }} />
+                  <Line type="monotone" dataKey="value" stroke="var(--color-action-main)" strokeWidth={2} activeDot={{ r: 6 }} dot={{ r: 4, strokeWidth: 2, fill: 'var(--color-bg-elevated)', stroke: 'var(--color-action-main)' }} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
 
             <div className={`mt-4 rounded-lg p-3 border text-xs ${ui.calloutSuccess(darkMode)}`}>
-              <span className="font-bold text-success-700 dark:text-success-400 mr-2">{dashboardData.dashboard.competencyGrowth.chartPanel.footerInsight.highlight}</span>
+              <span className="font-semibold text-[var(--color-success-text)] mr-2">{dashboardData.dashboard.competencyGrowth.chartPanel.footerInsight.highlight}</span>
               <span className={ui.label(darkMode)}>{dashboardData.dashboard.competencyGrowth.chartPanel.footerInsight.text}</span>
             </div>
           </div>
 
-          {/* Dark Panel - STRATIVY BRAIN Insights */}
-          <div className="flex flex-col rounded-2xl p-5 border border-primary-500/25 bg-gradient-to-br from-primary-950 via-neutral-900 to-primary-900 shadow-inner relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px] -mr-20 -mt-20"></div>
-            
-            <div className="relative z-10">
-              <div className="flex items-center space-x-2 text-blue-300 mb-1">
+          {/* Brain Insights Panel — elevated monochrome surface */}
+          <div className={`flex flex-col rounded-[var(--radius-xl)] p-5 border ${ui.cardInset(darkMode)} relative overflow-hidden`}>
+            <div>
+              <div className="flex items-center space-x-2 text-[var(--color-text-secondary)] mb-1">
                 <Cpu className="w-4 h-4" />
-                <h4 className="font-bold text-sm text-white">{dashboardData.dashboard.competencyGrowth.stratifyBrainPanel.title}</h4>
+                <h4 className={`font-semibold text-sm ${ui.value(darkMode)}`}>{dashboardData.dashboard.competencyGrowth.stratifyBrainPanel.title}</h4>
               </div>
-              <p className="text-[10px] text-blue-300/70 mb-5">Last update: {dashboardData.dashboard.competencyGrowth.stratifyBrainPanel.lastUpdate}</p>
+              <p className={cn('text-[10px] mb-5', ui.labelMuted(darkMode))}>Last update: {dashboardData.dashboard.competencyGrowth.stratifyBrainPanel.lastUpdate}</p>
               
-              <div className="bg-white/10 border border-white/10 rounded-xl p-4 mb-5 backdrop-blur-sm">
-                <p className="text-xs text-blue-100 leading-relaxed">
+              <div className={`rounded-[var(--radius-xl)] p-4 mb-5 border ${ui.calloutInfo(darkMode)}`}>
+                <p className={`text-xs leading-relaxed ${ui.value(darkMode)}`}>
                   {dashboardData.dashboard.competencyGrowth.stratifyBrainPanel.overallSummary}
                 </p>
               </div>
 
-              <h5 className="text-[10px] uppercase font-bold text-blue-300/70 mb-3 tracking-widest">Insights</h5>
+              <h5 className={cn('text-[10px] uppercase font-semibold mb-3 tracking-widest', ui.labelMuted(darkMode))}>Insights</h5>
               <div className="space-y-3 max-h-[160px] overflow-y-auto pr-2 custom-scrollbar">
                 {dashboardData.dashboard.competencyGrowth.stratifyBrainPanel.insights.map((insight, i) => (
-                  <div key={i} className="flex gap-4 p-3 rounded-lg hover:bg-white/5 transition-colors group">
+                  <div key={i} className="flex gap-4 p-3 rounded-[var(--radius-lg)] hover:bg-[var(--color-bg-surface)] transition-colors group">
                     <div className="w-20 shrink-0">
-                      <span className="text-xs font-bold text-white/90 group-hover:text-blue-300 transition-colors">{insight.period}</span>
+                      <span className={`text-xs font-semibold ${ui.value(darkMode)}`}>{insight.period}</span>
                     </div>
                     <div>
-                      <h5 className="text-xs font-bold text-white mb-1 group-hover:text-blue-200 transition-colors">{insight.title}</h5>
-                      <p className="text-[10px] text-blue-200/70 leading-normal">{insight.description}</p>
+                      <h5 className={`text-xs font-semibold mb-1 ${ui.value(darkMode)}`}>{insight.title}</h5>
+                      <p className={cn('text-[10px] leading-normal', ui.label(darkMode))}>{insight.description}</p>
                     </div>
                   </div>
                 ))}
@@ -292,15 +289,15 @@ export default function StrativyPerformance({ darkMode }: StrativyPerformancePro
           width: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.05);
+          background: var(--color-bg-surface);
           border-radius: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(255, 255, 255, 0.2);
+          background: var(--color-border-strong);
           border-radius: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(255, 255, 255, 0.3);
+          background: var(--color-text-muted);
         }
       `}} />
     </div>

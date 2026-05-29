@@ -216,16 +216,16 @@ export default function BuDrilldown({
       
       {/* 1. SECTOR SELECTOR BAR */}
       <div id="bu-selector-tabs" className={`flex flex-col gap-2 w-full lg:w-[240px] shrink-0 lg:pr-4 lg:border-r ${darkMode ? 'border-neutral-800' : 'border-neutral-200'}`}>
-        <h3 className={`font-extrabold text-[10px] tracking-widest uppercase mb-2 font-mono ${ui.label(darkMode)}`}>Business Units</h3>
+        <h3 className={`font-semibold text-[10px] tracking-widest uppercase mb-2 ${ui.label(darkMode)}`}>Business Units</h3>
         {Object.values(simulatedBUs).map((bu) => (
           <button 
             key={bu.id}
             id={`tab-bu-${bu.id}`}
             onClick={() => setSelectedBU(bu.id)}
-            className={`flex items-center w-full text-left space-x-3 px-3.5 py-3 rounded-xl text-xs font-bold transition-all duration-300 ${
+            className={`flex items-center w-full text-left space-x-3 px-3.5 py-3 rounded-[var(--radius-xl)] text-xs font-semibold transition-all duration-300 ${
               selectedBU === bu.id 
-                ? 'bg-primary-600 text-white shadow-md shadow-primary-500/20' 
-                : (darkMode ? 'bg-neutral-900 border border-neutral-800 hover:bg-neutral-800 text-neutral-300' : 'bg-white border border-neutral-200 hover:bg-neutral-100 text-neutral-700')
+                ? ui.navActive(darkMode)
+                : (darkMode ? 'bg-[var(--color-bg-elevated)] border border-[var(--color-border-subtle)] hover:bg-[var(--color-bg-surface)] text-[var(--color-text-secondary)]' : 'bg-[var(--color-bg-elevated)] border border-[var(--color-border-default)] hover:bg-[var(--color-bg-surface)] text-[var(--color-text-secondary)]')
             }`}
             type="button"
           >
@@ -241,12 +241,11 @@ export default function BuDrilldown({
         {/* 2. DENSE FIELD NUMERICS PANEL */}
         <div id="bu-microdata-cards" className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {sectorMicroFields.map((field, idx) => {
-            const accents: KpiAccent[] = ['primary', 'cyan', 'amber', 'purple'];
             const cardAccent: KpiAccent = field.isPos
               ? 'success'
               : idx === 0
-                ? 'danger'
-                : accents[idx % accents.length];
+                ? 'error'
+                : 'default';
             return (
               <KpiCard
                 key={`idx-${idx}`}
@@ -256,7 +255,7 @@ export default function BuDrilldown({
                 value={field.val}
                 footer={
                   <span
-                    className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-md font-mono ${
+                    className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded-[var(--radius-sm)] ${
                       field.isPos ? ui.badgePositive(darkMode) : ui.badgeNegative(darkMode)
                     }`}
                   >
@@ -275,7 +274,7 @@ export default function BuDrilldown({
         <div className={`lg:col-span-8 p-5 rounded-2xl border transition-all duration-300 ${ui.card(darkMode)} flex flex-col justify-between`}>
           <div>
             <h3 className={`font-extrabold text-sm uppercase tracking-wider flex items-center space-x-2 ${ui.value(darkMode)}`}>
-              <Activity className="w-4 h-4 text-primary-500" />
+              <Activity className="w-4 h-4 text-[var(--color-text-secondary)]" />
               <span>Micro-Financial Performance Trails</span>
             </h3>
             <p className={`text-xs mt-1 ${ui.label(darkMode)}`}>
@@ -321,11 +320,11 @@ export default function BuDrilldown({
           <div className={`p-5 rounded-2xl border transition-all duration-300 ${ui.cardInset(darkMode)} flex-1 flex flex-col justify-between`}>
             
             <div className="space-y-3">
-              <div className="flex items-center space-x-2 text-primary-600 dark:text-primary-400">
-                <Sparkles className="w-4 h-4 text-primary-500 animate-pulse" />
-                <h4 className="text-xs font-extrabold uppercase tracking-widest font-mono">Correlation Analyzer</h4>
+              <div className="flex items-center space-x-2 text-[var(--color-text-secondary)]">
+                <Sparkles className="w-4 h-4 animate-pulse" />
+                <h4 className="text-xs font-semibold uppercase tracking-widest">Correlation Analyzer</h4>
               </div>
-              <p className={`text-[11px] leading-snug font-mono ${ui.label(darkMode)}`}>
+              <p className={`text-[11px] leading-snug ${ui.label(darkMode)}`}>
                 How does this Business Unit interact with physical parameters of other holding divisions?
               </p>
 
@@ -345,10 +344,10 @@ export default function BuDrilldown({
 
                 {selectedBU === 'renewableEnergy' && (
                   <div className="space-y-2 text-xs">
-                    <div className="p-2.5 rounded-xl bg-primary-50 text-primary-800 dark:bg-primary-500/10 dark:text-primary-300 border border-primary-200 dark:border-primary-500/20">
+                    <div className={`p-2.5 rounded-[var(--radius-xl)] border text-xs ${ui.calloutPrimary(darkMode)}`}>
                       <strong>Fossil transition correlation:</strong> Reallocating $150M fossil yield from Oil & Gas exploration has direct negative safety exposure and accelerates project commission schedules by 45 calendar days.
                     </div>
-                    <div className={`p-2.5 rounded-xl border text-xs ${darkMode ? 'bg-primary-500/10 text-primary-300 border-primary-500/20' : 'bg-primary-50 text-primary-800 border-primary-200'}`}>
+                    <div className={`p-2.5 rounded-[var(--radius-xl)] border text-xs ${ui.calloutInfo(darkMode)}`}>
                       <strong>Neural Router R&D:</strong> Deploys electric code route optimization from Innovation lab VC, which directly expands physical turbine efficiency by 14.0%.
                     </div>
                   </div>
@@ -362,14 +361,14 @@ export default function BuDrilldown({
                     {!auditMessage ? (
                       <button 
                         id="learn-more-synergies-btn"
-                        className="text-[11px] text-primary-600 dark:text-primary-400 hover:underline inline-block font-extrabold"
+                        className={`text-[11px] ${ui.actionText(darkMode)} hover:underline inline-block font-semibold`}
                         onClick={() => setAuditMessage("Strategic link verified. Synergy output yields +12.4% EBITDA return on initial investment.")}
                         type="button"
                       >
                         Audit detailed ecosystem synergy linkages ➔
                       </button>
                     ) : (
-                      <div className={`p-3 rounded-xl border mt-2 font-mono ${ui.calloutSuccess(darkMode)}`}>
+                      <div className={`p-3 rounded-[var(--radius-xl)] border mt-2 ${ui.calloutSuccess(darkMode)}`}>
                         💡 {auditMessage}
                       </div>
                     )}
@@ -392,7 +391,7 @@ export default function BuDrilldown({
       <div id="local-synergies-view" className={`p-5 rounded-2xl border shadow-sm ${ui.card(darkMode)}`}>
         <div className={`border-b pb-3 mb-4 text-left ${darkMode ? 'border-neutral-800' : 'border-neutral-200'}`}>
           <h3 className={`font-bold text-sm uppercase tracking-wider flex items-center space-x-2 ${ui.value(darkMode)}`}>
-            <Coins className="w-4 h-4 text-primary-500" />
+            <Coins className="w-4 h-4 text-[var(--color-text-secondary)]" />
             <span>Interactive Multi-Sector Contract Flows</span>
           </h3>
           <p className={`text-xs ${ui.label(darkMode)}`}>Evaluating upstream suppliers and downstream buyers of the {currentBU.short} division.</p>
@@ -402,7 +401,7 @@ export default function BuDrilldown({
           
           {/* Supplier Upstream */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-primary-600 dark:text-primary-400 flex items-center space-x-1">
+            <h4 className={`text-xs font-semibold uppercase tracking-wider ${ui.actionText(darkMode)} flex items-center space-x-1`}>
               <span>Upstream Suppliers</span>
             </h4>
             {localSynergies.upstream.length > 0 ? (
@@ -413,7 +412,7 @@ export default function BuDrilldown({
                       <span className={`block text-xs font-bold ${ui.value(darkMode)}`}>{item.name}</span>
                       <span className={`block text-[10px] mt-0.5 ${ui.label(darkMode)}`}>{item.contribution}</span>
                     </div>
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md font-mono shrink-0 ${ui.badgePositive(darkMode)}`}>{item.esgBenefit}</span>
+                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-[var(--radius-sm)] shrink-0 ${ui.badgePositive(darkMode)}`}>{item.esgBenefit}</span>
                   </div>
                 ))}
               </div>
@@ -426,7 +425,7 @@ export default function BuDrilldown({
 
           {/* Supplier Downstream */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-warning-600 dark:text-warning-400 flex items-center space-x-1">
+            <h4 className={`text-xs font-semibold uppercase tracking-wider text-[var(--color-warning-text)] flex items-center space-x-1`}>
               <span>Downstream Buyers</span>
             </h4>
             {localSynergies.downstream.length > 0 ? (
@@ -437,7 +436,7 @@ export default function BuDrilldown({
                       <span className={`block text-xs font-bold ${ui.value(darkMode)}`}>{item.name}</span>
                       <span className={`block text-[10px] mt-0.5 ${ui.label(darkMode)}`}>{item.contribution}</span>
                     </div>
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md font-mono shrink-0 ${darkMode ? 'bg-primary-500/15 text-primary-400' : 'bg-primary-50 text-primary-700'}`}>{item.esgBenefit}</span>
+                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-[var(--radius-sm)] shrink-0 ${ui.calloutPrimary(darkMode)}`}>{item.esgBenefit}</span>
                   </div>
                 ))}
               </div>

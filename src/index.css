@@ -3,107 +3,79 @@
 
 /* ============================================================
    Strativy Tailwind v4 theme — maps design tokens to utilities.
+   Minimalist monochrome system (light + dark).
    ============================================================ */
 @theme {
-  /* Primary (brand blue) */
-  --color-primary-50:  #EFF6FF;
-  --color-primary-100: #DBEAFE;
-  --color-primary-200: #BFDBFE;
-  --color-primary-300: #93C5FD;
-  --color-primary-400: #60A5FA;
-  --color-primary-500: #3B82F6;
-  --color-primary-600: #2563EB;
-  --color-primary-700: #1D4ED8;
-  --color-primary-800: #1E40AF;
-  --color-primary-900: #1E3A8E;
-  --color-primary-950: #172554;
+  /* Semantic backgrounds */
+  --color-bg-page: var(--color-bg-page);
+  --color-bg-surface: var(--color-bg-surface);
+  --color-bg-elevated: var(--color-bg-elevated);
 
-  /* Neutral (slate) */
-  --color-neutral-50:  #F8FAFC;
-  --color-neutral-100: #F1F5F9;
-  --color-neutral-200: #E2E8F0;
-  --color-neutral-300: #CBD5E1;
-  --color-neutral-400: #94A3B8;
-  --color-neutral-500: #64748B;
-  --color-neutral-600: #475569;
-  --color-neutral-700: #334155;
-  --color-neutral-800: #1E293B;
-  --color-neutral-900: #0F172A;
-  --color-neutral-950: #020617;
+  /* Text */
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-inverse: var(--color-text-inverse);
 
-  /* Success */
-  --color-success-50:  #F0FDF4;
-  --color-success-100: #DCFCE7;
-  --color-success-200: #BBF7D0;
-  --color-success-300: #86EFAC;
-  --color-success-400: #4ADE80;
-  --color-success-500: #22C55E;
-  --color-success-600: #16A34A;
-  --color-success-700: #15803D;
-  --color-success-800: #166534;
-  --color-success-900: #14532D;
+  /* Borders */
+  --color-border-subtle: var(--color-border-subtle);
+  --color-border-default: var(--color-border-default);
+  --color-border-strong: var(--color-border-strong);
 
-  /* Warning */
-  --color-warning-50:  #FFFBEB;
-  --color-warning-100: #FEF3C7;
-  --color-warning-200: #FDE68A;
-  --color-warning-300: #FCD34D;
-  --color-warning-400: #FBBF24;
-  --color-warning-500: #F59E0B;
-  --color-warning-600: #D97706;
-  --color-warning-700: #B45309;
-  --color-warning-800: #92400E;
-  --color-warning-900: #78350F;
+  /* Action (monochrome primary) */
+  --color-action-main: var(--color-action-main);
+  --color-action-hover: var(--color-action-hover);
+  --color-action-active: var(--color-action-active);
+  --color-action-disabled: var(--color-action-disabled);
+  --color-action-text: var(--color-action-text);
 
-  /* Danger */
-  --color-danger-50:  #FEF2F2;
-  --color-danger-100: #FEE2E2;
-  --color-danger-200: #FECACA;
-  --color-danger-300: #FCA5A5;
-  --color-danger-400: #F87171;
-  --color-danger-500: #EF4444;
-  --color-danger-600: #DC2626;
-  --color-danger-700: #B91C1C;
-  --color-danger-800: #991B1B;
-  --color-danger-900: #7F1D1D;
+  /* Semantic status */
+  --color-success-bg: var(--color-success-bg);
+  --color-success-text: var(--color-success-text);
+  --color-success-border: var(--color-success-border);
+  --color-error-bg: var(--color-error-bg);
+  --color-error-text: var(--color-error-text);
+  --color-error-border: var(--color-error-border);
+  --color-warning-bg: var(--color-warning-bg);
+  --color-warning-text: var(--color-warning-text);
+  --color-warning-border: var(--color-warning-border);
+  --color-info-bg: var(--color-info-bg);
+  --color-info-text: var(--color-info-text);
+  --color-info-border: var(--color-info-border);
 
-  /* Typography */
-  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, 'Fira Code', monospace;
+  /* Typography — Inter only */
+  --font-sans: var(--font-family-base);
 
   /* Radius */
-  --radius-sm:  4px;
-  --radius-md:  6px;
-  --radius-lg:  8px;
-  --radius-xl:  12px;
-  --radius-2xl: 16px;
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-full: var(--radius-full);
 
   /* Shadows */
-  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.10), 0 1px 2px -1px rgb(0 0 0 / 0.10);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.10), 0 2px 4px -2px rgb(0 0 0 / 0.10);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.10), 0 4px 6px -4px rgb(0 0 0 / 0.10);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.10), 0 8px 10px -6px rgb(0 0 0 / 0.10);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
 }
 
 /* ============================================================
-   Base — Strativy light theme defaults.
+   Base — theme defaults via CSS vars
    ============================================================ */
 html,
 body {
   background-color: var(--color-bg-page);
   color: var(--color-text-primary);
-  font-family: var(--font-sans);
+  font-family: var(--font-family-base);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-primary-600);
+  outline: 2px solid var(--color-action-main);
   outline-offset: 2px;
 }
 
-/* Scrollbar styles for light/dark mode */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -112,22 +84,15 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-neutral-300);
+  background: var(--color-border-strong);
   border-radius: var(--radius-full);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-neutral-400);
-}
-
-.dark ::-webkit-scrollbar-thumb {
-  background: var(--color-neutral-700);
-}
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-neutral-600);
+  background: var(--color-text-muted);
 }
 
 /* ============================================================
-   Strativy table & progress utilities (design tokens)
+   Strativy table & progress utilities
    ============================================================ */
 .strativy-table thead th {
   color: var(--color-text-secondary);
@@ -135,7 +100,7 @@ body {
 }
 
 .strativy-table tbody td {
-  color: var(--color-neutral-700);
+  color: var(--color-text-primary);
 }
 
 .strativy-table tbody .strativy-table-muted {
@@ -143,42 +108,18 @@ body {
 }
 
 .strativy-table tbody .strativy-table-caption {
-  color: var(--color-text-tertiary);
+  color: var(--color-text-muted);
   font-size: 0.625rem;
 }
 
-.dark .strativy-table thead th {
-  color: var(--color-neutral-400);
-}
-
-.dark .strativy-table tbody td {
-  color: var(--color-neutral-200);
-}
-
 .strativy-table tbody .ledger-sector-name {
-  color: var(--color-neutral-700);
+  color: var(--color-text-primary);
   font-weight: 600;
 }
 
-.dark .strativy-table tbody .ledger-sector-name {
-  color: var(--color-neutral-200);
-}
-
 .strativy-table tbody .ledger-metric {
-  color: var(--color-primary-700);
+  color: var(--color-text-primary);
   font-weight: 700;
-}
-
-.dark .strativy-table tbody .ledger-metric {
-  color: var(--color-primary-300);
-}
-
-.dark .strativy-table tbody .strativy-table-muted {
-  color: var(--color-neutral-400);
-}
-
-.dark .strativy-table tbody .strativy-table-caption {
-  color: var(--color-neutral-500);
 }
 
 /* STRATIVY BRAIN — markdown output readability */
@@ -187,23 +128,13 @@ body {
   line-height: 1.65;
 }
 
-.dark .brain-markdown {
-  color: var(--color-neutral-200);
-}
-
 .brain-markdown h1,
 .brain-markdown h2,
 .brain-markdown h3 {
-  color: var(--color-primary-700);
+  color: var(--color-text-primary);
   font-weight: 600;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
-}
-
-.dark .brain-markdown h1,
-.dark .brain-markdown h2,
-.dark .brain-markdown h3 {
-  color: var(--color-primary-300);
 }
 
 .brain-markdown p {
@@ -220,24 +151,15 @@ body {
 }
 
 .brain-markdown strong {
-  color: var(--color-neutral-900);
+  color: var(--color-text-primary);
   font-weight: 600;
 }
 
-.dark .brain-markdown strong {
-  color: var(--color-neutral-100);
-}
-
 .brain-markdown code {
-  font-family: var(--font-mono);
   font-size: 0.8125rem;
   padding: 0.125rem 0.375rem;
   border-radius: var(--radius-sm);
-  background: var(--color-neutral-100);
-  color: var(--color-primary-700);
-}
-
-.dark .brain-markdown code {
-  background: var(--color-neutral-800);
-  color: var(--color-primary-300);
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-subtle);
 }

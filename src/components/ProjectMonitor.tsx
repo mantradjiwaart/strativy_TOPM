@@ -20,6 +20,7 @@ import {
 import { StrategicProject } from '../types';
 import { ProgressBar } from './ui/ProgressBar';
 import { KpiCard } from './ui/KpiCard';
+import { Button } from './ui/Button';
 import * as ui from '../lib/uiTheme';
 
 interface ProjectMonitorProps {
@@ -95,12 +96,12 @@ export default function ProjectMonitor({
     <div id="project-monitor-container" className="space-y-6 text-left">
       
       {/* 1. HUD KPIs PANEL */}
-      <div id="project-hud-cards" className="grid grid-cols-2 md:grid-cols-4 gap-4 font-mono">
+      <div id="project-hud-cards" className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <KpiCard
           id="prj-stat-1"
           darkMode={darkMode}
           label="Total CAPEX Allocated"
-          accent="primary"
+          accent="default"
           icon={<Coins className="w-4 h-4" />}
           value={
             <>
@@ -108,18 +109,18 @@ export default function ProjectMonitor({
             </>
           }
           footer={
-            <span className={`text-[10px] font-mono ${ui.labelMuted(darkMode)}`}>Consolidated Sum</span>
+            <span className={`text-[10px] ${ui.labelMuted(darkMode)}`}>Consolidated Sum</span>
           }
         />
         <KpiCard
           id="prj-stat-2"
           darkMode={darkMode}
           label="Weighted Progress"
-          accent="cyan"
+          accent="default"
           icon={<TrendingUp className="w-4 h-4" />}
           value={<>{projectAggregates.progress}%</>}
           footer={
-            <span className="text-[10px] text-success-600 dark:text-success-400 font-mono font-bold">
+            <span className="text-[10px] text-[var(--color-success-text)] font-semibold">
               Completed Avg
             </span>
           }
@@ -132,18 +133,18 @@ export default function ProjectMonitor({
           icon={<ArrowUpRight className="w-4 h-4" />}
           value={<>24.5% IRR</>}
           footer={
-            <span className={`text-[10px] font-mono ${ui.labelMuted(darkMode)}`}>Projected ROI yield</span>
+            <span className={`text-[10px] ${ui.labelMuted(darkMode)}`}>Projected ROI yield</span>
           }
         />
         <KpiCard
           id="prj-stat-4"
           darkMode={darkMode}
           label="Active Critical Warnings"
-          accent="danger"
+          accent="error"
           icon={<ShieldAlert className="w-4 h-4" />}
           value={<>{projectAggregates.redAlerts} High-Risk</>}
           footer={
-            <span className="text-[10px] text-danger-600 dark:text-danger-400 font-bold font-mono">
+            <span className="text-[10px] text-[var(--color-error-text)] font-semibold">
               Standard Alert
             </span>
           }
@@ -154,12 +155,12 @@ export default function ProjectMonitor({
       <div id="gantt-chart-section" className={`p-5 rounded-2xl border transition-all duration-300 ${ui.card(darkMode)}`}>
         <div className="flex justify-between items-center mb-1">
           <h3 className={`font-extrabold text-sm uppercase tracking-wider flex items-center space-x-2 ${ui.value(darkMode)}`}>
-            <Clock className="w-4 h-4 text-primary-500" />
+            <Clock className="w-4 h-4 text-[var(--color-text-secondary)]" />
             <span>Interactive gantt roadmap & timeline</span>
           </h3>
-          <span className={`text-[9px] px-2 py-0.5 rounded-md font-mono ${darkMode ? 'bg-neutral-800 text-neutral-300' : 'bg-neutral-100 text-neutral-700'}`}>Pure SVG Matrix</span>
+          <span className={`text-[9px] px-2 py-0.5 rounded-[var(--radius-sm)] ${darkMode ? 'bg-[var(--color-bg-surface)] text-[var(--color-text-secondary)]' : 'bg-[var(--color-bg-surface)] text-[var(--color-text-secondary)]'}`}>Pure SVG Matrix</span>
         </div>
-        <p className={`text-xs mb-4 font-mono ${ui.label(darkMode)}`}>
+        <p className={`text-xs mb-4 ${ui.label(darkMode)}`}>
           Gantt bars represent start-to-finish schedules. Lines map chronological project dependencies.
         </p>
 
@@ -284,7 +285,7 @@ export default function ProjectMonitor({
         {/* Render tooltip detailing focused parameters */}
         {selectedProject ? (
           <div className={`mt-4 p-3.5 rounded-xl border text-left ${ui.calloutPrimary(darkMode)}`}>
-            <span className="text-[10px] uppercase font-bold text-primary-600 dark:text-primary-400">Strategic Project focused details</span>
+            <span className={`text-[10px] uppercase font-semibold ${ui.actionText(darkMode)}`}>Strategic Project focused details</span>
             <h4 className={`text-sm font-bold mt-1 ${ui.value(darkMode)}`}>{selectedProject.name} ({selectedProject.id})</h4>
             <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 mt-2.5 pt-2.5 border-t text-xs ${darkMode ? 'border-neutral-800' : 'border-neutral-200'}`}>
               <div>
@@ -301,7 +302,7 @@ export default function ProjectMonitor({
               </div>
               <div>
                 <span className={ui.label(darkMode)}>Delay / Bottleneck indicators:</span>
-                <span className={`block font-semibold ${selectedProject.slippageDays > 0 ? 'text-danger-600 dark:text-danger-400' : 'text-success-600 dark:text-success-400'}`}>
+                <span className={`block font-semibold ${selectedProject.slippageDays > 0 ? 'text-[var(--color-error-text)]' : 'text-[var(--color-success-text)]'}`}>
                   {selectedProject.slippageDays > 0 ? `+${selectedProject.slippageDays} Days Delay` : 'On schedule'}
                 </span>
               </div>
@@ -327,8 +328,8 @@ export default function ProjectMonitor({
                 <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md uppercase ${darkMode ? 'bg-neutral-800 text-neutral-300' : 'bg-neutral-100 text-neutral-700'}`}>{p.id}</span>
                 <h4 className={`text-sm font-bold mt-1.5 ${ui.value(darkMode)}`}>{p.name}</h4>
               </div>
-              <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${
-                p.status === 'green' ? 'bg-success-50 text-success-700 dark:bg-success-500/15 dark:text-success-400' : p.status === 'amber' ? 'bg-warning-50 text-warning-700 dark:bg-warning-500/15 dark:text-warning-400' : 'bg-danger-50 text-danger-700 dark:bg-danger-500/15 dark:text-danger-400'
+              <span className={`text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full ${
+                p.status === 'green' ? 'bg-[var(--color-success-bg)] text-[var(--color-success-text)]' : p.status === 'amber' ? 'bg-[var(--color-warning-bg)] text-[var(--color-warning-text)]' : 'bg-[var(--color-error-bg)] text-[var(--color-error-text)]'
               }`}>
                 {p.status}
               </span>
@@ -341,7 +342,7 @@ export default function ProjectMonitor({
               </div>
               <ProgressBar
                 value={p.progress}
-                variant={p.status === 'green' ? 'success' : p.status === 'amber' ? 'warning' : 'danger'}
+                variant={p.status === 'green' ? 'success' : p.status === 'amber' ? 'warning' : 'error'}
                 darkMode={darkMode}
                 aria-label={`${p.name} milestone progress`}
               />
@@ -354,7 +355,7 @@ export default function ProjectMonitor({
               </div>
               <div>
                 <span className={`block font-normal ${darkMode ? 'text-neutral-400' : 'text-neutral-600'}`}>Slippage indicator:</span>
-                <span className={`font-semibold ${p.slippageDays > 0 ? 'text-danger-500 dark:text-danger-400' : 'text-success-600 dark:text-success-400'}`}>
+                <span className={`font-semibold ${p.slippageDays > 0 ? 'text-[var(--color-error-text)]' : 'text-[var(--color-success-text)]'}`}>
                   {p.slippageDays > 0 ? `+${p.slippageDays} days` : 'Stable schedule'}
                 </span>
               </div>
@@ -372,32 +373,32 @@ export default function ProjectMonitor({
       {/* 4. EXECUTIVE STRATIVY BRAIN REALLOCATION PANEL (POWER LAYER) */}
       <div id="capital-reallocation-decision-board" className={`p-5 rounded-2xl border transition-all duration-300 ${ui.cardInset(darkMode)} flex flex-col md:flex-row justify-between items-center gap-4`}>
         <div className="space-y-1 text-left flex-1">
-          <h4 className="font-extrabold text-sm text-primary-600 dark:text-primary-400 flex items-center space-x-1.5 uppercase tracking-wider font-mono">
-            <Sparkles className="w-4 h-4 animate-pulse text-primary-500" />
+          <h4 className={`font-semibold text-sm ${ui.actionText(darkMode)} flex items-center space-x-1.5 uppercase tracking-wider`}>
+            <Sparkles className="w-4 h-4 animate-pulse" />
             <span>STRATIVY BRAIN Project Allocation</span>
           </h4>
-          <p className={`text-xs font-mono leading-relaxed ${ui.label(darkMode)}`}>
+          <p className={`text-xs leading-relaxed ${ui.label(darkMode)}`}>
             "100MW Wind Grid Phase 3 is experiencing deepwater turbine procurement blocks. We recommend reallocating $15M from the Property landbank acquisition budget to lock express logistics, resolving 40 days of construction delay and preserving consolidated holding EBITDA targets."
           </p>
           {reallocationMsg && (
-            <div className={`mt-3.5 p-3 rounded-xl border text-xs font-mono ${ui.calloutSuccess(darkMode)}`}>
+            <div className={`mt-3.5 p-3 rounded-[var(--radius-xl)] border text-xs ${ui.calloutSuccess(darkMode)}`}>
               💡 {reallocationMsg}
             </div>
           )}
         </div>
 
         {projects.find(p => p.id === 'PRJ-WIND-03')?.status === 'red' ? (
-          <button 
+          <Button
             id="reallocate-funds-btn"
             onClick={reallocateFunds}
-            className="px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-extrabold text-xs rounded-xl flex items-center space-x-2 shrink-0 transition-all shadow-md shadow-primary-600/10 font-mono"
-            type="button"
+            size="lg"
+            className="shrink-0"
           >
             <Sparkles className="w-4 h-4" />
             <span>Execute STRATIVY BRAIN Reallocation</span>
-          </button>
+          </Button>
         ) : (
-          <div className={`px-4 py-2 rounded-xl text-xs font-semibold font-mono flex items-center space-x-1.5 shrink-0 border ${ui.calloutSuccess(darkMode)}`}>
+          <div className={`px-4 py-2 rounded-[var(--radius-xl)] text-xs font-semibold flex items-center space-x-1.5 shrink-0 border ${ui.calloutSuccess(darkMode)}`}>
             <span>✓ Recommendations Executed</span>
           </div>
         )}

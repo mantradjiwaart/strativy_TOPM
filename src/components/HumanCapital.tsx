@@ -165,16 +165,16 @@ export default function HumanCapital({
     <div id="human-capital-module" className="space-y-6">
       
       {/* 1. HUD SUMMARY ROW CARDGRID */}
-      <div id="hr-hud-cards" className="grid grid-cols-2 md:grid-cols-4 gap-4 font-mono">
+      <div id="hr-hud-cards" className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <KpiCard
           id="hr-stat-1"
           darkMode={darkMode}
           label="Total Headcount"
-          accent="primary"
+          accent="default"
           icon={<Users className="w-4 h-4" />}
           value={<>{hrAggregates.headcount.toLocaleString()} FTEs</>}
           footer={
-            <span className={`text-[10px] font-mono ${ui.labelMuted(darkMode)}`}>
+            <span className={`text-[10px] ${ui.labelMuted(darkMode)}`}>
               +{hrAggregates.contractors} Contractors
             </span>
           }
@@ -187,7 +187,7 @@ export default function HumanCapital({
           icon={<Activity className="w-4 h-4" />}
           value={<>{hrAggregates.engagement} / 100</>}
           footer={
-            <span className="text-[10px] text-success-600 dark:text-success-400 font-mono font-bold">
+            <span className="text-[10px] text-[var(--color-success-text)] font-semibold">
               Weighted Avg
             </span>
           }
@@ -196,11 +196,11 @@ export default function HumanCapital({
           id="hr-stat-3"
           darkMode={darkMode}
           label="Annual Attrition Rate"
-          accent="danger"
+          accent="error"
           icon={<TrendingDown className="w-4 h-4" />}
           value={<>{hrAggregates.attrition}%</>}
           footer={
-            <span className={`text-[10px] font-semibold font-mono ${ui.labelMuted(darkMode)}`}>
+            <span className={`text-[10px] font-semibold ${ui.labelMuted(darkMode)}`}>
               Benchmark: 14%
             </span>
           }
@@ -213,7 +213,7 @@ export default function HumanCapital({
           icon={<UserCheck className="w-4 h-4" />}
           value={<>{hrAggregates.participation}% Active</>}
           footer={
-            <span className={`text-[10px] font-mono ${ui.labelMuted(darkMode)}`}>
+            <span className={`text-[10px] ${ui.labelMuted(darkMode)}`}>
               {wellnessBudgetFactor > 5 ? 'High participation' : 'Adequate'}
             </span>
           }
@@ -227,20 +227,20 @@ export default function HumanCapital({
         <div className={`lg:col-span-8 p-5 rounded-2xl border transition-all duration-300 ${ui.card(darkMode)}`}>
           <div className="flex justify-between items-center mb-1">
             <h3 className={`font-extrabold text-sm uppercase tracking-wider flex items-center space-x-2 ${ui.value(darkMode)}`}>
-              <Users className="w-4 h-4 text-primary-500" />
+              <Users className="w-4 h-4 text-[var(--color-text-secondary)]" />
               <span>Productivity vs Attrition Quadrant Matrix</span>
             </h3>
-            <span className={`text-[10px] px-2 py-0.5 rounded-md font-mono ${darkMode ? 'bg-neutral-800 text-neutral-300' : 'bg-neutral-100 text-neutral-700'}`}>Interactive Nodes</span>
+            <span className={`text-[10px] px-2 py-0.5 rounded-[var(--radius-sm)] ${darkMode ? 'bg-[var(--color-bg-surface)] text-[var(--color-text-secondary)]' : 'bg-[var(--color-bg-surface)] text-[var(--color-text-secondary)]'}`}>Interactive Nodes</span>
           </div>
-          <p className={`text-xs mb-4 font-mono ${ui.label(darkMode)}`}>
+          <p className={`text-xs mb-4 ${ui.label(darkMode)}`}>
             Visualizes employee burnout (top-right) and high-performance safety zones (bottom-right). Click any sector bubble to focus detailed parameters.
           </p>
 
           <div className={`w-full h-80 relative border rounded-xl p-2.5 ${darkMode ? 'bg-neutral-950 border-neutral-800' : 'bg-neutral-50 border-neutral-200'}`}>
             {/* Visual quadrant labels overlays */}
-            <div className={`absolute top-4 left-4 px-2 py-0.5 rounded-md text-[9px] text-danger-600 dark:text-danger-400 border border-danger-500/20 font-mono ${darkMode ? 'bg-neutral-900/95' : 'bg-white/95 shadow-sm'}`}>💥 H1 RISK: Burnout / Tension risk (High Attrition, High Output)</div>
-            <div className={`absolute bottom-4 left-4 px-2 py-0.5 rounded-md text-[9px] border font-mono ${darkMode ? 'bg-neutral-900/95 text-neutral-400 border-neutral-700' : 'bg-white/95 text-neutral-600 border-neutral-200 shadow-sm'}`}>💤 Q3 STAGNATION: Skill stagnation (Low Attrition, Low Output)</div>
-            <div className={`absolute bottom-4 right-4 px-2 py-0.5 rounded-md text-[9px] text-success-600 dark:text-success-400 border border-success-500/20 font-mono ${darkMode ? 'bg-neutral-900/95' : 'bg-white/95 shadow-sm'}`}>✨ Q4 IDEAL: Peak Engagement (Low Attrition, High Output)</div>
+            <div className={`absolute top-4 left-4 px-2 py-0.5 rounded-[var(--radius-sm)] text-[9px] text-[var(--color-error-text)] border border-[var(--color-error-border)] ${darkMode ? 'bg-[var(--color-bg-elevated)]/95' : 'bg-[var(--color-bg-elevated)]/95 shadow-[var(--shadow-sm)]'}`}>💥 H1 RISK: Burnout / Tension risk (High Attrition, High Output)</div>
+            <div className={`absolute bottom-4 left-4 px-2 py-0.5 rounded-[var(--radius-sm)] text-[9px] border ${darkMode ? 'bg-[var(--color-bg-elevated)]/95 text-[var(--color-text-muted)] border-[var(--color-border-subtle)]' : 'bg-[var(--color-bg-elevated)]/95 text-[var(--color-text-secondary)] border-[var(--color-border-default)] shadow-[var(--shadow-sm)]'}`}>💤 Q3 STAGNATION: Skill stagnation (Low Attrition, Low Output)</div>
+            <div className={`absolute bottom-4 right-4 px-2 py-0.5 rounded-[var(--radius-sm)] text-[9px] text-[var(--color-success-text)] border border-[var(--color-success-border)] ${darkMode ? 'bg-[var(--color-bg-elevated)]/95' : 'bg-[var(--color-bg-elevated)]/95 shadow-[var(--shadow-sm)]'}`}>✨ Q4 IDEAL: Peak Engagement (Low Attrition, High Output)</div>
 
             <ResponsiveContainer width="100%" height="100%">
               <ScatterChart margin={{ top: 30, right: 20, bottom: 20, left: -20 }}>
@@ -293,9 +293,9 @@ export default function HumanCapital({
           <div className={`p-5 rounded-2xl border transition-all duration-300 ${ui.cardInset(darkMode)} flex-1 flex flex-col justify-between`}>
             
             <div className="space-y-4">
-              <div className="flex items-center space-x-2 text-primary-600 dark:text-primary-400">
-                <Users className="w-5 h-5 text-primary-500" />
-                <h4 className="font-extrabold text-xs uppercase tracking-widest font-mono">Sector HR parameters</h4>
+              <div className="flex items-center space-x-2 text-[var(--color-text-secondary)]">
+                <Users className="w-5 h-5" />
+                <h4 className="font-semibold text-xs uppercase tracking-widest">Sector HR parameters</h4>
               </div>
               <h3 className={`text-base font-bold flex items-center space-x-2 ${ui.value(darkMode)}`}>
                 <span className={`p-1 rounded-md ${darkMode ? 'bg-neutral-800' : 'bg-neutral-100'}`} style={{ color: focusedBU.color }}>
@@ -309,14 +309,14 @@ export default function HumanCapital({
                 {/* indicator headcount */}
                 <div className={`flex justify-between items-center text-xs border-b pb-2 ${darkMode ? 'border-neutral-800' : 'border-neutral-200'}`}>
                   <span className={darkMode ? 'text-neutral-400' : 'text-neutral-600'}>Headcount FTE / Contacts</span>
-                  <span className={`font-bold font-mono ${darkMode ? 'text-neutral-100' : 'text-neutral-900'}`}>{focusedBU.headcount} FTE / {focusedBU.contractors}</span>
+                  <span className={`font-semibold ${ui.value(darkMode)}`}>{focusedBU.headcount} FTE / {focusedBU.contractors}</span>
                 </div>
 
                 {/* indicator engagement slider ratio */}
                 <div className="space-y-1.5">
                   <div className="flex justify-between items-center text-xs">
                     <span className={darkMode ? 'text-neutral-400' : 'text-neutral-600'}>Employee Engagement</span>
-                    <span className="font-bold text-success-600 dark:text-success-400 font-mono">{focusedBU.engagementScore} / 100</span>
+                    <span className="font-semibold text-[var(--color-success-text)]">{focusedBU.engagementScore} / 100</span>
                   </div>
                   <ProgressBar value={focusedBU.engagementScore} variant="success" darkMode={darkMode} aria-label="Employee engagement" />
                 </div>
@@ -325,16 +325,16 @@ export default function HumanCapital({
                 <div className="space-y-1.5">
                   <div className="flex justify-between items-center text-xs">
                     <span className={darkMode ? 'text-neutral-400' : 'text-neutral-600'}>Direct Attrition Risk</span>
-                    <span className="font-bold text-danger-600 dark:text-danger-400 font-mono">{focusedBU.attritionRate}%</span>
+                    <span className="font-semibold text-[var(--color-error-text)]">{focusedBU.attritionRate}%</span>
                   </div>
-                  <ProgressBar value={(focusedBU.attritionRate / 15) * 100} variant="danger" darkMode={darkMode} aria-label="Attrition risk" />
+                  <ProgressBar value={(focusedBU.attritionRate / 15) * 100} variant="error" darkMode={darkMode} aria-label="Attrition risk" />
                 </div>
 
                 {/* indicator wellness participation */}
                 <div className="space-y-1.5">
                   <div className="flex justify-between items-center text-xs">
                     <span className={darkMode ? 'text-neutral-400' : 'text-neutral-600'}>Wellness Program participation</span>
-                    <span className="font-bold text-success-600 dark:text-success-400 font-mono">{focusedBU.wellnessParticipation}%</span>
+                    <span className="font-semibold text-[var(--color-success-text)]">{focusedBU.wellnessParticipation}%</span>
                   </div>
                   <ProgressBar value={focusedBU.wellnessParticipation} variant="success" darkMode={darkMode} aria-label="Wellness participation" />
                 </div>
@@ -342,8 +342,8 @@ export default function HumanCapital({
                 {/* leadership readiness */}
                 <div className={`flex justify-between items-center text-xs border-t pt-2 ${darkMode ? 'border-neutral-800' : 'border-neutral-200'}`}>
                   <span className={darkMode ? 'text-neutral-400' : 'text-neutral-600'}>Leadership Readiness index</span>
-                  <span className="font-bold text-primary-600 dark:text-primary-400 flex items-center space-x-1 font-mono">
-                    <Award className="w-4 h-4 text-primary-500" />
+                  <span className={`font-semibold ${ui.actionText(darkMode)} flex items-center space-x-1`}>
+                    <Award className="w-4 h-4" />
                     <span>{focusedBU.leadershipReadiness}% index</span>
                   </span>
                 </div>
@@ -362,7 +362,7 @@ export default function HumanCapital({
 
             </div>
 
-            <div className="p-3.5 rounded-xl bg-primary-50 text-primary-800 dark:bg-primary-500/10 dark:text-primary-300 border border-primary-200 dark:border-primary-500/20 text-[10px] leading-relaxed text-left">
+            <div className={`p-3.5 rounded-[var(--radius-xl)] border text-[10px] leading-relaxed text-left ${ui.calloutInfo(darkMode)}`}>
               <strong>Ecosystem Context:</strong> Safety indicators are direct physical limits. High safety indices represent high training rates, reducing downtime by 12%.
             </div>
 
@@ -375,15 +375,15 @@ export default function HumanCapital({
       <div id="wellness-simulator-section" className={`p-6 rounded-2xl border shadow-sm ${ui.card(darkMode)}`}>
         <div id="wellness-sim-header" className={`border-b pb-4 mb-4 flex flex-col md:flex-row justify-between items-start md:items-center text-left ${darkMode ? 'border-neutral-800' : 'border-neutral-200'}`}>
           <div className="space-y-1">
-            <h4 className="font-bold text-sm uppercase tracking-wider flex items-center space-x-2 text-success-600 dark:text-success-400">
-              <Sparkles className="w-4 h-4 text-success-500 animate-pulse" />
+            <h4 className="font-semibold text-sm uppercase tracking-wider flex items-center space-x-2 text-[var(--color-success-text)]">
+              <Sparkles className="w-4 h-4 animate-pulse" />
               <span>Wellness program investment slider simulator</span>
             </h4>
             <p className={`text-xs ${ui.label(darkMode)}`}>
               Model physical returns of health, safety, and training investment values ($1M to $10M holding budget cap).
             </p>
           </div>
-          <div className={`mt-2 md:mt-0 p-2 text-xs rounded-lg font-semibold font-mono ${ui.calloutSuccess(darkMode)}`}>
+          <div className={`mt-2 md:mt-0 p-2 text-xs rounded-[var(--radius-lg)] font-semibold ${ui.calloutSuccess(darkMode)}`}>
             Active alloc: ${wellnessBudgetFactor}M Group-wide
           </div>
         </div>
