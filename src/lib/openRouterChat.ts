@@ -1,5 +1,6 @@
-import OpenAI from 'openai';
-import { getOpenRouterModelsToTry, OPENROUTER_BASE_URL } from '../config/openrouter';
+import { OpenRouter } from '@openrouter/sdk';
+import { OpenRouterError } from '@openrouter/sdk/models/errors';
+import { getOpenRouterModelsToTry } from '../config/openrouter';
 
 export interface OpenRouterChatParams {
   prompt: string;
@@ -11,15 +12,11 @@ export interface OpenRouterChatParams {
 const OPENROUTER_REFERER = 'https://strativy-boardroom-core';
 const OPENROUTER_TITLE = 'STRATIVY BRAIN';
 
-function createOpenRouterClient(apiKey: string): OpenAI {
-  return new OpenAI({
+function createOpenRouterClient(apiKey: string): OpenRouter {
+  return new OpenRouter({
     apiKey,
-    baseURL: OPENROUTER_BASE_URL,
-    dangerouslyAllowBrowser: true,
-    defaultHeaders: {
-      'HTTP-Referer': OPENROUTER_REFERER,
-      'X-Title': OPENROUTER_TITLE,
-    },
+    httpReferer: OPENROUTER_REFERER,
+    appTitle: OPENROUTER_TITLE,
   });
 }
 
@@ -37,9 +34,9 @@ function throwStructuredApiError(
   );
 }
 
-function mapOpenAiError(error: unknown): never {
-  if (error instanceof OpenAI.APIError) {
-    throwStructuredApiError(error.status ?? 500, error.message, error.code ?? undefined);
+function mapOpenRouterError(error: unknown): never {
+  if (error instanceof OpenRouterError) {
+    throwStructuredApiError(error.statusCode, error.message);
   }
   if (error instanceof Error) {
     throw error;
@@ -48,6 +45,9 @@ function mapOpenAiError(error: unknown): never {
 }
 
 function isRateLimitError(error: unknown): boolean {
+  if (error instanceof OpenRouterError) {
+    return error.statusCode === 429;
+  }
   if (!(error instanceof Error)) return false;
   const lower = error.message.toLowerCase();
   return (
@@ -59,6 +59,26 @@ function isRateLimitError(error: unknown): boolean {
   );
 }
 
+function extractMessageText(content: unknown): string {
+  if (typeof content === 'string') {
+    return content.trim();
+  }
+
+  if (Array.isArray(content)) {
+    return content
+      .map((part) => {
+        if (typeof part === 'object' && part !== null && 'text' in part) {
+          return String((part as { text: unknown }).text);
+        }
+        return '';
+      })
+      .join('')
+      .trim();
+  }
+
+  return '';
+}
+
 export async function openRouterComplete(
   apiKey: string,
   params: OpenRouterChatParams
@@ -66,16 +86,18 @@ export async function openRouterComplete(
   const client = createOpenRouterClient(apiKey);
 
   try {
-    const completion = await client.chat.completions.create({
-      model: params.model,
-      messages: [
-        { role: 'system', content: params.systemPrompt },
-        { role: 'user', content: params.prompt },
-      ],
-      temperature: params.temperature,
+    const completion = await client.chat.send({
+      chatRequest: {
+        model: params.model,
+        messages: [
+          { role: 'system', content: params.systemPrompt },
+          { role: 'user', content: params.prompt },
+        ],
+        temperature: params.temperature,
+      },
     });
 
-    const text = completion.choices[0]?.message?.content?.trim();
+    const text = extractMessageText(completion.choices[0]?.message?.content);
     if (!text) {
       throw new Error('OpenRouter returned an empty response');
     }
@@ -85,7 +107,7 @@ export async function openRouterComplete(
     if (error instanceof Error && error.message.includes('empty response')) {
       throw error;
     }
-    mapOpenAiError(error);
+    mapOpenRouterError(error);
   }
 }
 

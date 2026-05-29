@@ -6,12 +6,13 @@ import {
 } from './openrouter';
 
 describe('openrouter config', () => {
-  it('uses gemma-4-26b-a4b-it free tier as primary', () => {
-    expect(OPENROUTER_MODEL).toBe('google/gemma-4-26b-a4b-it:free');
+  it('uses liquid lfm-2.5 free tier as primary', () => {
+    expect(OPENROUTER_MODEL).toBe('liquid/lfm-2.5-1.2b-instruct:free');
   });
 
   it('includes free-tier fallbacks for upstream rate limits', () => {
     expect(OPENROUTER_FALLBACK_MODELS.length).toBeGreaterThan(0);
+    expect(OPENROUTER_FALLBACK_MODELS).toContain('google/gemma-4-26b-a4b-it:free');
     expect(OPENROUTER_FALLBACK_MODELS).toContain('openrouter/free');
   });
 
