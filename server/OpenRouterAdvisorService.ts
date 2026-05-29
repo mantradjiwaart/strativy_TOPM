@@ -1,13 +1,13 @@
-import { GEMINI_MODEL } from '../src/config/gemini';
-import { GeminiGateway } from './GeminiGateway';
+import { OPENROUTER_MODEL } from '../src/config/openrouter';
+import { OpenRouterGateway } from './OpenRouterGateway';
 
 const DEFAULT_SYSTEM_INSTRUCTION =
   'You are STRATIVY BRAIN, the elite Strativy boardroom intelligence advisor assisting the Chairman.';
 
-export class GeminiAdvisorService {
+export class OpenRouterAdvisorService {
   private readonly temperature = 0.7;
 
-  constructor(private readonly gateway: GeminiGateway) {}
+  constructor(private readonly gateway: OpenRouterGateway) {}
 
   async advise(prompt: string, systemPrompt?: string): Promise<string> {
     if (!prompt?.trim()) {
@@ -17,7 +17,7 @@ export class GeminiAdvisorService {
     return this.gateway.generateContent({
       prompt: prompt.trim(),
       systemPrompt: systemPrompt?.trim() || DEFAULT_SYSTEM_INSTRUCTION,
-      model: GEMINI_MODEL,
+      model: OPENROUTER_MODEL,
       temperature: this.temperature,
     });
   }

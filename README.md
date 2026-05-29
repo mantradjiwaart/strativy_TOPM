@@ -16,13 +16,13 @@ Run all commands from this directory (`strativy-boardroom-core`), or from the pa
    npm install
    ```
 
-2. Copy environment template and set your Strativy Brain API key:
+2. Copy environment template and set your OpenRouter API key:
 
    ```bash
    cp .env.example .env
    ```
 
-   Edit `.env` and set `GEMINI_API_KEY` to your Strativy API key.
+   Edit `.env` and set `OPENROUTER_API_KEY` to your [OpenRouter](https://openrouter.ai/) key. STRATIVY BRAIN uses model `deepseek/deepseek-v4-flash:free`.
 
 3. Start the dev server:
 
@@ -34,10 +34,10 @@ Run all commands from this directory (`strativy-boardroom-core`), or from the pa
 
 ### Quota / 429 errors
 
-If you see `RESOURCE_EXHAUSTED` or `limit: 0` for a model, your API quota may be exhausted. Try:
+If STRATIVY BRAIN reports it is busy or rate-limited:
 
-1. Wait for the retry window (the app auto-retries using the API’s `retry in Ns` hint)
-2. Check your API usage dashboard or enable billing on your Strativy API provider account
+1. Wait for the retry window (the server auto-retries with backoff)
+2. Check usage on your [OpenRouter dashboard](https://openrouter.ai/activity)
 
 ## Scripts
 
@@ -55,8 +55,10 @@ Pushes to `main` run lint, test, build, and deploy the static app to **GitHub Pa
 
 **Live site:** https://mantradjiwaart.github.io/strativy_TOPM/
 
-> **GitHub Pages + STRATIVY BRAIN:** Add a repository secret named `GEMINI_API_KEY` (Settings → Secrets → Actions), then push to `main` to rebuild. The key is embedded in the static build — use a restricted key and avoid public repos for production secrets.
+> **GitHub Pages + STRATIVY BRAIN:** Add a repository secret named `OPENROUTER_API_KEY` (Settings → Secrets and variables → Actions), then push to `main` to rebuild. The key is embedded in the static build via `VITE_OPENROUTER_API_KEY` — use a restricted key and avoid public repos for production secrets.
 
-> **Local dev:** Run `npm run dev` — the API key stays on the server via `.env` (`GEMINI_API_KEY`).
+> **Local dev:** Run `npm run dev` — the API key stays on the server via `.env` (`OPENROUTER_API_KEY`). No client-side key is required for local development.
+
+> **Gemini:** Previous `GEMINI_API_KEY` / `VITE_GEMINI_API_KEY` variables are deprecated and no longer used.
 
 **One-time repo setup:** In GitHub → **Settings** → **Pages** → **Build and deployment** → Source: **GitHub Actions**.

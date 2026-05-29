@@ -1,22 +1,22 @@
 import { describe, expect, it, vi } from 'vitest';
-import { GEMINI_MODEL } from '../src/config/gemini';
-import { GeminiAdvisorService } from './GeminiAdvisorService';
-import type { GeminiGateway } from './GeminiGateway';
+import { OPENROUTER_MODEL } from '../src/config/openrouter';
+import { OpenRouterAdvisorService } from './OpenRouterAdvisorService';
+import type { OpenRouterGateway } from './OpenRouterGateway';
 
-describe('GeminiAdvisorService', () => {
+describe('OpenRouterAdvisorService', () => {
   it('rejects empty prompt', async () => {
     const gateway = {
       generateContent: vi.fn(),
-    } as unknown as GeminiGateway;
-    const service = new GeminiAdvisorService(gateway);
+    } as unknown as OpenRouterGateway;
+    const service = new OpenRouterAdvisorService(gateway);
 
     await expect(service.advise('')).rejects.toThrow(/Prompt is required/);
   });
 
   it('delegates to gateway with fixed model', async () => {
     const generateContent = vi.fn().mockResolvedValue('Strategic advice');
-    const gateway = { generateContent } as unknown as GeminiGateway;
-    const service = new GeminiAdvisorService(gateway);
+    const gateway = { generateContent } as unknown as OpenRouterGateway;
+    const service = new OpenRouterAdvisorService(gateway);
 
     const result = await service.advise('Analyze capex', undefined);
 
@@ -25,7 +25,7 @@ describe('GeminiAdvisorService', () => {
       expect.objectContaining({
         prompt: 'Analyze capex',
         systemPrompt: expect.stringContaining('STRATIVY BRAIN'),
-        model: GEMINI_MODEL,
+        model: OPENROUTER_MODEL,
         temperature: 0.7,
       })
     );
@@ -33,15 +33,15 @@ describe('GeminiAdvisorService', () => {
 
   it('uses custom system prompt when provided', async () => {
     const generateContent = vi.fn().mockResolvedValue('ok');
-    const gateway = { generateContent } as unknown as GeminiGateway;
-    const service = new GeminiAdvisorService(gateway);
+    const gateway = { generateContent } as unknown as OpenRouterGateway;
+    const service = new OpenRouterAdvisorService(gateway);
 
     await service.advise('query', 'Custom board context');
 
     expect(generateContent).toHaveBeenCalledWith(
       expect.objectContaining({
         systemPrompt: 'Custom board context',
-        model: GEMINI_MODEL,
+        model: OPENROUTER_MODEL,
       })
     );
   });

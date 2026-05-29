@@ -7,7 +7,7 @@ export interface BoardAdvisorRequest {
 }
 
 function getClientApiKey(): string {
-  return import.meta.env.VITE_GEMINI_API_KEY?.trim() ?? '';
+  return import.meta.env.VITE_OPENROUTER_API_KEY?.trim() ?? '';
 }
 
 function parseApiResponse(
@@ -50,7 +50,7 @@ export class BoardAdvisorClient {
   }
 
   private async generateViaServer(request: BoardAdvisorRequest): Promise<string> {
-    const res = await fetch('/api/gemini/generate', {
+    const res = await fetch('/api/openrouter/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(request),

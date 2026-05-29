@@ -4,9 +4,9 @@ import { toUserFacingBrainError } from './brainUserMessages';
 describe('toUserFacingBrainError', () => {
   it('hides technical API key messages', () => {
     const msg = toUserFacingBrainError(
-      new Error('STRATIVY BRAIN needs GEMINI_API_KEY in .env and GitHub secret')
+      new Error('STRATIVY BRAIN needs OPENROUTER_API_KEY in .env and GitHub secret')
     );
-    expect(msg).not.toContain('GEMINI');
+    expect(msg).not.toContain('OPENROUTER');
     expect(msg).not.toContain('.env');
     expect(msg).toContain('not available');
   });

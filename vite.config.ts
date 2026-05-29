@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
     env.VITE_BASE_PATH ||
     (process.env.GITHUB_ACTIONS === 'true' ? '/strativy_TOPM/' : '/');
 
-  const geminiApiKey = env.GEMINI_API_KEY || env.MONEY_FLOW_GEMINI_API || '';
+  const openRouterApiKey = env.OPENROUTER_API_KEY || '';
   const injectClientKey = mode === 'production' || process.env.GITHUB_ACTIONS === 'true';
 
   return {
@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => {
     },
     define: injectClientKey
       ? {
-          'import.meta.env.VITE_GEMINI_API_KEY': JSON.stringify(geminiApiKey),
+          'import.meta.env.VITE_OPENROUTER_API_KEY': JSON.stringify(openRouterApiKey),
         }
       : undefined,
     server: {

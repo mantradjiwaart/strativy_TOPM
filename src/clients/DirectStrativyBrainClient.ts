@@ -1,6 +1,6 @@
-import { GoogleGenAI } from '@google/genai';
-import { GEMINI_MODEL } from '../config/gemini';
+import { OPENROUTER_MODEL } from '../config/openrouter';
 import { BRAIN_USER_MESSAGES } from '../lib/brainUserMessages';
+import { openRouterComplete } from '../lib/openRouterChat';
 import type { BoardAdvisorRequest } from './BoardAdvisorClient';
 
 const DEFAULT_SYSTEM_INSTRUCTION =
@@ -10,22 +10,18 @@ export class DirectStrativyBrainClient {
   constructor(private readonly apiKey: string) {}
 
   async generate(request: BoardAdvisorRequest): Promise<string> {
-    const client = new GoogleGenAI({ apiKey: this.apiKey });
-
-    const response = await client.models.generateContent({
-      model: GEMINI_MODEL,
-      contents: request.prompt,
-      config: {
-        systemInstruction: request.systemPrompt?.trim() || DEFAULT_SYSTEM_INSTRUCTION,
+    try {
+      return await openRouterComplete(this.apiKey, {
+        prompt: request.prompt,
+        systemPrompt: request.systemPrompt?.trim() || DEFAULT_SYSTEM_INSTRUCTION,
+        model: OPENROUTER_MODEL,
         temperature: 0.7,
-      },
-    });
-
-    const text = response.text;
-    if (!text) {
-      throw new Error(BRAIN_USER_MESSAGES.empty);
+      });
+    } catch (error) {
+      if (error instanceof Error && error.message.includes('empty response')) {
+        throw new Error(BRAIN_USER_MESSAGES.empty);
+      }
+      throw error;
     }
-
-    return text;
   }
 }

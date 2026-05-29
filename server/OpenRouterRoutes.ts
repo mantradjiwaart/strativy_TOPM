@@ -1,12 +1,12 @@
 import type { Express, Request, Response } from 'express';
-import { GeminiApiError } from './GeminiApiError';
-import { GeminiAdvisorService } from './GeminiAdvisorService';
+import { OpenRouterApiError } from './OpenRouterApiError';
+import { OpenRouterAdvisorService } from './OpenRouterAdvisorService';
 
-export class GeminiRoutes {
-  constructor(private readonly advisorService: GeminiAdvisorService) {}
+export class OpenRouterRoutes {
+  constructor(private readonly advisorService: OpenRouterAdvisorService) {}
 
   register(app: Express): void {
-    app.post('/api/gemini/generate', async (req: Request, res: Response) => {
+    app.post('/api/openrouter/generate', async (req: Request, res: Response) => {
       try {
         const { prompt, systemPrompt } = req.body as {
           prompt?: string;
@@ -16,7 +16,7 @@ export class GeminiRoutes {
         const text = await this.advisorService.advise(prompt ?? '', systemPrompt);
         res.json({ text });
       } catch (error) {
-        const status = error instanceof GeminiApiError ? error.statusCode : 500;
+        const status = error instanceof OpenRouterApiError ? error.statusCode : 500;
         const message =
           error instanceof Error
             ? error.message
@@ -24,7 +24,7 @@ export class GeminiRoutes {
         res.status(status).json({
           error: message,
           retryAfterMs:
-            error instanceof GeminiApiError ? error.retryAfterMs : undefined,
+            error instanceof OpenRouterApiError ? error.retryAfterMs : undefined,
         });
       }
     });

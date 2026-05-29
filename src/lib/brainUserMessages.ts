@@ -9,6 +9,8 @@ export const BRAIN_USER_MESSAGES = {
 } as const;
 
 const TECHNICAL_MARKERS = [
+  'openrouter_api',
+  'openrouter_api_key',
   'gemini_api',
   'gemini_api_key',
   'money_flow',

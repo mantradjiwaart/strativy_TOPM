@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 
-const PRIMARY_ENV_KEY = 'GEMINI_API_KEY';
-const LEGACY_ENV_KEY = 'MONEY_FLOW_GEMINI_API';
+const PRIMARY_ENV_KEY = 'OPENROUTER_API_KEY';
 
 export class ConfigService {
   private loaded = false;
@@ -13,14 +12,12 @@ export class ConfigService {
     }
   }
 
-  getGeminiApiKey(): string {
+  getOpenRouterApiKey(): string {
     this.load();
-    const apiKey =
-      process.env[PRIMARY_ENV_KEY]?.trim() ||
-      process.env[LEGACY_ENV_KEY]?.trim();
+    const apiKey = process.env[PRIMARY_ENV_KEY]?.trim();
     if (!apiKey) {
       throw new Error(
-        `${PRIMARY_ENV_KEY} is not defined. Copy .env.example to .env and set your Strativy Brain API key.`
+        `${PRIMARY_ENV_KEY} is not defined. Copy .env.example to .env and set your OpenRouter API key.`
       );
     }
     return apiKey;

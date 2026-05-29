@@ -2,9 +2,9 @@ import express from 'express';
 import path from 'path';
 import { createServer as createViteServer } from 'vite';
 import { ConfigService } from './ConfigService';
-import { GeminiAdvisorService } from './GeminiAdvisorService';
-import { GeminiGateway } from './GeminiGateway';
-import { GeminiRoutes } from './GeminiRoutes';
+import { OpenRouterAdvisorService } from './OpenRouterAdvisorService';
+import { OpenRouterGateway } from './OpenRouterGateway';
+import { OpenRouterRoutes } from './OpenRouterRoutes';
 
 const PORT = 3000;
 
@@ -15,10 +15,10 @@ export class BoardroomServer {
     const app = express();
     app.use(express.json());
 
-    const apiKey = this.config.getGeminiApiKey();
-    const gateway = new GeminiGateway(apiKey);
-    const advisorService = new GeminiAdvisorService(gateway);
-    new GeminiRoutes(advisorService).register(app);
+    const apiKey = this.config.getOpenRouterApiKey();
+    const gateway = new OpenRouterGateway(apiKey);
+    const advisorService = new OpenRouterAdvisorService(gateway);
+    new OpenRouterRoutes(advisorService).register(app);
 
     if (process.env.NODE_ENV !== 'production') {
       const vite = await createViteServer({
