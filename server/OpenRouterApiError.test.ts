@@ -23,4 +23,15 @@ describe('toOpenRouterApiError', () => {
     expect(err.statusCode).toBe(401);
     expect(err.message).toContain('authenticate');
   });
+
+  it('maps nested OpenRouter provider 429 errors', () => {
+    const err = toOpenRouterApiError(
+      new Error(
+        '{"status":429,"message":"Provider returned error","code":429}'
+      )
+    );
+
+    expect(err.statusCode).toBe(429);
+    expect(err.message).toContain('busy');
+  });
 });

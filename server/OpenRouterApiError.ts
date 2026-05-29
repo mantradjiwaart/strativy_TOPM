@@ -23,8 +23,19 @@ function parseRetryAfterMs(text: string, headerValue: string | null): number | u
 
 function parseStructuredError(raw: string): { status?: number; message?: string } {
   try {
-    const parsed = JSON.parse(raw) as { status?: number; message?: string };
-    if (typeof parsed.message === 'string') return parsed;
+    const parsed = JSON.parse(raw) as {
+      status?: number;
+      message?: string;
+      error?: { message?: string; code?: number };
+    };
+
+    if (typeof parsed.message === 'string') {
+      return { status: parsed.status ?? parsed.error?.code, message: parsed.message };
+    }
+
+    if (typeof parsed.error?.message === 'string') {
+      return { status: parsed.status ?? parsed.error.code, message: parsed.error.message };
+    }
   } catch {
     // not JSON — use raw string
   }
@@ -59,6 +70,7 @@ export function toOpenRouterApiError(
     status === 429 ||
     lower.includes('429') ||
     lower.includes('rate limit') ||
+    lower.includes('rate-limited') ||
     lower.includes('quota')
   ) {
     const retryHint = retryAfterMs

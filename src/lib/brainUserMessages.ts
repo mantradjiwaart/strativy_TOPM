@@ -49,10 +49,14 @@ export function toUserFacingBrainError(error: unknown): string {
   const message = error.message;
   const lower = message.toLowerCase();
 
-  if (lower.includes('quota') || lower.includes('429') || lower.includes('rate limit')) {
+  if (lower.includes('quota') || lower.includes('429') || lower.includes('rate limit') || lower.includes('rate-limited')) {
     const retryMatch = message.match(/retry in about (\d+)/i);
     const retryMs = retryMatch ? Number(retryMatch[1]) * 1000 : undefined;
-    return quotaMessage(retryMs);
+    const base = quotaMessage(retryMs);
+    if (import.meta.env.DEV) {
+      return `${base} (Free-tier models may be temporarily rate-limited upstream.)`;
+    }
+    return base;
   }
 
   if (

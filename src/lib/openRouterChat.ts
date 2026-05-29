@@ -1,5 +1,5 @@
 import OpenAI from 'openai';
-import { OPENROUTER_BASE_URL } from '../config/openrouter';
+import { getOpenRouterModelsToTry, OPENROUTER_BASE_URL } from '../config/openrouter';
 
 export interface OpenRouterChatParams {
   prompt: string;
@@ -47,6 +47,18 @@ function mapOpenAiError(error: unknown): never {
   throw new Error(String(error));
 }
 
+function isRateLimitError(error: unknown): boolean {
+  if (!(error instanceof Error)) return false;
+  const lower = error.message.toLowerCase();
+  return (
+    lower.includes('"status":429') ||
+    lower.includes('"code":429') ||
+    lower.includes('429') ||
+    lower.includes('rate limit') ||
+    lower.includes('rate-limited')
+  );
+}
+
 export async function openRouterComplete(
   apiKey: string,
   params: OpenRouterChatParams
@@ -61,8 +73,7 @@ export async function openRouterComplete(
         { role: 'user', content: params.prompt },
       ],
       temperature: params.temperature,
-      reasoning: { enabled: true },
-    } as OpenAI.Chat.ChatCompletionCreateParamsNonStreaming);
+    });
 
     const text = completion.choices[0]?.message?.content?.trim();
     if (!text) {
@@ -76,4 +87,28 @@ export async function openRouterComplete(
     }
     mapOpenAiError(error);
   }
+}
+
+/** Tries the primary model, then free-tier fallbacks when upstream returns 429. */
+export async function openRouterCompleteWithFallback(
+  apiKey: string,
+  params: OpenRouterChatParams
+): Promise<string> {
+  const models = getOpenRouterModelsToTry(params.model);
+  let lastError: unknown;
+
+  for (const model of models) {
+    try {
+      return await openRouterComplete(apiKey, { ...params, model });
+    } catch (error) {
+      lastError = error;
+      if (!isRateLimitError(error)) {
+        throw error;
+      }
+    }
+  }
+
+  throw lastError instanceof Error
+    ? lastError
+    : new Error('STRATIVY BRAIN free models are rate-limited. Please try again shortly.');
 }

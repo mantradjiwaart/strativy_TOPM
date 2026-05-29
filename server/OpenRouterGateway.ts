@@ -1,4 +1,7 @@
-import { openRouterComplete, type OpenRouterChatParams } from '../src/lib/openRouterChat';
+import {
+  openRouterCompleteWithFallback,
+  type OpenRouterChatParams,
+} from '../src/lib/openRouterChat';
 import { OpenRouterApiError, toOpenRouterApiError } from './OpenRouterApiError';
 
 const MAX_ATTEMPTS = 4;
@@ -9,11 +12,12 @@ export type GenerateContentParams = OpenRouterChatParams;
 
 function isRetryableError(error: unknown): boolean {
   if (error instanceof OpenRouterApiError) {
-    return error.statusCode === 429 || error.statusCode >= 500;
+    // 429 is handled by model fallbacks inside openRouterCompleteWithFallback.
+    return error.statusCode >= 500;
   }
   if (!(error instanceof Error)) return true;
   const msg = error.message.toLowerCase();
-  if (msg.includes('429') || msg.includes('rate') || msg.includes('quota')) return true;
+  if (msg.includes('429') || msg.includes('rate') || msg.includes('quota')) return false;
   if (msg.includes('500') || msg.includes('502') || msg.includes('503') || msg.includes('504'))
     return true;
   if (msg.includes('network') || msg.includes('fetch') || msg.includes('timeout')) return true;
@@ -39,7 +43,7 @@ export class OpenRouterGateway {
 
     for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
       try {
-        return await openRouterComplete(this.apiKey, params);
+        return await openRouterCompleteWithFallback(this.apiKey, params);
       } catch (error) {
         lastError = toOpenRouterApiError(error);
         if (attempt >= MAX_ATTEMPTS || !isRetryableError(lastError)) {

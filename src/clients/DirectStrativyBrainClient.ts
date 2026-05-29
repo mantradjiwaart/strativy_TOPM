@@ -1,6 +1,6 @@
 import { OPENROUTER_MODEL } from '../config/openrouter';
 import { BRAIN_USER_MESSAGES } from '../lib/brainUserMessages';
-import { openRouterComplete } from '../lib/openRouterChat';
+import { openRouterCompleteWithFallback } from '../lib/openRouterChat';
 import type { BoardAdvisorRequest } from './BoardAdvisorClient';
 
 const DEFAULT_SYSTEM_INSTRUCTION =
@@ -11,7 +11,7 @@ export class DirectStrativyBrainClient {
 
   async generate(request: BoardAdvisorRequest): Promise<string> {
     try {
-      return await openRouterComplete(this.apiKey, {
+      return await openRouterCompleteWithFallback(this.apiKey, {
         prompt: request.prompt,
         systemPrompt: request.systemPrompt?.trim() || DEFAULT_SYSTEM_INSTRUCTION,
         model: OPENROUTER_MODEL,
