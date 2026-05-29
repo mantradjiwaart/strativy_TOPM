@@ -1,3 +1,4 @@
+import { isStrativyBrainStaticMode } from '../config/brainStatic';
 import { BRAIN_USER_MESSAGES } from '../lib/brainUserMessages';
 
 export interface BoardAdvisorRequest {
@@ -32,6 +33,11 @@ function parseApiResponse(
 
 export class BoardAdvisorClient {
   async generate(request: BoardAdvisorRequest): Promise<string> {
+    if (isStrativyBrainStaticMode()) {
+      const { StaticStrativyBrainClient } = await import('./StaticStrativyBrainClient');
+      return new StaticStrativyBrainClient().generate(request);
+    }
+
     const clientKey = getClientApiKey();
 
     if (clientKey) {
