@@ -1,4 +1,5 @@
-import { OPENROUTER_CHAT_URL } from '../config/openrouter';
+import OpenAI from 'openai';
+import { OPENROUTER_BASE_URL } from '../config/openrouter';
 
 export interface OpenRouterChatParams {
   prompt: string;
@@ -7,55 +8,72 @@ export interface OpenRouterChatParams {
   temperature: number;
 }
 
-interface OpenRouterChoice {
-  message?: { content?: string };
+const OPENROUTER_REFERER = 'https://strativy-boardroom-core';
+const OPENROUTER_TITLE = 'STRATIVY BRAIN';
+
+function createOpenRouterClient(apiKey: string): OpenAI {
+  return new OpenAI({
+    apiKey,
+    baseURL: OPENROUTER_BASE_URL,
+    dangerouslyAllowBrowser: true,
+    defaultHeaders: {
+      'HTTP-Referer': OPENROUTER_REFERER,
+      'X-Title': OPENROUTER_TITLE,
+    },
+  });
 }
 
-interface OpenRouterResponse {
-  choices?: OpenRouterChoice[];
-  error?: { message?: string; code?: number | string };
+function throwStructuredApiError(
+  status: number,
+  message: string,
+  code?: number | string | null
+): never {
+  throw new Error(
+    JSON.stringify({
+      status,
+      code: code ?? status,
+      message: message || `OpenRouter request failed (${status})`,
+    })
+  );
+}
+
+function mapOpenAiError(error: unknown): never {
+  if (error instanceof OpenAI.APIError) {
+    throwStructuredApiError(error.status ?? 500, error.message, error.code ?? undefined);
+  }
+  if (error instanceof Error) {
+    throw error;
+  }
+  throw new Error(String(error));
 }
 
 export async function openRouterComplete(
   apiKey: string,
   params: OpenRouterChatParams
 ): Promise<string> {
-  const res = await fetch(OPENROUTER_CHAT_URL, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-      'HTTP-Referer': 'https://strativy-boardroom-core',
-      'X-Title': 'STRATIVY BRAIN',
-    },
-    body: JSON.stringify({
+  const client = createOpenRouterClient(apiKey);
+
+  try {
+    const completion = await client.chat.completions.create({
       model: params.model,
       messages: [
         { role: 'system', content: params.systemPrompt },
         { role: 'user', content: params.prompt },
       ],
       temperature: params.temperature,
-    }),
-  });
+      reasoning: { enabled: true },
+    } as OpenAI.Chat.ChatCompletionCreateParamsNonStreaming);
 
-  const body = (await res.json()) as OpenRouterResponse;
+    const text = completion.choices[0]?.message?.content?.trim();
+    if (!text) {
+      throw new Error('OpenRouter returned an empty response');
+    }
 
-  if (!res.ok) {
-    const apiMessage = body.error?.message ?? res.statusText;
-    const code = body.error?.code ?? res.status;
-    throw new Error(
-      JSON.stringify({
-        status: res.status,
-        code,
-        message: apiMessage || `OpenRouter request failed (${res.status})`,
-      })
-    );
+    return text;
+  } catch (error) {
+    if (error instanceof Error && error.message.includes('empty response')) {
+      throw error;
+    }
+    mapOpenAiError(error);
   }
-
-  const text = body.choices?.[0]?.message?.content?.trim();
-  if (!text) {
-    throw new Error('OpenRouter returned an empty response');
-  }
-
-  return text;
 }

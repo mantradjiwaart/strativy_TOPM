@@ -22,7 +22,7 @@ Run all commands from this directory (`strativy-boardroom-core`), or from the pa
    cp .env.example .env
    ```
 
-   Edit `.env` and set `OPENROUTER_API_KEY` to your [OpenRouter](https://openrouter.ai/) key. STRATIVY BRAIN uses model `deepseek/deepseek-v4-flash:free`.
+   Edit `.env` and set `OPENROUTER_API_KEY` to your [OpenRouter](https://openrouter.ai/) key. STRATIVY BRAIN uses model `google/gemma-4-26b-a4b-it:free` via the OpenAI SDK pointed at OpenRouter.
 
 3. Start the dev server:
 
